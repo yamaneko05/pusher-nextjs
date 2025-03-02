@@ -13,5 +13,9 @@ export const SigninFormSchema = z.object({
 });
 
 export const SignupFormSchema = SigninFormSchema.extend({
-  name: z.string().min(1, "1文字以上の長さにしてください").trim(),
+  name: z
+    .string()
+    .min(1, "1文字以上の長さにしてください")
+    .max(16, "16文字以内の長さにしてください")
+    .trim(),
 });
