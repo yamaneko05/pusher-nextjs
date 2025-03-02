@@ -1,6 +1,6 @@
 "use client";
 
-import { signup } from "@/actions/auth";
+import { signin } from "@/actions/auth";
 import { SigninFormSchema } from "@/utils/definitions";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
@@ -8,7 +8,7 @@ import { useActionState } from "react";
 import Field from "./field";
 
 export default function SigninForm() {
-  const [lastResult, action, pending] = useActionState(signup, undefined);
+  const [lastResult, action, pending] = useActionState(signin, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {

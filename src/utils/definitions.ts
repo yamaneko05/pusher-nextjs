@@ -19,3 +19,10 @@ export const SignupFormSchema = SigninFormSchema.extend({
     .max(16, "16文字以内の長さにしてください")
     .trim(),
 });
+
+export type SessionPayload = {
+  user: {
+    id: string;
+    name: string;
+  };
+};
