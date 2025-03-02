@@ -1,10 +1,10 @@
 "use server";
 
-import { encryptPassword } from "@/utils/password";
-import { createUser } from "@/utils/db";
+import { comparePassword, encryptPassword } from "@/utils/password";
+import { createUser, getUserByEmail } from "@/utils/db";
 import { SigninFormSchema, SignupFormSchema } from "@/utils/definitions";
 import { parseWithZod } from "@conform-to/zod";
-import { createSession } from "@/utils/session";
+import { createSession, deleteSession } from "@/utils/session";
 import { redirect } from "next/navigation";
 
 export async function signup(prevState: unknown, formData: FormData) {
@@ -30,5 +30,22 @@ export async function signin(prevState: unknown, formData: FormData) {
     return submission.reply();
   }
 
-  console.log(submission.value);
+  const { email, password } = submission.value;
+  const user = await getUserByEmail(email);
+
+  if (!user) {
+    return submission.reply({
+      formErrors: ["このメールアドレスのユーザーは存在しません"],
+    });
+  } else if (!comparePassword(password, user.password)) {
+    return submission.reply({ formErrors: ["パスワードが違います"] });
+  }
+
+  await createSession({ user: { id: user.id, name: user.name } });
+  redirect("/");
+}
+
+export async function signout() {
+  await deleteSession();
+  redirect("/signin");
 }

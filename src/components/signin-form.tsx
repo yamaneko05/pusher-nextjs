@@ -26,6 +26,13 @@ export default function SigninForm() {
       <div className="mt-3">
         <Field label="パスワード" type="password" field={fields.password} />
       </div>
+      {form.errors && (
+        <div className="text-sm flex flex-col text-blue-500 mt-3">
+          {form.errors.map((error, i) => (
+            <div key={i}>{error}</div>
+          ))}
+        </div>
+      )}
       <div className="mt-9 flex justify-end">
         <button
           disabled={pending}
