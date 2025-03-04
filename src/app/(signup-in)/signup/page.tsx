@@ -8,9 +8,9 @@ export default function Page() {
       <div className="mt-9">
         <SignupForm />
       </div>
-      <div className="mt-4">
+      <div className="mt-2">
         <Link href={"/signin"} className="text-sky-500 text-sm">
-          サインイン
+          ログイン
         </Link>
       </div>
     </>

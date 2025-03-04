@@ -1,5 +1,4 @@
 import { FieldMetadata } from "@conform-to/react";
-import { FieldErrors } from "./field-errors";
 import { HTMLInputTypeAttribute } from "react";
 
 export default function Field({
@@ -21,10 +20,16 @@ export default function Field({
           type={type}
           name={field.name}
           placeholder={placeholder}
-          className="py-1 px-2 rounded border border-gray-300 w-full"
+          className="p-2 rounded border border-gray-300 w-full"
         />
       </div>
-      {field.errors && <FieldErrors errors={field.errors} />}
+      <div className="pt-1 h-8">
+        {field.errors?.map((error, i) => (
+          <div key={i} className="text-xs text-red-500">
+            {error}
+          </div>
+        ))}
+      </div>
     </>
   );
 }

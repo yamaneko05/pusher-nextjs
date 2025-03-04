@@ -33,13 +33,13 @@ export default function SigninForm() {
           ))}
         </div>
       )}
-      <div className="mt-9 flex justify-end">
+      <div className="mt-6 flex justify-end">
         <button
           disabled={pending}
           type="submit"
           className="rounded py-1.5 px-3 bg-blue-500 text-white text-sm font-bold"
         >
-          サインイン
+          ログイン
         </button>
       </div>
     </form>

@@ -29,7 +29,7 @@ export default function SignupForm() {
       <div className="mt-3">
         <Field label="パスワード" type="password" field={fields.password} />
       </div>
-      <div className="mt-9 flex justify-end">
+      <div className="mt-6 flex justify-end">
         <button
           disabled={pending}
           type="submit"
