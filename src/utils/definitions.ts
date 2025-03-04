@@ -18,11 +18,18 @@ export const SignupFormSchema = SigninFormSchema.extend({
     .min(1, "1文字以上の長さにしてください")
     .max(16, "16文字以内の長さにしてください")
     .trim(),
+  image: z
+    .instanceof(File, { message: "選択してください" })
+    .refine(
+      (file) => file.type.match(/^image\//),
+      "正しい形式のファイルを選択してください"
+    ),
 });
 
 export type SessionPayload = {
   user: {
     id: string;
     name: string;
+    image: string | null;
   };
 };

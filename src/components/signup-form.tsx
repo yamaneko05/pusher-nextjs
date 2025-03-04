@@ -29,6 +29,23 @@ export default function SignupForm() {
       <div className="mt-3">
         <Field label="パスワード" type="password" field={fields.password} />
       </div>
+      <div className="mt-3">
+        <div className="text-sm">画像</div>
+        <div className="mt-1">
+          <input
+            type="file"
+            name={fields.image.name}
+            className="p-2 rounded border border-gray-300 w-full"
+          />
+        </div>
+        <div className="pt-1 h-8">
+          {fields.image.errors?.map((error, i) => (
+            <div key={i} className="text-xs text-red-500">
+              {error}
+            </div>
+          ))}
+        </div>
+      </div>
       <div className="mt-6 flex justify-end">
         <button
           disabled={pending}
