@@ -7,7 +7,7 @@ export default async function Layout({
 }) {
   return (
     <>
-      <div className="fixed h-screen border-r w-64 p-3">
+      <div className="fixed h-screen border-r w-64 p-3 pb-12">
         <Sidebar />
       </div>
       <div className="pl-64">

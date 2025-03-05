@@ -1,3 +1,4 @@
+import PageHeading from "@/components/page-heading";
 import { getPublicUrl } from "@/utils/storage";
 import { supabase } from "@/utils/supabase";
 import Image from "next/image";
@@ -7,7 +8,8 @@ export default async function Page() {
 
   return (
     <>
-      <div className="grid grid-cols-4 gap-2">
+      <PageHeading>avatars backet のファイル一覧</PageHeading>
+      <div className="grid grid-cols-6 gap-2 mt-4">
         {avatars?.map((avatar) => (
           <Image
             key={avatar.id}

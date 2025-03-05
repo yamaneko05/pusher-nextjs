@@ -14,22 +14,20 @@ export default function UserCard({ user }: { user: User }) {
   };
 
   return (
-    <div className="py-2">
-      <div className="font-bold">{user.name}</div>
-      <div>ID: {user.id}</div>
-      <div>メールアドレス: {user.email}</div>
-      <div>
-        {user.image ? (
-          <Image
-            src={getPublicUrl("avatars", user.image)}
-            alt=""
-            className="size-24"
-            width={300}
-            height={300}
-          />
-        ) : (
-          "画像が登録させていません"
-        )}
+    <div className="py-2 flex flex-col gap-1.5">
+      <div className="flex items-center gap-2">
+        <Image
+          src={getPublicUrl("avatars", user.image!)}
+          alt=""
+          className="size-8 rounded-full"
+          width={300}
+          height={300}
+        />
+        <div className="font-bold">{user.name}</div>
+      </div>
+      <div className="text-gray-500 text-sm">
+        <div>ID: {user.id}</div>
+        <div>メールアドレス: {user.email}</div>
       </div>
       <div>
         <Button onClick={handleDeleteClick} variant={"destructive"} size={"sm"}>

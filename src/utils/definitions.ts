@@ -1,5 +1,11 @@
 import { z } from "zod";
 
+const nameSchema = z
+  .string({ message: "入力してください" })
+  .min(1, "1文字以上の長さにしてください")
+  .max(16, "16文字以内の長さにしてください")
+  .trim();
+
 export const SigninFormSchema = z.object({
   email: z
     .string({ message: "入力してください" })
@@ -13,11 +19,7 @@ export const SigninFormSchema = z.object({
 });
 
 export const SignupFormSchema = SigninFormSchema.extend({
-  name: z
-    .string({ message: "入力してください" })
-    .min(1, "1文字以上の長さにしてください")
-    .max(16, "16文字以内の長さにしてください")
-    .trim(),
+  name: nameSchema,
   image: z
     .instanceof(File, { message: "選択してください" })
     .refine(
@@ -33,3 +35,7 @@ export type SessionPayload = {
     image: string | null;
   };
 };
+
+export const CreateChatRoomSchema = z.object({
+  name: nameSchema,
+});
