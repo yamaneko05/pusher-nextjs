@@ -1,7 +1,7 @@
 import "server-only";
 import prisma from "./prisma";
 import { getSessionPayload } from "./session";
-import { Prisma } from "@prisma/client";
+import { chatRoomWithMessages, chatRoomWithOwner } from "./prisma-validator";
 
 export async function createUser(
   name: string,
@@ -36,13 +36,14 @@ export async function deleteUser(id: string) {
   });
 }
 
-const chatRoomWithOwner = Prisma.validator<Prisma.ChatRoomDefaultArgs>()({
-  include: { owner: true },
-});
+export async function getUser(id: string) {
+  const user = prisma.user.findUnique({
+    where: { id },
+    include: { chatRooms: chatRoomWithOwner },
+  });
 
-export type ChatRoomWithOwner = Prisma.ChatRoomGetPayload<
-  typeof chatRoomWithOwner
->;
+  return user;
+}
 
 export async function getChatRooms() {
   const chatRooms = await prisma.chatRoom.findMany({ ...chatRoomWithOwner });
@@ -52,7 +53,10 @@ export async function getChatRooms() {
 export async function getChatRoom(id: string) {
   const chatRoom = await prisma.chatRoom.findUnique({
     where: { id },
-    ...chatRoomWithOwner,
+    include: {
+      ...chatRoomWithOwner.include,
+      ...chatRoomWithMessages.include,
+    },
   });
 
   return chatRoom;

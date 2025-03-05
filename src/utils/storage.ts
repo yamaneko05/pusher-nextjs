@@ -15,3 +15,10 @@ export function getPublicUrl(bucketId: string, path: string) {
   const { data } = supabase.storage.from(bucketId).getPublicUrl(path);
   return data.publicUrl;
 }
+
+export async function remove(bucketId: string, paths: string[]) {
+  const { error } = await supabase.storage.from(bucketId).remove(paths);
+  if (error) {
+    throw new Error(error.message);
+  }
+}

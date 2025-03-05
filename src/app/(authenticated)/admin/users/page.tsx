@@ -1,5 +1,5 @@
 import PageHeading from "@/components/page-heading";
-import UserCard from "@/components/user-card";
+import UserCard from "@/components/admin-user-card";
 import { getUsers } from "@/utils/db";
 
 export default async function Page() {
