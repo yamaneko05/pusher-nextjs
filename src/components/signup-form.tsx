@@ -6,6 +6,9 @@ import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useActionState } from "react";
 import Field from "./field";
+import { Button } from "./ui/button";
+import { Loader2 } from "lucide-react";
+import { Input } from "./ui/input";
 
 export default function SignupForm() {
   const [lastResult, action, pending] = useActionState(signup, undefined);
@@ -20,40 +23,42 @@ export default function SignupForm() {
 
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
-      <div>
-        <Field label="名前" type="text" field={fields.name} />
-      </div>
-      <div className="mt-3">
-        <Field label="メールアドレス" type="email" field={fields.email} />
-      </div>
-      <div className="mt-3">
-        <Field label="パスワード" type="password" field={fields.password} />
-      </div>
-      <div className="mt-3">
-        <div className="text-sm">画像</div>
-        <div className="mt-1">
-          <input
-            type="file"
-            name={fields.image.name}
-            className="p-2 rounded border border-gray-300 w-full"
-          />
+      <div className="flex flex-col gap-2">
+        <Field
+          label="名前"
+          type="text"
+          placeholder="Name"
+          field={fields.name}
+        />
+        <Field
+          label="メールアドレス"
+          type="email"
+          placeholder="Email"
+          field={fields.email}
+        />
+        <Field
+          label="パスワード"
+          type="password"
+          placeholder="Password"
+          field={fields.password}
+        />
+        <div>
+          <div className="text-sm">画像</div>
+          <div className="mt-1">
+            <Input type="file" name={fields.image.name} accept="image/*" />
+          </div>
+          <div className="pt-1 h-8">
+            {fields.image.errors?.map((error, i) => (
+              <div key={i} className="text-xs text-red-500">
+                {error}
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="pt-1 h-8">
-          {fields.image.errors?.map((error, i) => (
-            <div key={i} className="text-xs text-red-500">
-              {error}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="mt-6 flex justify-end">
-        <button
-          disabled={pending}
-          type="submit"
-          className="rounded py-1.5 px-3 bg-blue-500 text-white text-sm font-bold"
-        >
+        <Button disabled={pending} type="submit" className="w-full">
+          {pending && <Loader2 className="animate-spin" />}
           サインアップ
-        </button>
+        </Button>
       </div>
     </form>
   );

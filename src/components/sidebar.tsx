@@ -2,6 +2,7 @@ import { signout } from "@/actions/auth";
 import { getSessionPayload } from "@/utils/session";
 import { getPublicUrl } from "@/utils/storage";
 import Image from "next/image";
+import { Button } from "./ui/button";
 
 export default async function Sidebar() {
   const payload = await getSessionPayload();
@@ -23,12 +24,9 @@ export default async function Sidebar() {
       </div>
       <div className="mt-3 font-bold">{payload!.user.name}</div>
       <div className="mt-3">
-        <button
-          onClick={signout}
-          className="py-1.5 px-3 rounded bg-gray-700 text-white text-sm font-bold"
-        >
+        <Button onClick={signout} variant={"secondary"}>
           ログアウト
-        </button>
+        </Button>
       </div>
     </div>
   );

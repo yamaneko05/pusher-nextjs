@@ -3,6 +3,7 @@ import { getPublicUrl } from "@/utils/storage";
 import { User } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import Image from "next/image";
+import { Button } from "./ui/button";
 
 export default function UserCard({ user }: { user: User }) {
   const handleDeleteClick = async () => {
@@ -31,9 +32,9 @@ export default function UserCard({ user }: { user: User }) {
         )}
       </div>
       <div>
-        <button onClick={handleDeleteClick} className="">
+        <Button onClick={handleDeleteClick} variant={"destructive"} size={"sm"}>
           削除
-        </button>
+        </Button>
       </div>
     </div>
   );

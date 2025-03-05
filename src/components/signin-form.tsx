@@ -6,6 +6,8 @@ import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useActionState } from "react";
 import Field from "./field";
+import { Button } from "./ui/button";
+import { Loader2 } from "lucide-react";
 
 export default function SigninForm() {
   const [lastResult, action, pending] = useActionState(signin, undefined);
@@ -20,27 +22,30 @@ export default function SigninForm() {
 
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
-      <div className="mt-3">
-        <Field label="メールアドレス" type="email" field={fields.email} />
-      </div>
-      <div className="mt-3">
-        <Field label="パスワード" type="password" field={fields.password} />
-      </div>
-      {form.errors && (
-        <div className="text-sm flex flex-col text-blue-500 mt-3">
-          {form.errors.map((error, i) => (
-            <div key={i}>{error}</div>
-          ))}
-        </div>
-      )}
-      <div className="mt-6 flex justify-end">
-        <button
-          disabled={pending}
-          type="submit"
-          className="rounded py-1.5 px-3 bg-blue-500 text-white text-sm font-bold"
-        >
+      <div className="flex flex-col gap-2">
+        <Field
+          label="メールアドレス"
+          type="email"
+          placeholder="Email"
+          field={fields.email}
+        />
+        <Field
+          label="パスワード"
+          type="password"
+          placeholder="Password"
+          field={fields.password}
+        />
+        {form.errors && (
+          <div className="text-sm flex flex-col text-red-500">
+            {form.errors.map((error, i) => (
+              <div key={i}>{error}</div>
+            ))}
+          </div>
+        )}
+        <Button disabled={pending} type="submit" className="w-full">
+          {pending && <Loader2 className="animate-spin" />}
           ログイン
-        </button>
+        </Button>
       </div>
     </form>
   );
