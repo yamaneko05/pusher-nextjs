@@ -39,3 +39,11 @@ export type SessionPayload = {
 export const CreateChatRoomSchema = z.object({
   name: nameSchema,
 });
+
+export const CreateChatMessageSchema = z.object({
+  text: z
+    .string({ message: "入力してください" })
+    .min(1, "1文字以上の長さにしてください")
+    .max(255, "255文字以内の長さにしてください")
+    .trim(),
+});

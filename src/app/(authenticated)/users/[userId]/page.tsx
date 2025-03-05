@@ -16,9 +16,9 @@ export default async function Page({
   }
 
   return (
-    <>
+    <div className="p-3 pb-24">
       <PageHeading>ユーザー: {user.name}</PageHeading>
-      <div className="mt-4 text-gray-500 text-sm">
+      <div className="mt-4 text-neutral-500 text-sm">
         <div>ID: {user.id}</div>
         <div>メールアドレス: {user.email}</div>
       </div>
@@ -27,6 +27,6 @@ export default async function Page({
           <ChatRoomCard key={chatRoom.id} chatRoom={chatRoom} />
         ))}
       </div>
-    </>
+    </div>
   );
 }

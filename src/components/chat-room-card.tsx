@@ -14,7 +14,7 @@ export default function ChatRoomCard({
       <Link href={`/chat-rooms/${chatRoom.id}`}>
         <div className="text-lg font-bold">{chatRoom.name}</div>
       </Link>
-      <div className="text-gray-500 text-sm">
+      <div className="text-neutral-500 text-sm">
         作成日時: {dayjsInstance(chatRoom.createdAt).fromNow()}
       </div>
     </div>

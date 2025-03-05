@@ -7,7 +7,7 @@ export default async function Page() {
   const { data: avatars } = await supabase.storage.from("avatars").list();
 
   return (
-    <>
+    <div className="p-3 pb-24">
       <PageHeading>avatars backet のファイル一覧</PageHeading>
       <div className="grid grid-cols-6 gap-2 mt-4">
         {avatars?.map((avatar) => (
@@ -20,6 +20,6 @@ export default async function Page() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }

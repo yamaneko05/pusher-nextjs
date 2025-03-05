@@ -77,3 +77,16 @@ export async function createChatRoom(name: string) {
 
   return chatRoom;
 }
+
+export async function createChatMessage(chatRoomId: string, text: string) {
+  const payload = await getSessionPayload();
+  if (!payload) {
+    throw new Error("unauthorized");
+  }
+
+  const chatMessage = await prisma.chatMessage.create({
+    data: { text, chatRoomId, userId: payload.user.id },
+  });
+
+  return chatMessage;
+}

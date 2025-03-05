@@ -26,7 +26,7 @@ export default function AdminUserCard({ user }: { user: User }) {
         />
         <div className="font-bold">{user.name}</div>
       </div>
-      <div className="text-gray-500 text-sm">
+      <div className="text-neutral-500 text-sm">
         <div>ID: {user.id}</div>
         <div>メールアドレス: {user.email}</div>
       </div>

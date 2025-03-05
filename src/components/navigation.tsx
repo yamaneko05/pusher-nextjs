@@ -7,11 +7,15 @@ import { buttonVariants } from "./ui/button";
 const navItems = [
   {
     path: "/chat-rooms",
-    name: "チャットルーム一覧",
+    name: "全てのチャットルーム",
+  },
+  {
+    path: "/chat-rooms/create",
+    name: "新しいチャットルームを作成",
   },
   {
     path: "/avatars",
-    name: "avatars",
+    name: "全てのアバター",
   },
   {
     path: "/admin/users",
