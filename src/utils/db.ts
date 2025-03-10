@@ -1,29 +1,6 @@
 import "server-only";
 import prisma from "./prisma";
-import { getSessionPayload } from "./session";
 import { chatRoomWithMessages, chatRoomWithOwner } from "./prisma-validator";
-import { remove } from "./storage";
-
-export async function createUser(
-  name: string,
-  email: string,
-  passwordHash: string,
-  imagePath: string
-) {
-  const user = await prisma.user.create({
-    data: { name, email, password: passwordHash, image: imagePath },
-  });
-
-  return user;
-}
-
-export async function getUserByEmail(email: string) {
-  const user = await prisma.user.findUnique({
-    where: { email },
-  });
-
-  return user;
-}
 
 export async function getUsers() {
   const users = await prisma.user.findMany();
@@ -58,60 +35,4 @@ export async function getChatRoom(id: string) {
   });
 
   return chatRoom;
-}
-
-export async function createChatRoom(name: string) {
-  const payload = await getSessionPayload();
-  if (!payload) {
-    throw new Error("unauthorized");
-  }
-
-  const chatRoom = await prisma.chatRoom.create({
-    data: {
-      name,
-      ownerId: payload.user.id,
-    },
-  });
-
-  return chatRoom;
-}
-
-export async function createChatMessage(chatRoomId: string, text: string) {
-  const payload = await getSessionPayload();
-  if (!payload) {
-    throw new Error("unauthorized");
-  }
-
-  const chatMessage = await prisma.chatMessage.create({
-    data: { text, chatRoomId, userId: payload.user.id },
-  });
-
-  return chatMessage;
-}
-
-export async function deleteChatMessage(chatMessageId: string) {
-  const attachments = await prisma.chatMessageAttachment.findMany({
-    where: { chatMessageId },
-  });
-  const paths = attachments.map((attachment) => attachment.path);
-  await remove("chat-message-attachments", paths);
-
-  await prisma.chatMessageAttachment.deleteMany({
-    where: { chatMessageId },
-  });
-
-  await prisma.chatMessage.delete({
-    where: { id: chatMessageId },
-  });
-}
-
-export async function createChatMessageAttachment(
-  chatMessageId: string,
-  path: string
-) {
-  const attachment = await prisma.chatMessageAttachment.create({
-    data: { path, chatMessageId },
-  });
-
-  return attachment;
 }

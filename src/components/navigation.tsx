@@ -14,10 +14,6 @@ const navItems = [
     name: "新しいチャットルームを作成",
   },
   {
-    path: "/avatars",
-    name: "全てのアバター",
-  },
-  {
     path: "/admin/users",
     name: "ユーザー管理",
   },

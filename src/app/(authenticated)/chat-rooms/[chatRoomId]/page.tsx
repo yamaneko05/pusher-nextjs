@@ -1,5 +1,5 @@
-import ChatMessageList from "@/components/chat-message-list";
-import CreateChatMessageForm from "@/components/create-chat-message-form";
+import MessageList from "@/components/message-list";
+import CreateMessageForm from "@/components/create-message-form";
 import PageHeading from "@/components/page-heading";
 import { dayjsInstance } from "@/utils/dayjs";
 import { getChatRoom } from "@/utils/db";
@@ -25,9 +25,9 @@ export default async function Page({
           作成日時: {dayjsInstance(chatRoom.createdAt).fromNow()}
         </div>
       </div>
-      <ChatMessageList chatMessages={chatRoom.chatMessages} />
+      <MessageList chatMessages={chatRoom.chatMessages} />
       <div className="border-t p-3">
-        <CreateChatMessageForm chatRoomId={chatRoom.id} />
+        <CreateMessageForm chatRoomId={chatRoom.id} />
       </div>
     </div>
   );

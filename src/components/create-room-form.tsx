@@ -1,6 +1,6 @@
 "use client";
 
-import { createChatRoomAction } from "@/actions/chat-room";
+import { createRoomAction } from "@/actions/room-actions";
 import { CreateChatRoomSchema } from "@/utils/definitions";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
@@ -11,7 +11,7 @@ import { Loader2 } from "lucide-react";
 
 export default function CreateChatRoomForm() {
   const [lastResult, action, pending] = useActionState(
-    createChatRoomAction,
+    createRoomAction,
     undefined
   );
   const [form, fields] = useForm({

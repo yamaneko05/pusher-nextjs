@@ -1,4 +1,4 @@
-import CreateChatRoomForm from "@/components/create-chat-room-form";
+import CreateRoomForm from "@/components/create-room-form";
 import PageHeading from "@/components/page-heading";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -9,7 +9,7 @@ export default async function Page() {
       <div className="mt-4">
         <Card className="w-96">
           <CardContent>
-            <CreateChatRoomForm />
+            <CreateRoomForm />
           </CardContent>
         </Card>
       </div>

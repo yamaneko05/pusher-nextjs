@@ -1,6 +1,6 @@
 "use client";
 
-import { createChatMessageAction } from "@/actions/chat-message";
+import { createMessageAction } from "@/actions/message-actions";
 import { CreateChatMessageSchema } from "@/utils/definitions";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
@@ -16,7 +16,7 @@ export default function CreateChatMessageForm({
 }: {
   chatRoomId: string;
 }) {
-  const binded = createChatMessageAction.bind(null, chatRoomId);
+  const binded = createMessageAction.bind(null, chatRoomId);
   const [lastResult, action, pending] = useActionState(binded, undefined);
   const [form, fields] = useForm({
     lastResult,
@@ -45,6 +45,7 @@ export default function CreateChatMessageForm({
             type="file"
             name={fields.attachments.name}
             multiple
+            accept="image/*"
             className="w-80"
           />
         </div>

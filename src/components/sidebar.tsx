@@ -1,4 +1,4 @@
-import { signout } from "@/actions/auth";
+import { signoutAction } from "@/actions/auth-actions";
 import { getSessionPayload } from "@/utils/session";
 import { getPublicUrl } from "@/utils/storage";
 import Image from "next/image";
@@ -29,7 +29,7 @@ export default async function Sidebar() {
         </Link>
         <div className="mt-3 font-bold">{payload!.user.name}</div>
         <div className="mt-3">
-          <Button onClick={signout} variant={"secondary"}>
+          <Button onClick={signoutAction} variant={"secondary"}>
             ログアウト
           </Button>
         </div>

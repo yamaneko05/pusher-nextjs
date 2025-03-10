@@ -1,13 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import ChatMessageCard from "./chat-message-card";
-import { ChatMessageWithUser } from "@/utils/prisma-validator";
+import MessageCard from "./message-card";
+import {
+  ChatMessageWithAttachments,
+  ChatMessageWithUser,
+} from "@/utils/prisma-validator";
 
 export default function ChatMessageList({
   chatMessages,
 }: {
-  chatMessages: ChatMessageWithUser[];
+  chatMessages: (ChatMessageWithUser & ChatMessageWithAttachments)[];
 }) {
   const endDiv = useRef<HTMLDivElement>(null);
 
@@ -21,7 +24,7 @@ export default function ChatMessageList({
     <div className="flex-1 overflow-y-scroll p-3">
       <div className="flex-1 flex flex-col gap-4">
         {chatMessages.map((chatMessage) => (
-          <ChatMessageCard key={chatMessage.id} chatMessage={chatMessage} />
+          <MessageCard key={chatMessage.id} chatMessage={chatMessage} />
         ))}
       </div>
       <div ref={endDiv} className="gap-y-0" />

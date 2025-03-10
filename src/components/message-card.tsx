@@ -6,7 +6,7 @@ import { dayjsInstance } from "@/utils/dayjs";
 import Link from "next/link";
 import Image from "next/image";
 import { getPublicUrl } from "@/utils/storage";
-import { deleteChatMessageAction } from "@/actions/chat-message";
+import { deleteMessageAction } from "@/actions/message-actions";
 import AttachmentCard from "./attachment-card";
 
 export default function ChatMessageCard({
@@ -15,7 +15,7 @@ export default function ChatMessageCard({
   chatMessage: ChatMessageWithUser & ChatMessageWithAttachments;
 }) {
   const handleDeleteClick = async () => {
-    await deleteChatMessageAction(chatMessage.id, chatMessage.chatRoomId);
+    await deleteMessageAction(chatMessage.id, chatMessage.chatRoomId);
   };
 
   return (

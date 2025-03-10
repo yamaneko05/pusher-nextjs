@@ -1,6 +1,6 @@
 "use client";
 
-import { signup } from "@/actions/auth";
+import { signupAction } from "@/actions/auth-actions";
 import { SignupFormSchema } from "@/utils/definitions";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
@@ -11,7 +11,7 @@ import { Loader2 } from "lucide-react";
 import { Input } from "./ui/input";
 
 export default function SignupForm() {
-  const [lastResult, action, pending] = useActionState(signup, undefined);
+  const [lastResult, action, pending] = useActionState(signupAction, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {

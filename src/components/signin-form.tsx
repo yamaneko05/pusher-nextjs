@@ -1,6 +1,6 @@
 "use client";
 
-import { signin } from "@/actions/auth";
+import { signinAction } from "@/actions/auth-actions";
 import { SigninFormSchema } from "@/utils/definitions";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
@@ -10,7 +10,7 @@ import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 
 export default function SigninForm() {
-  const [lastResult, action, pending] = useActionState(signin, undefined);
+  const [lastResult, action, pending] = useActionState(signinAction, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {

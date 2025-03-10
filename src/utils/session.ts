@@ -1,4 +1,3 @@
-import "server-only";
 import { jwtVerify, SignJWT } from "jose";
 import { SessionPayload } from "./definitions";
 import { cookies } from "next/headers";

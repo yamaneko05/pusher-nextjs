@@ -1,4 +1,4 @@
-import ChatRoomCard from "@/components/chat-room-card";
+import ChatRoomCard from "@/components/room-card";
 import PageHeading from "@/components/page-heading";
 import { getUser } from "@/utils/db";
 import { notFound } from "next/navigation";
