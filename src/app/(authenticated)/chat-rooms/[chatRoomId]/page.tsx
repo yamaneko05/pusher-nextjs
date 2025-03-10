@@ -2,8 +2,9 @@ import MessageList from "@/components/message-list";
 import CreateMessageForm from "@/components/create-message-form";
 import PageHeading from "@/components/page-heading";
 import { dayjsInstance } from "@/utils/dayjs";
-import { getChatRoom } from "@/utils/db";
 import { notFound } from "next/navigation";
+import { chatRoomWithMessages } from "@/utils/prisma-validator";
+import prisma from "@/utils/prisma";
 
 export default async function Page({
   params,
@@ -11,7 +12,11 @@ export default async function Page({
   params: Promise<{ chatRoomId: string }>;
 }) {
   const { chatRoomId } = await params;
-  const chatRoom = await getChatRoom(chatRoomId);
+
+  const chatRoom = await prisma.chatRoom.findUnique({
+    where: { id: chatRoomId },
+    ...chatRoomWithMessages,
+  });
 
   if (!chatRoom) {
     notFound();

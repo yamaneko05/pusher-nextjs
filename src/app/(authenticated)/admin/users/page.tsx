@@ -1,9 +1,9 @@
 import PageHeading from "@/components/page-heading";
 import UserCard from "@/components/admin-user-card";
-import { getUsers } from "@/utils/db";
+import prisma from "@/utils/prisma";
 
 export default async function Page() {
-  const users = await getUsers();
+  const users = await prisma.user.findMany();
 
   return (
     <div className="p-3 pb-24">

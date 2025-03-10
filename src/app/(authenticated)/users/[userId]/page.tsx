@@ -1,7 +1,8 @@
 import ChatRoomCard from "@/components/room-card";
 import PageHeading from "@/components/page-heading";
-import { getUser } from "@/utils/db";
 import { notFound } from "next/navigation";
+import prisma from "@/utils/prisma";
+import { chatRoomWithOwner } from "@/utils/prisma-validator";
 
 export default async function Page({
   params,
@@ -9,7 +10,11 @@ export default async function Page({
   params: Promise<{ userId: string }>;
 }) {
   const { userId } = await params;
-  const user = await getUser(userId);
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: { chatRooms: chatRoomWithOwner },
+  });
 
   if (!user) {
     notFound();
