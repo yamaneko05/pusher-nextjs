@@ -1,10 +1,10 @@
 import RoomCard from "@/components/room-card";
 import PageHeading from "@/components/page-heading";
 import prisma from "@/utils/prisma";
-import { chatRoomWithOwner } from "@/utils/prisma-validator";
+import { roomValidator } from "@/utils/prisma-validator";
 
 export default async function Page() {
-  const rooms = await prisma.chatRoom.findMany({ ...chatRoomWithOwner });
+  const rooms = await prisma.chatRoom.findMany(roomValidator);
 
   return (
     <div className="p-3 pb-24">

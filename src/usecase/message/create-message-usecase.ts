@@ -1,8 +1,5 @@
 import prisma from "@/utils/prisma";
-import {
-  chatMessageWithAttachments,
-  chatMessageWithUser,
-} from "@/utils/prisma-validator";
+import { messageValidator } from "@/utils/prisma-validator";
 import { pusherServer } from "@/utils/pusher-server";
 import { getSessionPayload } from "@/utils/session";
 import { upload } from "@/utils/storage";
@@ -37,10 +34,7 @@ export async function createMessageUsecase(
         create: paths.map((path) => ({ path })),
       },
     },
-    include: {
-      ...chatMessageWithUser.include,
-      ...chatMessageWithAttachments.include,
-    },
+    ...messageValidator,
   });
 
   await pusherServer.trigger("chat-room", chatRoomId, chatMessage);

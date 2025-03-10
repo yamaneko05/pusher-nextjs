@@ -1,8 +1,8 @@
-import ChatRoomCard from "@/components/room-card";
+import RoomCard from "@/components/room-card";
 import PageHeading from "@/components/page-heading";
 import { notFound } from "next/navigation";
 import prisma from "@/utils/prisma";
-import { chatRoomWithOwner } from "@/utils/prisma-validator";
+import { roomValidator } from "@/utils/prisma-validator";
 
 export default async function Page({
   params,
@@ -13,7 +13,7 @@ export default async function Page({
 
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    include: { chatRooms: chatRoomWithOwner },
+    include: { chatRooms: roomValidator },
   });
 
   if (!user) {
@@ -28,8 +28,8 @@ export default async function Page({
         <div>メールアドレス: {user.email}</div>
       </div>
       <div className="mt-4 flex flex-col">
-        {user.chatRooms.map((chatRoom) => (
-          <ChatRoomCard key={chatRoom.id} chatRoom={chatRoom} />
+        {user.chatRooms.map((room) => (
+          <RoomCard key={room.id} room={room} />
         ))}
       </div>
     </div>

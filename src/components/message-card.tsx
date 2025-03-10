@@ -1,7 +1,4 @@
-import {
-  MessageWithAttachments,
-  MessageWithUser,
-} from "@/utils/prisma-validator";
+import { MessageValidator } from "@/utils/prisma-validator";
 import { dayjsInstance } from "@/utils/dayjs";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,7 +9,7 @@ import AttachmentCard from "./attachment-card";
 export default function MessageCard({
   message,
 }: {
-  message: MessageWithUser & MessageWithAttachments;
+  message: MessageValidator;
 }) {
   const handleDeleteClick = async () => {
     await deleteMessageAction(message.id, message.chatRoomId);

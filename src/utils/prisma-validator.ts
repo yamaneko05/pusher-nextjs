@@ -1,41 +1,30 @@
 import { Prisma } from "@prisma/client";
 
-export const chatRoomWithOwner = Prisma.validator<Prisma.ChatRoomDefaultArgs>()(
-  {
-    include: { owner: true },
-  }
-);
+export const roomValidator = Prisma.validator<Prisma.ChatRoomDefaultArgs>()({
+  include: {
+    owner: true,
+    chatMessages: {
+      take: 1,
+    },
+  },
+});
 
-export const chatMessageWithUser =
+export const messageValidator =
   Prisma.validator<Prisma.ChatMessageDefaultArgs>()({
-    include: { user: true },
-  });
-
-export const chatMessageWithAttachments =
-  Prisma.validator<Prisma.ChatMessageDefaultArgs>()({
-    include: { attachments: true },
+    include: { user: true, attachments: true },
   });
 
 export const chatRoomWithMessages =
   Prisma.validator<Prisma.ChatRoomDefaultArgs>()({
     include: {
-      chatMessages: {
-        include: {
-          ...chatMessageWithUser.include,
-          ...chatMessageWithAttachments.include,
-        },
-      },
+      chatMessages: messageValidator,
     },
   });
 
-export type RoomWithOwner = Prisma.ChatRoomGetPayload<typeof chatRoomWithOwner>;
+export type RoomValidator = Prisma.ChatRoomGetPayload<typeof roomValidator>;
 
-export type MessageWithUser = Prisma.ChatMessageGetPayload<
-  typeof chatMessageWithUser
->;
-
-export type MessageWithAttachments = Prisma.ChatMessageGetPayload<
-  typeof chatMessageWithAttachments
+export type MessageValidator = Prisma.ChatMessageGetPayload<
+  typeof messageValidator
 >;
 
 export type RoomWithMessages = Prisma.ChatRoomGetPayload<

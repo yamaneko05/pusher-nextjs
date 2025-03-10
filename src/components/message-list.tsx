@@ -2,17 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import MessageCard from "./message-card";
-import {
-  MessageWithAttachments,
-  MessageWithUser,
-} from "@/utils/prisma-validator";
+import { MessageValidator } from "@/utils/prisma-validator";
 import { pusherClient } from "@/utils/pusher-client";
 
 export default function MessageList({
   messages: defaultMessages,
   chatRoomId,
 }: {
-  messages: (MessageWithUser & MessageWithAttachments)[];
+  messages: MessageValidator[];
   chatRoomId: string;
 }) {
   const endDiv = useRef<HTMLDivElement>(null);
@@ -20,12 +17,9 @@ export default function MessageList({
 
   useEffect(() => {
     const channel = pusherClient.subscribe("chat-room");
-    channel.bind(
-      chatRoomId,
-      (message: MessageWithUser & MessageWithAttachments) => {
-        setMessages((prev) => [...prev, message]);
-      }
-    );
+    channel.bind(chatRoomId, (message: MessageValidator) => {
+      setMessages((prev) => [...prev, message]);
+    });
 
     return () => {
       channel.unbind();
