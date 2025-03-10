@@ -1,6 +1,6 @@
 "use server";
 
-import { createChatMessage } from "@/utils/db";
+import { createChatMessage, deleteChatMessage } from "@/utils/db";
 import { CreateChatMessageSchema } from "@/utils/definitions";
 import { parseWithZod } from "@conform-to/zod";
 import { revalidatePath } from "next/cache";
@@ -21,5 +21,13 @@ export async function createChatMessageAction(
   const { text } = submission.value;
   await createChatMessage(chatRoomId, text);
 
+  revalidatePath(`/chat-rooms/${chatRoomId}`);
+}
+
+export async function deleteChatMessageAction(
+  chatMessageId: string,
+  chatRoomId: string
+) {
+  await deleteChatMessage(chatMessageId);
   revalidatePath(`/chat-rooms/${chatRoomId}`);
 }

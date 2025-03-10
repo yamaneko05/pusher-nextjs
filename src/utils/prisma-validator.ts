@@ -22,7 +22,7 @@ export type ChatRoomWithOwner = Prisma.ChatRoomGetPayload<
   typeof chatRoomWithOwner
 >;
 
-export type chatMessageWithUser = Prisma.ChatMessageGetPayload<
+export type ChatMessageWithUser = Prisma.ChatMessageGetPayload<
   typeof chatMessageWithUser
 >;
 

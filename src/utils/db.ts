@@ -53,10 +53,7 @@ export async function getChatRooms() {
 export async function getChatRoom(id: string) {
   const chatRoom = await prisma.chatRoom.findUnique({
     where: { id },
-    include: {
-      ...chatRoomWithOwner.include,
-      ...chatRoomWithMessages.include,
-    },
+    include: chatRoomWithMessages.include,
   });
 
   return chatRoom;
@@ -89,4 +86,10 @@ export async function createChatMessage(chatRoomId: string, text: string) {
   });
 
   return chatMessage;
+}
+
+export async function deleteChatMessage(chatMessageId: string) {
+  await prisma.chatMessage.delete({
+    where: { id: chatMessageId },
+  });
 }

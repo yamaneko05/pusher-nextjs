@@ -1,14 +1,19 @@
-import { chatMessageWithUser } from "@/utils/prisma-validator";
+import { ChatMessageWithUser } from "@/utils/prisma-validator";
 import { dayjsInstance } from "@/utils/dayjs";
 import Link from "next/link";
 import Image from "next/image";
 import { getPublicUrl } from "@/utils/storage";
+import { deleteChatMessageAction } from "@/actions/chat-message";
 
 export default function ChatMessageCard({
   chatMessage,
 }: {
-  chatMessage: chatMessageWithUser;
+  chatMessage: ChatMessageWithUser;
 }) {
+  const handleDeleteClick = async () => {
+    await deleteChatMessageAction(chatMessage.id, chatMessage.chatRoomId);
+  };
+
   return (
     <div className="flex gap-2">
       <Link href={`/users/${chatMessage.user.id}`} className="pt-1">
@@ -22,11 +27,21 @@ export default function ChatMessageCard({
       </Link>
       <div className="flex flex-col gap-1">
         <div className="text-sm font-bold">{chatMessage.user.name}</div>
-        <div className="bg-neutral-100 py-2 px-4 rounded-xl rounded-tl-none max-w-96 w-fit">
-          {chatMessage.text}
-        </div>
-        <div className="text-neutral-500 text-xs">
-          {dayjsInstance(chatMessage.createdAt).fromNow()}
+        <div className="flex items-end gap-1">
+          <div className="bg-neutral-100 py-1.5 px-3 rounded-xl rounded-tl-none max-w-96 w-fit whitespace-pre-wrap">
+            {chatMessage.text}
+          </div>
+          <div className="flex items-center gap-1 text-neutral-500 text-xs">
+            <div className="">
+              {dayjsInstance(chatMessage.createdAt).fromNow()}
+            </div>
+            <button
+              onClick={handleDeleteClick}
+              className="hover:cursor-pointer underline"
+            >
+              削除
+            </button>
+          </div>
         </div>
       </div>
     </div>

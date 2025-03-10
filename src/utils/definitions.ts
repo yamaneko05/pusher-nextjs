@@ -43,7 +43,7 @@ export const CreateChatRoomSchema = z.object({
 export const CreateChatMessageSchema = z.object({
   text: z
     .string({ message: "入力してください" })
+    .trim()
     .min(1, "1文字以上の長さにしてください")
-    .max(255, "255文字以内の長さにしてください")
-    .trim(),
+    .max(255, "255文字以内の長さにしてください"),
 });
