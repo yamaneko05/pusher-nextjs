@@ -1,7 +1,12 @@
 "use server";
 
-import { createChatMessage, deleteChatMessage } from "@/utils/db";
+import {
+  createChatMessage,
+  createChatMessageAttachment,
+  deleteChatMessage,
+} from "@/utils/db";
 import { CreateChatMessageSchema } from "@/utils/definitions";
+import { upload } from "@/utils/storage";
 import { parseWithZod } from "@conform-to/zod";
 import { revalidatePath } from "next/cache";
 
@@ -18,8 +23,17 @@ export async function createChatMessageAction(
     return submission.reply();
   }
 
-  const { text } = submission.value;
-  await createChatMessage(chatRoomId, text);
+  const { text, attachments } = submission.value;
+
+  const { id: chatMessageId } = await createChatMessage(chatRoomId, text);
+
+  Array.from(attachments).map(async (attachment) => {
+    const path = crypto.randomUUID() + ".webp";
+    await createChatMessageAttachment(chatMessageId, path);
+
+    const fileBody = await attachment.arrayBuffer();
+    await upload("chat-message-attachments", path, fileBody);
+  });
 
   revalidatePath(`/chat-rooms/${chatRoomId}`);
 }

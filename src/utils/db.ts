@@ -2,6 +2,7 @@ import "server-only";
 import prisma from "./prisma";
 import { getSessionPayload } from "./session";
 import { chatRoomWithMessages, chatRoomWithOwner } from "./prisma-validator";
+import { remove } from "./storage";
 
 export async function createUser(
   name: string,
@@ -89,7 +90,28 @@ export async function createChatMessage(chatRoomId: string, text: string) {
 }
 
 export async function deleteChatMessage(chatMessageId: string) {
+  const attachments = await prisma.chatMessageAttachment.findMany({
+    where: { chatMessageId },
+  });
+  const paths = attachments.map((attachment) => attachment.path);
+  await remove("chat-message-attachments", paths);
+
+  await prisma.chatMessageAttachment.deleteMany({
+    where: { chatMessageId },
+  });
+
   await prisma.chatMessage.delete({
     where: { id: chatMessageId },
   });
+}
+
+export async function createChatMessageAttachment(
+  chatMessageId: string,
+  path: string
+) {
+  const attachment = await prisma.chatMessageAttachment.create({
+    data: { path, chatMessageId },
+  });
+
+  return attachment;
 }

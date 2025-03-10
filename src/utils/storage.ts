@@ -1,6 +1,10 @@
 import { supabase } from "./supabase";
 
-export async function upload(bucketId: string, path: string, fileBody: Buffer) {
+export async function upload(
+  bucketId: string,
+  path: string,
+  fileBody: Buffer | ArrayBuffer
+) {
   const { data, error } = await supabase.storage
     .from(bucketId)
     .upload(path, fileBody);

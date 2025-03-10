@@ -8,6 +8,8 @@ import { useActionState } from "react";
 import { Button } from "./ui/button";
 import { Loader2, LucideSend } from "lucide-react";
 import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";
+import AttachmentsPreview from "./attachments-preview";
 
 export default function CreateChatMessageForm({
   chatRoomId,
@@ -29,14 +31,32 @@ export default function CreateChatMessageForm({
     <form action={action} onSubmit={form.onSubmit} id={form.id}>
       <div className="flex gap-2 items-end">
         <div className="flex-1">
-          <Textarea name={fields.text.name} placeholder="テキスト" />
+          {fields.attachments.value && !fields.attachments.errors && (
+            <div className="mb-2">
+              <AttachmentsPreview attachments={fields.attachments.value} />
+            </div>
+          )}
+          <Textarea
+            name={fields.text.name}
+            placeholder="テキスト"
+            className="resize-none"
+          />
+          <Input
+            type="file"
+            name={fields.attachments.name}
+            multiple
+            className="w-80"
+          />
         </div>
         <Button size={"icon"} disabled={pending}>
           {pending ? <Loader2 className="animate-spin" /> : <LucideSend />}
         </Button>
       </div>
-      <div className="h-4 m-1">
-        {fields.text.errors?.map((error, i) => (
+      <div className="h-8 m-1">
+        {[
+          ...(fields.text.errors ?? []),
+          ...(fields.attachments.errors ?? []),
+        ]?.map((error, i) => (
           <div key={i} className="text-xs text-red-500">
             {error}
           </div>

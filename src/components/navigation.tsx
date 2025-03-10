@@ -25,7 +25,6 @@ const navItems = [
 
 export default function Navigation() {
   const pathname = usePathname();
-  console.log(pathname);
 
   return (
     <div className="flex flex-col gap-2">

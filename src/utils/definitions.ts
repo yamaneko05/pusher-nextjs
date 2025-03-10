@@ -46,4 +46,25 @@ export const CreateChatMessageSchema = z.object({
     .trim()
     .min(1, "1文字以上の長さにしてください")
     .max(255, "255文字以内の長さにしてください"),
+  attachments: z
+    .custom<FileList | File>()
+    .transform(transformMultipleFileInput)
+    .refine((files) => {
+      return files.every((file) => {
+        return file.type.match(/^image\//);
+      });
+    }, "正しい形式のファイルを選択してください"),
 });
+
+export function transformMultipleFileInput(input: unknown) {
+  if (input === undefined) {
+    return [];
+  }
+  if (input instanceof File) {
+    if (input.size === 0) {
+      return [];
+    }
+    return [input];
+  }
+  return Array.from(input as FileList);
+}
