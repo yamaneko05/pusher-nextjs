@@ -1,25 +1,25 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { buttonVariants } from "./ui/button";
+import Link from "next/link";
 import { navItems } from "@/utils/definitions";
+import { usePathname } from "next/navigation";
 
-export default function Navigation() {
+export default function Bottombar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex justify-around w-full">
       {navItems.map((navItem, i) => (
         <Link
           key={i}
           href={navItem.path}
           className={buttonVariants({
             variant: navItem.path === pathname ? "default" : "ghost",
-            className: "w-full justify-start",
+            size: "icon",
           })}
         >
-          {navItem.name}
+          {navItem.icon}
         </Link>
       ))}
     </div>

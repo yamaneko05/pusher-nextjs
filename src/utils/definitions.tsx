@@ -1,3 +1,8 @@
+import {
+  LucideMessagesSquare,
+  LucidePlusSquare,
+  LucideUsers2,
+} from "lucide-react";
 import { z } from "zod";
 
 const nameSchema = z
@@ -68,3 +73,21 @@ export function transformMultipleFileInput(input: unknown) {
   }
   return Array.from(input as FileList);
 }
+
+export const navItems = [
+  {
+    path: "/chat-rooms",
+    name: "全てのチャットルーム",
+    icon: <LucideMessagesSquare />,
+  },
+  {
+    path: "/chat-rooms/create",
+    name: "新しいチャットルームを作成",
+    icon: <LucidePlusSquare />,
+  },
+  {
+    path: "/admin/users",
+    name: "ユーザー管理",
+    icon: <LucideUsers2 />,
+  },
+];

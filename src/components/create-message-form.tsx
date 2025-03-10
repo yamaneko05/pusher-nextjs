@@ -46,7 +46,7 @@ export default function CreateChatMessageForm({
             name={fields.attachments.name}
             multiple
             accept="image/*"
-            className="w-80"
+            className="max-w-80"
           />
         </div>
         <Button size={"icon"} disabled={pending}>

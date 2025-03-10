@@ -7,7 +7,7 @@ export default async function Page() {
     <div className="p-3 pb-24">
       <PageHeading>新しいチャットルームを作成</PageHeading>
       <div className="mt-4">
-        <Card className="w-96">
+        <Card className="max-w-96">
           <CardContent>
             <CreateRoomForm />
           </CardContent>
