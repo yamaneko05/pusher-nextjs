@@ -28,18 +28,16 @@ export const chatRoomWithMessages =
     },
   });
 
-export type ChatRoomWithOwner = Prisma.ChatRoomGetPayload<
-  typeof chatRoomWithOwner
->;
+export type RoomWithOwner = Prisma.ChatRoomGetPayload<typeof chatRoomWithOwner>;
 
-export type ChatMessageWithUser = Prisma.ChatMessageGetPayload<
+export type MessageWithUser = Prisma.ChatMessageGetPayload<
   typeof chatMessageWithUser
 >;
 
-export type ChatMessageWithAttachments = Prisma.ChatMessageGetPayload<
+export type MessageWithAttachments = Prisma.ChatMessageGetPayload<
   typeof chatMessageWithAttachments
 >;
 
-export type chatRoomWithMessages = Prisma.ChatRoomGetPayload<
+export type RoomWithMessages = Prisma.ChatRoomGetPayload<
   typeof chatRoomWithMessages
 >;

@@ -30,7 +30,7 @@ export default async function Page({
           作成日時: {dayjsInstance(chatRoom.createdAt).fromNow()}
         </div>
       </div>
-      <MessageList chatMessages={chatRoom.chatMessages} />
+      <MessageList messages={chatRoom.chatMessages} chatRoomId={chatRoom.id} />
       <div className="border-t p-3">
         <CreateMessageForm chatRoomId={chatRoom.id} />
       </div>

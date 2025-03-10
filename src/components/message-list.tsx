@@ -1,30 +1,48 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import MessageCard from "./message-card";
 import {
-  ChatMessageWithAttachments,
-  ChatMessageWithUser,
+  MessageWithAttachments,
+  MessageWithUser,
 } from "@/utils/prisma-validator";
+import { pusherClient } from "@/utils/pusher-client";
 
-export default function ChatMessageList({
-  chatMessages,
+export default function MessageList({
+  messages: defaultMessages,
+  chatRoomId,
 }: {
-  chatMessages: (ChatMessageWithUser & ChatMessageWithAttachments)[];
+  messages: (MessageWithUser & MessageWithAttachments)[];
+  chatRoomId: string;
 }) {
   const endDiv = useRef<HTMLDivElement>(null);
+  const [messages, setMessages] = useState(defaultMessages);
+
+  useEffect(() => {
+    const channel = pusherClient.subscribe("chat-room");
+    channel.bind(
+      chatRoomId,
+      (message: MessageWithUser & MessageWithAttachments) => {
+        setMessages((prev) => [...prev, message]);
+      }
+    );
+
+    return () => {
+      channel.unbind();
+    };
+  }, []);
 
   useEffect(() => {
     if (endDiv.current) {
       endDiv.current.scrollIntoView();
     }
-  }, [chatMessages]);
+  }, [messages]);
 
   return (
     <div className="flex-1 overflow-y-scroll p-3">
       <div className="flex-1 flex flex-col gap-4">
-        {chatMessages.map((chatMessage) => (
-          <MessageCard key={chatMessage.id} chatMessage={chatMessage} />
+        {messages.map((message) => (
+          <MessageCard key={message.id} message={message} />
         ))}
       </div>
       <div ref={endDiv} className="gap-y-0" />
