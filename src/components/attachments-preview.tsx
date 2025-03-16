@@ -1,7 +1,6 @@
 import { transformMultipleFileInput } from "@/utils/definitions";
-import { LucideLoader2 } from "lucide-react";
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import { AttachmentPreviewCard } from "./attachments-preview-card";
 
 export default function AttachmentsPreview({
   attachments,
@@ -16,34 +15,10 @@ export default function AttachmentsPreview({
   }, [attachments]);
 
   return (
-    <div className="grid grid-cols-4 gap-2">
+    <div className="grid grid-cols-2 gap-2 md:grid-cols-4 xl:grid-cols-8">
       {files.map((file, i) => (
         <AttachmentPreviewCard key={i} file={file} />
       ))}
     </div>
-  );
-}
-
-function AttachmentPreviewCard({ file }: { file: File }) {
-  const [src, setSrc] = useState<string>();
-
-  useEffect(() => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      setSrc(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  }, [file]);
-
-  return src ? (
-    <Image
-      src={src}
-      alt=""
-      width={240}
-      height={240}
-      className="aspect-square object-cover"
-    />
-  ) : (
-    <LucideLoader2 className="animate-spin" />
   );
 }

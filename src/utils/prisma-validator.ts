@@ -5,6 +5,9 @@ export const roomValidator = Prisma.validator<Prisma.ChatRoomDefaultArgs>()({
     owner: true,
     chatMessages: {
       take: 1,
+      include: {
+        user: true,
+      },
     },
   },
 });

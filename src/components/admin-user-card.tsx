@@ -14,7 +14,7 @@ export default function AdminUserCard({ user }: { user: User }) {
   };
 
   return (
-    <div className="py-2 flex flex-col gap-1.5">
+    <div className="flex flex-col gap-1.5">
       <div className="flex items-center gap-2">
         <Image
           src={getPublicUrl("avatars", user.image!)}
@@ -25,7 +25,7 @@ export default function AdminUserCard({ user }: { user: User }) {
         />
         <div className="font-bold">{user.name}</div>
       </div>
-      <div className="text-neutral-500 text-sm">
+      <div className="text-sm text-neutral-500">
         <div>ID: {user.id}</div>
         <div>メールアドレス: {user.email}</div>
       </div>

@@ -16,7 +16,7 @@ export default function AttachmentCard({
         width={300}
         height={300}
         alt=""
-        className="rounded-xl aspect-square object-cover"
+        className="aspect-square object-cover"
       />
     </Link>
   );

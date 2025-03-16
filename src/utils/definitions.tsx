@@ -29,7 +29,7 @@ export const SignupFormSchema = SigninFormSchema.extend({
     .instanceof(File, { message: "選択してください" })
     .refine(
       (file) => file.type.match(/^image\//),
-      "正しい形式のファイルを選択してください"
+      "正しい形式のファイルを選択してください",
     ),
 });
 
@@ -47,7 +47,7 @@ export const CreateChatRoomSchema = z.object({
 
 export const CreateChatMessageSchema = z.object({
   text: z
-    .string({ message: "入力してください" })
+    .string({ message: "テキストを入力してください" })
     .trim()
     .min(1, "1文字以上の長さにしてください")
     .max(255, "255文字以内の長さにしてください"),
@@ -78,16 +78,16 @@ export const navItems = [
   {
     path: "/chat-rooms",
     name: "全てのチャットルーム",
-    icon: <LucideMessagesSquare />,
+    icon: <LucideMessagesSquare className="size-6" />,
   },
   {
     path: "/chat-rooms/create",
     name: "新しいチャットルームを作成",
-    icon: <LucidePlusSquare />,
+    icon: <LucidePlusSquare className="size-6" />,
   },
   {
     path: "/admin/users",
     name: "ユーザー管理",
-    icon: <LucideUsers2 />,
+    icon: <LucideUsers2 className="size-6" />,
   },
 ];

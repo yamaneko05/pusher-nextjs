@@ -30,18 +30,22 @@ export default function MessageCard({
         <div className="text-sm font-bold">{message.user.name}</div>
         <div className="flex items-end gap-1">
           <div>
-            <div className="bg-neutral-100 py-1.5 px-3 rounded-xl rounded-tl-none max-w-96 w-fit whitespace-pre-wrap">
+            <div className="w-fit max-w-96 rounded-xl rounded-tl-none bg-neutral-100 px-3 py-1.5 whitespace-pre-wrap">
               {message.text}
             </div>
-            {message.attachments?.map((attachment) => (
-              <AttachmentCard key={attachment.id} attachment={attachment} />
-            ))}
+            {message.attachments && (
+              <div className="grid max-w-96 grid-cols-2 gap-1 [clip-path:inset(0_0_0_0_round_16px)]">
+                {message.attachments?.map((attachment) => (
+                  <AttachmentCard key={attachment.id} attachment={attachment} />
+                ))}
+              </div>
+            )}
           </div>
-          <div className="flex items-center gap-1 text-neutral-500 text-xs">
+          <div className="flex items-center gap-1 text-xs text-neutral-500">
             <div className="">{dayjsInstance(message.createdAt).fromNow()}</div>
             <button
               onClick={handleDeleteClick}
-              className="hover:cursor-pointer underline"
+              className="underline hover:cursor-pointer"
             >
               削除
             </button>

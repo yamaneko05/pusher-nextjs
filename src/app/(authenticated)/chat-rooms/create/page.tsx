@@ -1,18 +1,20 @@
 import CreateRoomForm from "@/components/create-room-form";
-import PageHeading from "@/components/page-heading";
+import Bottombar from "@/components/layout/bottombar";
+import PageHeader from "@/components/layout/page-header";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default async function Page() {
   return (
-    <div className="p-3 pb-24">
-      <PageHeading>新しいチャットルームを作成</PageHeading>
-      <div className="mt-4">
+    <>
+      <PageHeader pageHeading="新しいチャットルームを作成" prevHref="/" />
+      <div className="p-3 pb-24">
         <Card className="max-w-96">
           <CardContent>
             <CreateRoomForm />
           </CardContent>
         </Card>
       </div>
-    </div>
+      <Bottombar />
+    </>
   );
 }
