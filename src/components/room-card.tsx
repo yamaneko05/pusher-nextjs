@@ -9,13 +9,12 @@ export default function RoomCard({ room }: { room: RoomValidator }) {
     <Link href={`/chat-rooms/${room.id}`} className="flex items-center gap-3">
       <Image
         src={getPublicUrl("avatars", room.owner.image!)}
-        width={300}
-        height={300}
         alt=""
-        className="size-12 rounded-full"
+        fill
+        className="relative! size-12! rounded-full"
       />
-      <div className="flex flex-col gap-0.5">
-        <div className="text-lg font-bold">{room.name}</div>
+      <div className="flex flex-col">
+        <div className="font-bold">{room.name}</div>
         <div className="text-neutral-500">
           {room.chatMessages[0]
             ? `${room.chatMessages[0].user.name} : ${room.chatMessages[0].text} ${dayjsInstance(room.chatMessages[0].createdAt).fromNow()}`

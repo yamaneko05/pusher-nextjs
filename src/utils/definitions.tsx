@@ -54,6 +54,7 @@ export const CreateChatMessageSchema = z.object({
   attachments: z
     .custom<FileList | File>()
     .transform(transformMultipleFileInput)
+    .refine((files) => files.length <= 8, "8件以下のファイルを選択してください")
     .refine((files) => {
       return files.every((file) => {
         return file.type.match(/^image\//);

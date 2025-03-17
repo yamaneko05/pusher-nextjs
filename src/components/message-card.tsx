@@ -16,14 +16,13 @@ export default function MessageCard({
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-3">
       <Link href={`/users/${message.user.id}`} className="pt-1">
         <Image
           src={getPublicUrl("avatars", message.user.image!)}
-          width={300}
-          height={300}
           alt=""
-          className="size-8 rounded-full"
+          fill
+          className="relative! size-10! rounded-full"
         />
       </Link>
       <div className="flex flex-col gap-1">
@@ -34,7 +33,9 @@ export default function MessageCard({
               {message.text}
             </div>
             {message.attachments && (
-              <div className="grid max-w-96 grid-cols-2 gap-1 [clip-path:inset(0_0_0_0_round_16px)]">
+              <div
+                className={`grid max-w-96 gap-1 [clip-path:inset(0_0_0_0_round_16px)] ${message.attachments.length > 1 && "grid-cols-2"}`}
+              >
                 {message.attachments?.map((attachment) => (
                   <AttachmentCard key={attachment.id} attachment={attachment} />
                 ))}

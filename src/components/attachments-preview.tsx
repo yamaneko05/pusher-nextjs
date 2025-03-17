@@ -15,7 +15,7 @@ export default function AttachmentsPreview({
   }, [attachments]);
 
   return (
-    <div className="grid grid-cols-2 gap-2 md:grid-cols-4 xl:grid-cols-8">
+    <div className="grid grid-cols-3 gap-2 md:grid-cols-6 xl:grid-cols-8">
       {files.map((file, i) => (
         <AttachmentPreviewCard key={i} file={file} />
       ))}

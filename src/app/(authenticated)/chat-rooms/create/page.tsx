@@ -1,4 +1,4 @@
-import CreateRoomForm from "@/components/create-room-form";
+import CreateRoomForm from "@/components/form/create-room-form";
 import Bottombar from "@/components/layout/bottombar";
 import PageHeader from "@/components/layout/page-header";
 import { Card, CardContent } from "@/components/ui/card";

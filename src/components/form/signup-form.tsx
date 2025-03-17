@@ -5,10 +5,10 @@ import { SignupFormSchema } from "@/utils/definitions";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useActionState } from "react";
-import Field from "./field";
-import { Button } from "./ui/button";
+import Field from "@/components/field";
+import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { Input } from "./ui/input";
+import { Input } from "@/components/ui/input";
 
 export default function SignupForm() {
   const [lastResult, action, pending] = useActionState(signupAction, undefined);
@@ -47,7 +47,7 @@ export default function SignupForm() {
           <div className="mt-1">
             <Input type="file" name={fields.image.name} accept="image/*" />
           </div>
-          <div className="pt-1 h-8">
+          <div className="h-8 pt-1">
             {fields.image.errors?.map((error, i) => (
               <div key={i} className="text-xs text-red-500">
                 {error}

@@ -1,5 +1,5 @@
 import MessageList from "@/components/message-list";
-import CreateMessageForm from "@/components/create-message-form";
+import CreateMessageForm from "@/components/form/create-message-form";
 import { notFound } from "next/navigation";
 import { chatRoomWithMessages } from "@/utils/prisma-validator";
 import prisma from "@/utils/prisma";

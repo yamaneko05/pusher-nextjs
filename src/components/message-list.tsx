@@ -24,7 +24,7 @@ export default function MessageList({
     return () => {
       channel.unbind();
     };
-  }, []);
+  }, [chatRoomId]);
 
   useEffect(() => {
     if (endDiv.current) {
@@ -34,7 +34,7 @@ export default function MessageList({
 
   return (
     <div className="flex-1 overflow-y-scroll p-3">
-      <div className="flex-1 flex flex-col gap-4">
+      <div className="flex flex-1 flex-col gap-4">
         {messages.map((message) => (
           <MessageCard key={message.id} message={message} />
         ))}

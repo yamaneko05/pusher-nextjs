@@ -5,11 +5,11 @@ import { CreateChatMessageSchema } from "@/utils/definitions";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useActionState, useRef } from "react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { Loader2, LucideImage, LucideSend } from "lucide-react";
-import { Textarea } from "./ui/textarea";
-import { Input } from "./ui/input";
-import AttachmentsPreview from "./attachments-preview";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import AttachmentsPreview from "@/components/attachments-preview";
 
 export default function CreateChatMessageForm({
   chatRoomId,

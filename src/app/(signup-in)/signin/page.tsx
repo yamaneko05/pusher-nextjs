@@ -1,10 +1,10 @@
-import SigninForm from "@/components/signin-form";
+import SigninForm from "@/components/form/signin-form";
 import Link from "next/link";
 
 export default function signin() {
   return (
     <>
-      <div className="font-bold text-xl">ログイン</div>
+      <div className="text-xl font-bold">ログイン</div>
       <div className="mt-9">
         <SigninForm />
       </div>

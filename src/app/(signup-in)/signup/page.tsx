@@ -1,10 +1,10 @@
-import SignupForm from "@/components/signup-form";
+import SignupForm from "@/components/form/signup-form";
 import Link from "next/link";
 
 export default function Page() {
   return (
     <>
-      <div className="font-bold text-xl">サインアップ</div>
+      <div className="text-xl font-bold">サインアップ</div>
       <div className="mt-9">
         <SignupForm />
       </div>

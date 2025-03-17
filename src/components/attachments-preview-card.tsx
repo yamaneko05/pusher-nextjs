@@ -17,9 +17,8 @@ export function AttachmentPreviewCard({ file }: { file: File }) {
     <Image
       src={src}
       alt=""
-      width={240}
-      height={240}
-      className="aspect-square w-full rounded-lg object-cover"
+      fill
+      className="relative! aspect-square rounded-lg object-cover"
     />
   ) : (
     <div className="flex justify-center">

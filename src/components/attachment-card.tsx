@@ -13,10 +13,9 @@ export default function AttachmentCard({
     <Link href={src} target="_blank">
       <Image
         src={src}
-        width={300}
-        height={300}
         alt=""
-        className="aspect-square object-cover"
+        fill
+        className="relative! aspect-square w-auto! object-cover"
       />
     </Link>
   );

@@ -5,8 +5,8 @@ import { SigninFormSchema } from "@/utils/definitions";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useActionState } from "react";
-import Field from "./field";
-import { Button } from "./ui/button";
+import Field from "@/components/field";
+import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
 export default function SigninForm() {
@@ -36,7 +36,7 @@ export default function SigninForm() {
           field={fields.password}
         />
         {form.errors && (
-          <div className="text-sm flex flex-col text-red-500">
+          <div className="flex flex-col text-sm text-red-500">
             {form.errors.map((error, i) => (
               <div key={i}>{error}</div>
             ))}
