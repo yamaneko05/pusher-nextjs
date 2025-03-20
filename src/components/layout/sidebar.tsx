@@ -21,7 +21,7 @@ export default async function Sidebar() {
         <div className="flex flex-col items-center">
           <Link href={`/users/${payload!.user.id}`}>
             <Image
-              src={getPublicUrl("avatars", payload!.user.image!)}
+              src={getPublicUrl("avatars", payload!.user.image)}
               alt=""
               className="size-24 rounded-full border border-neutral-300"
               width={300}

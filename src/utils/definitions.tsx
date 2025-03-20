@@ -1,7 +1,7 @@
 import {
   LucideMessagesSquare,
   LucidePlusSquare,
-  LucideUsers2,
+  LucideUserSearch,
 } from "lucide-react";
 import { z } from "zod";
 
@@ -87,8 +87,8 @@ export const navItems = [
     icon: <LucidePlusSquare className="size-6" />,
   },
   {
-    path: "/admin/users",
-    name: "ユーザー管理",
-    icon: <LucideUsers2 className="size-6" />,
+    path: "/users",
+    name: "ユーザー検索",
+    icon: <LucideUserSearch className="size-6" />,
   },
 ];

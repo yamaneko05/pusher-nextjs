@@ -1,7 +1,13 @@
 import "server-only";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  omit: {
+    user: {
+      password: true,
+    },
+  },
+});
 
 const globalForPrisma = global as unknown as { prisma: typeof prisma };
 

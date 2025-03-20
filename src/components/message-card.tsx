@@ -19,7 +19,7 @@ export default function MessageCard({
     <div className="flex gap-3">
       <Link href={`/users/${message.user.id}`} className="pt-1">
         <Image
-          src={getPublicUrl("avatars", message.user.image!)}
+          src={getPublicUrl("avatars", message.user.image)}
           alt=""
           fill
           className="relative! size-10! rounded-full"

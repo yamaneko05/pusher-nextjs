@@ -12,14 +12,34 @@ datasource db {
 }
 
 model User {
-  id           String        @id @default(uuid())
-  name         String
-  email        String        @unique
-  password     String
-  image        String?
-  createdAt    DateTime      @default(now())
-  chatRooms    ChatRoom[]
-  chatMessages ChatMessage[]
+  id               String          @id @default(uuid())
+  name             String
+  email            String          @unique
+  password         String
+  image            String
+  createdAt        DateTime        @default(now())
+  chatRooms        ChatRoom[]
+  chatMessages     ChatMessage[]
+  friends          User[]          @relation("UserFriends")
+  symmetricFriends User[]          @relation("UserFriends")
+  sentRequests     FriendRequest[] @relation("Sender")
+  receivedRequests FriendRequest[] @relation("Receiver")
+}
+
+model FriendRequest {
+  id         String        @id @default(uuid())
+  sender     User          @relation("Sender", fields: [senderId], references: [id])
+  senderId   String
+  receiver   User          @relation("Receiver", fields: [receiverId], references: [id])
+  receiverId String
+  createdAt  DateTime      @default(now())
+  status     RequestStatus @default(PENDING)
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }
 
 model ChatRoom {

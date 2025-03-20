@@ -24,6 +24,8 @@ export const chatRoomWithMessages =
     },
   });
 
+export const userValidator = Prisma.validator<Prisma.UserDefaultArgs>()({});
+
 export type RoomValidator = Prisma.ChatRoomGetPayload<typeof roomValidator>;
 
 export type MessageValidator = Prisma.ChatMessageGetPayload<

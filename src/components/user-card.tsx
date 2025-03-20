@@ -3,17 +3,16 @@ import { User } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function UserCard({ user }: { user: User }) {
+export default function UserCard({ user }: { user: Omit<User, "password"> }) {
   return (
-    <Link href={`/users/${user.id}`} className="flex items-center gap-2">
+    <Link href={`/users/${user.id}`} className="flex items-center gap-4">
       <Image
-        src={getPublicUrl("avatars", user.image!)}
-        width={300}
-        height={300}
+        src={getPublicUrl("avatars", user.image)}
         alt=""
-        className="size-8 rounded-full"
+        fill
+        className="relative! size-12! rounded-full"
       />
-      <div className="text-sm">{user.name}</div>
+      <div className="font-bold">{user.name}</div>
     </Link>
   );
 }

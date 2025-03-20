@@ -5,6 +5,9 @@ import { createSession } from "@/utils/session";
 export async function signinUsecase(email: string, password: string) {
   const user = await prisma.user.findUnique({
     where: { email },
+    omit: {
+      password: false,
+    },
   });
 
   if (!user) {
