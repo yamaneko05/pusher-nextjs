@@ -1,16 +1,12 @@
-import { MessageValidator } from "@/utils/prisma-validator";
-import { dayjsInstance } from "@/utils/dayjs";
+import { dayjsInstance } from "@/libs/dayjs";
 import Link from "next/link";
 import Image from "next/image";
 import { getPublicUrl } from "@/utils/storage";
 import { deleteMessageAction } from "@/actions/message-actions";
 import AttachmentCard from "./attachment-card";
+import { MessageForCard } from "@/utils/types";
 
-export default function MessageCard({
-  message,
-}: {
-  message: MessageValidator;
-}) {
+export default function MessageCard({ message }: { message: MessageForCard }) {
   const handleDeleteClick = async () => {
     await deleteMessageAction(message.id, message.chatRoomId);
   };

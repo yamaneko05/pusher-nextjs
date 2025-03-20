@@ -1,10 +1,11 @@
 import UserCard from "@/components/admin-user-card";
-import prisma from "@/utils/prisma";
 import PageHeader from "@/components/layout/page-header";
 import Bottombar from "@/components/layout/bottombar";
+import { UserRepository } from "@/repositories/UserRepository";
 
 export default async function Page() {
-  const users = await prisma.user.findMany();
+  const userRepository = new UserRepository();
+  const users = await userRepository.getAll();
 
   return (
     <>

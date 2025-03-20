@@ -1,12 +1,12 @@
 import { getPublicUrl } from "@/utils/storage";
-import { ChatMessageAttachment } from "@prisma/client";
+import { AttachmentForCard } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function AttachmentCard({
   attachment,
 }: {
-  attachment: ChatMessageAttachment;
+  attachment: AttachmentForCard;
 }) {
   const src = getPublicUrl("chat-message-attachments", attachment.path);
   return (

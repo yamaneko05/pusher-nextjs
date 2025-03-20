@@ -1,14 +1,10 @@
 "use server";
 
-import { SigninFormSchema, SignupFormSchema } from "@/utils/definitions";
+import { SigninFormSchema, SignupFormSchema } from "@/utils/schemas";
 import { parseWithZod } from "@conform-to/zod";
 import { redirect } from "next/navigation";
-import { signupUsecase } from "@/usecase/auth/signup-usecase";
-import {
-  signinUsecase,
-  UserNotFoundError,
-} from "@/usecase/auth/signin-usecase";
-import { signoutUsecase } from "@/usecase/auth/signout-usecase";
+import { AuthService } from "@/services/AuthService";
+import { UserRepository } from "@/repositories/UserRepository";
 
 export async function signupAction(prevState: unknown, formData: FormData) {
   const submission = parseWithZod(formData, { schema: SignupFormSchema });
@@ -19,7 +15,9 @@ export async function signupAction(prevState: unknown, formData: FormData) {
 
   const { name, email, password, image } = submission.value;
 
-  await signupUsecase(name, email, password, image);
+  const userRepository = new UserRepository();
+  const authService = new AuthService(userRepository);
+  await authService.signup(name, email, password, image);
 
   redirect("/");
 }
@@ -33,10 +31,12 @@ export async function signinAction(prevState: unknown, formData: FormData) {
 
   const { email, password } = submission.value;
 
-  const { error } = await signinUsecase(email, password);
+  const userRepository = new UserRepository();
+  const authService = new AuthService(userRepository);
+  const { error } = await authService.signin(email, password);
 
   if (error) {
-    if (error instanceof UserNotFoundError) {
+    if (error === "UserNotFound") {
       return submission.reply({
         formErrors: ["このメールアドレスのユーザーは存在しません"],
       });
@@ -49,6 +49,8 @@ export async function signinAction(prevState: unknown, formData: FormData) {
 }
 
 export async function signoutAction() {
-  await signoutUsecase();
+  const userRepository = new UserRepository();
+  const authService = new AuthService(userRepository);
+  await authService.signout();
   redirect("/signin");
 }

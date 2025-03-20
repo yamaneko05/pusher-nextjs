@@ -1,4 +1,4 @@
-import { transformMultipleFileInput } from "@/utils/definitions";
+import { transformMultipleFileInput } from "@/utils/schemas";
 import { useEffect, useState } from "react";
 import { AttachmentPreviewCard } from "./attachments-preview-card";
 

@@ -1,9 +1,9 @@
-import prisma from "@/utils/prisma";
-import { roomValidator } from "@/utils/prisma-validator";
 import RoomCard from "./room-card";
+import { RoomRepository } from "@/repositories/RoomRepository";
 
 export default async function ChatRoomList() {
-  const rooms = await prisma.chatRoom.findMany(roomValidator);
+  const roomRepository = new RoomRepository();
+  const rooms = await roomRepository.getAll();
 
   return (
     <div className="flex flex-col gap-6 p-3 pb-24">

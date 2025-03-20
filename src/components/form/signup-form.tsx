@@ -1,7 +1,7 @@
 "use client";
 
 import { signupAction } from "@/actions/auth-actions";
-import { SignupFormSchema } from "@/utils/definitions";
+import { SignupFormSchema } from "@/utils/schemas";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useActionState } from "react";

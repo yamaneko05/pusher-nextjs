@@ -4,15 +4,24 @@
 - Neon DB
 - Supabase Storage
 
-## アーキテクチャ
+## ディレクトリ構成
 
-- app/action
-  - バリデーション
-  - usecase の実行
-  - usecase で例外発生時のエラーハンドリング
-  - revalidatePath など
-- app/usecase
-  - 認証
-  - db 操作
-  - storage 操作
-  - session 操作
+- app/
+  - ルーティング
+- components/
+  - コンポーネント
+- actions/
+  - (プレゼンテーション層)
+  - server action
+  - フォームバリデーション
+  - revalidatePath()
+- services/
+  - (アプリケーション層)
+  - ビジネスロジック
+- repositories/
+  - インフラストラクチャ層
+- libs/
+  - ライブラリのインスタンス
+  - dayjs, supabase, pusherなど
+- utils/
+  - その他

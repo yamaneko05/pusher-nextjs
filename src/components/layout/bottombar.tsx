@@ -1,8 +1,8 @@
 "use client";
 
+import { navItems } from "@/utils/constants";
 import { buttonVariants } from "../ui/button";
 import Link from "next/link";
-import { navItems } from "@/utils/definitions";
 import { usePathname } from "next/navigation";
 
 export default function Bottombar() {

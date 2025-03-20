@@ -1,15 +1,16 @@
 "use server";
 
-import { createMessageUsecase } from "@/usecase/message/create-message-usecase";
-import { deleteMessageUsecase } from "@/usecase/message/delete-message-usecase";
-import { CreateChatMessageSchema } from "@/utils/definitions";
+import { AttachmentRepository } from "@/repositories/AttachmentRepository";
+import { MessageRepository } from "@/repositories/MessageRepository";
+import { MessageService } from "@/services/MessageService";
+import { CreateChatMessageSchema } from "@/utils/schemas";
 import { parseWithZod } from "@conform-to/zod";
 import { revalidatePath } from "next/cache";
 
 export async function createMessageAction(
   chatRoomId: string,
   prevState: unknown,
-  formData: FormData
+  formData: FormData,
 ) {
   const submission = parseWithZod(formData, {
     schema: CreateChatMessageSchema,
@@ -21,15 +22,21 @@ export async function createMessageAction(
 
   const { text, attachments } = submission.value;
 
-  await createMessageUsecase(chatRoomId, text, attachments);
+  const messageRepository = new MessageRepository();
+  const messageService = new MessageService(messageRepository);
+  await messageService.create(chatRoomId, text, attachments);
 
   revalidatePath(`/chat-rooms/${chatRoomId}`);
 }
 
 export async function deleteMessageAction(
   chatMessageId: string,
-  chatRoomId: string
+  chatRoomId: string,
 ) {
-  await deleteMessageUsecase(chatMessageId);
+  const messageRepository = new MessageRepository();
+  const attachmentRepository = new AttachmentRepository();
+  const messageService = new MessageService(messageRepository);
+  await messageService.delete(chatMessageId, attachmentRepository);
+
   revalidatePath(`/chat-rooms/${chatRoomId}`);
 }

@@ -1,7 +1,8 @@
 "use server";
 
-import { createRoomUsecase } from "@/usecase/create-room-usecase";
-import { CreateChatRoomSchema } from "@/utils/definitions";
+import { RoomRepository } from "@/repositories/RoomRepository";
+import { RoomService } from "@/services/RoomService";
+import { CreateChatRoomSchema } from "@/utils/schemas";
 import { parseWithZod } from "@conform-to/zod";
 import { redirect } from "next/navigation";
 
@@ -14,7 +15,9 @@ export async function createRoomAction(prevState: unknown, formData: FormData) {
 
   const { name } = submission.value;
 
-  const { id } = await createRoomUsecase(name);
+  const roomRepository = new RoomRepository();
+  const roomService = new RoomService(roomRepository);
+  const { id } = await roomService.create(name);
 
   redirect(`/chat-rooms/${id}`);
 }

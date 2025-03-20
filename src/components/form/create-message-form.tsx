@@ -1,7 +1,7 @@
 "use client";
 
 import { createMessageAction } from "@/actions/message-actions";
-import { CreateChatMessageSchema } from "@/utils/definitions";
+import { CreateChatMessageSchema } from "@/utils/schemas";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useActionState, useRef } from "react";

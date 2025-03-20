@@ -1,9 +1,8 @@
 import MessageList from "@/components/message-list";
 import CreateMessageForm from "@/components/form/create-message-form";
 import { notFound } from "next/navigation";
-import { chatRoomWithMessages } from "@/utils/prisma-validator";
-import prisma from "@/utils/prisma";
 import PageHeader from "@/components/layout/page-header";
+import { RoomRepository } from "@/repositories/RoomRepository";
 
 export default async function Page({
   params,
@@ -12,10 +11,8 @@ export default async function Page({
 }) {
   const { chatRoomId } = await params;
 
-  const chatRoom = await prisma.chatRoom.findUnique({
-    where: { id: chatRoomId },
-    ...chatRoomWithMessages,
-  });
+  const roomRepository = new RoomRepository();
+  const chatRoom = await roomRepository.getWithMessages(chatRoomId);
 
   if (!chatRoom) {
     notFound();

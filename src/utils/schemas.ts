@@ -1,8 +1,3 @@
-import {
-  LucideMessagesSquare,
-  LucidePlusSquare,
-  LucideUserSearch,
-} from "lucide-react";
 import { z } from "zod";
 
 const nameSchema = z
@@ -32,14 +27,6 @@ export const SignupFormSchema = SigninFormSchema.extend({
       "正しい形式のファイルを選択してください",
     ),
 });
-
-export type SessionPayload = {
-  user: {
-    id: string;
-    name: string;
-    image: string | null;
-  };
-};
 
 export const CreateChatRoomSchema = z.object({
   name: nameSchema,
@@ -74,21 +61,3 @@ export function transformMultipleFileInput(input: unknown) {
   }
   return Array.from(input as FileList);
 }
-
-export const navItems = [
-  {
-    path: "/chat-rooms",
-    name: "全てのチャットルーム",
-    icon: <LucideMessagesSquare className="size-6" />,
-  },
-  {
-    path: "/chat-rooms/create",
-    name: "新しいチャットルームを作成",
-    icon: <LucidePlusSquare className="size-6" />,
-  },
-  {
-    path: "/users",
-    name: "ユーザー検索",
-    icon: <LucideUserSearch className="size-6" />,
-  },
-];

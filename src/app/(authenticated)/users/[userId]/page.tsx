@@ -1,7 +1,7 @@
 import RoomCard from "@/components/room-card";
 import { notFound } from "next/navigation";
-import prisma from "@/utils/prisma";
-import { roomValidator } from "@/utils/prisma-validator";
+import prisma from "@/libs/prisma";
+import { roomCardValidator } from "@/utils/prisma-validator";
 import PageHeader from "@/components/layout/page-header";
 import Bottombar from "@/components/layout/bottombar";
 
@@ -14,7 +14,7 @@ export default async function Page({
 
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    include: { chatRooms: roomValidator },
+    include: { chatRooms: roomCardValidator },
   });
 
   if (!user) {

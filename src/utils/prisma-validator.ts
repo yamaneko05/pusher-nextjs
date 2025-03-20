@@ -1,37 +1,80 @@
 import { Prisma } from "@prisma/client";
 
-export const roomValidator = Prisma.validator<Prisma.ChatRoomDefaultArgs>()({
-  include: {
-    owner: true,
-    chatMessages: {
-      take: 1,
-      include: {
-        user: true,
+export const roomCardValidator = Prisma.validator<Prisma.ChatRoomDefaultArgs>()(
+  {
+    select: {
+      id: true,
+      name: true,
+      owner: {
+        select: {
+          id: true,
+          image: true,
+        },
+      },
+      chatMessages: {
+        take: 1,
+        select: {
+          text: true,
+          createdAt: true,
+          user: {
+            select: {
+              name: true,
+            },
+          },
+        },
       },
     },
   },
-});
+);
 
-export const messageValidator =
-  Prisma.validator<Prisma.ChatMessageDefaultArgs>()({
-    include: { user: true, attachments: true },
-  });
-
-export const chatRoomWithMessages =
-  Prisma.validator<Prisma.ChatRoomDefaultArgs>()({
-    include: {
-      chatMessages: messageValidator,
+export const attachmentCardValidator =
+  Prisma.validator<Prisma.ChatMessageAttachmentDefaultArgs>()({
+    select: {
+      id: true,
+      path: true,
     },
   });
 
-export const userValidator = Prisma.validator<Prisma.UserDefaultArgs>()({});
+export const messageValidator =
+  Prisma.validator<Prisma.ChatMessageDefaultArgs>()({
+    select: {
+      id: true,
+      text: true,
+      chatRoomId: true,
+      createdAt: true,
+      user: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+        },
+      },
+      attachments: attachmentCardValidator,
+    },
+  });
 
-export type RoomValidator = Prisma.ChatRoomGetPayload<typeof roomValidator>;
+export const roomWithMessages = Prisma.validator<Prisma.ChatRoomDefaultArgs>()({
+  select: {
+    id: true,
+    name: true,
+    chatMessages: messageValidator,
+  },
+});
 
-export type MessageValidator = Prisma.ChatMessageGetPayload<
-  typeof messageValidator
->;
+export const userCardValidator = Prisma.validator<Prisma.UserDefaultArgs>()({
+  select: {
+    id: true,
+    name: true,
+    image: true,
+  },
+});
 
-export type RoomWithMessages = Prisma.ChatRoomGetPayload<
-  typeof chatRoomWithMessages
->;
+export const adminUserCardValidator =
+  Prisma.validator<Prisma.UserDefaultArgs>()({
+    select: {
+      id: true,
+      name: true,
+      image: true,
+      email: true,
+    },
+  });

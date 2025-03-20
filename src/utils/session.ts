@@ -1,5 +1,5 @@
 import { jwtVerify, SignJWT } from "jose";
-import { SessionPayload } from "./definitions";
+import { SessionPayload } from "./types";
 import { cookies } from "next/headers";
 import { cache } from "react";
 

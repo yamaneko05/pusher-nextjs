@@ -2,14 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import MessageCard from "./message-card";
-import { MessageValidator } from "@/utils/prisma-validator";
-import { pusherClient } from "@/utils/pusher-client";
+import { pusherClient } from "@/libs/pusher-client";
+import { MessageForCard } from "@/utils/types";
 
 export default function MessageList({
   messages: defaultMessages,
   chatRoomId,
 }: {
-  messages: MessageValidator[];
+  messages: MessageForCard[];
   chatRoomId: string;
 }) {
   const endDiv = useRef<HTMLDivElement>(null);
@@ -17,7 +17,7 @@ export default function MessageList({
 
   useEffect(() => {
     const channel = pusherClient.subscribe("chat-room");
-    channel.bind(chatRoomId, (message: MessageValidator) => {
+    channel.bind(chatRoomId, (message: MessageForCard) => {
       setMessages((prev) => [...prev, message]);
     });
 

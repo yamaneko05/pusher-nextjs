@@ -1,9 +1,9 @@
-import { supabase } from "./supabase";
+import { supabase } from "../libs/supabase";
 
 export async function upload(
   bucketId: string,
   path: string,
-  fileBody: Buffer | ArrayBuffer
+  fileBody: Buffer | ArrayBuffer,
 ) {
   const { data, error } = await supabase.storage
     .from(bucketId)

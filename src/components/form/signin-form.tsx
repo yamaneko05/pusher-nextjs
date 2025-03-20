@@ -1,7 +1,7 @@
 "use client";
 
 import { signinAction } from "@/actions/auth-actions";
-import { SigninFormSchema } from "@/utils/definitions";
+import { SigninFormSchema } from "@/utils/schemas";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useActionState } from "react";

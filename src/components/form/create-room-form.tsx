@@ -1,7 +1,7 @@
 "use client";
 
 import { createRoomAction } from "@/actions/room-actions";
-import { CreateChatRoomSchema } from "@/utils/definitions";
+import { CreateChatRoomSchema } from "@/utils/schemas";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useActionState } from "react";

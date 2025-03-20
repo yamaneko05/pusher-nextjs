@@ -1,20 +1,14 @@
 import { getPublicUrl } from "@/utils/storage";
-import { User } from "@prisma/client";
-import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { deleteUserUsecase } from "@/usecase/user/delete-user-usecase";
+import { deleteUserAction } from "@/actions/user-actions";
+import { UserForAdminCard } from "@/utils/types";
 
-export default function AdminUserCard({
-  user,
-}: {
-  user: Omit<User, "password">;
-}) {
+export default function AdminUserCard({ user }: { user: UserForAdminCard }) {
   const handleDeleteClick = async () => {
     "use server";
 
-    await deleteUserUsecase(user.id);
-    revalidatePath("/admin/users");
+    await deleteUserAction(user.id);
   };
 
   return (
