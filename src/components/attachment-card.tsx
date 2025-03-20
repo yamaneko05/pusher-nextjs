@@ -1,4 +1,4 @@
-import { getPublicUrl } from "@/utils/storage";
+import { storage } from "@/utils/storage";
 import { AttachmentForCard } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ export default function AttachmentCard({
 }: {
   attachment: AttachmentForCard;
 }) {
-  const src = getPublicUrl("chat-message-attachments", attachment.path);
+  const src = storage.getPublicUrl("chat-message-attachments", attachment.path);
   return (
     <Link href={src} target="_blank">
       <Image

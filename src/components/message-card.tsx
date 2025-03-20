@@ -1,7 +1,7 @@
 import { dayjsInstance } from "@/libs/dayjs";
 import Link from "next/link";
 import Image from "next/image";
-import { getPublicUrl } from "@/utils/storage";
+import { storage } from "@/utils/storage";
 import { deleteMessageAction } from "@/actions/message-actions";
 import AttachmentCard from "./attachment-card";
 import { MessageForCard } from "@/utils/types";
@@ -15,7 +15,7 @@ export default function MessageCard({ message }: { message: MessageForCard }) {
     <div className="flex gap-3">
       <Link href={`/users/${message.user.id}`} className="pt-1">
         <Image
-          src={getPublicUrl("avatars", message.user.image)}
+          src={storage.getPublicUrl("avatars", message.user.image)}
           alt=""
           fill
           className="relative! size-10! rounded-full"

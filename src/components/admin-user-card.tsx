@@ -1,4 +1,4 @@
-import { getPublicUrl } from "@/utils/storage";
+import { storage } from "@/utils/storage";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { deleteUserAction } from "@/actions/user-actions";
@@ -15,7 +15,7 @@ export default function AdminUserCard({ user }: { user: UserForAdminCard }) {
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center gap-2">
         <Image
-          src={getPublicUrl("avatars", user.image)}
+          src={storage.getPublicUrl("avatars", user.image)}
           alt=""
           className="size-8 rounded-full"
           width={300}

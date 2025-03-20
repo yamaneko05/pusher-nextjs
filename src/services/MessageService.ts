@@ -2,8 +2,7 @@ import { AttachmentRepository } from "@/repositories/AttachmentRepository";
 import { MessageRepository } from "@/repositories/MessageRepository";
 import { pusherServer } from "@/libs/pusher-server";
 import { getSessionPayload } from "@/utils/session";
-import { upload } from "@/utils/storage";
-import { remove } from "@/utils/storage";
+import { storage } from "@/utils/storage";
 
 export class MessageService {
   constructor(private messageRepository: MessageRepository) {}
@@ -19,7 +18,7 @@ export class MessageService {
         const path = crypto.randomUUID() + ".webp";
 
         const fileBody = await file.arrayBuffer();
-        await upload("chat-message-attachments", path, fileBody);
+        await storage.upload("chat-message-attachments", path, fileBody);
 
         return path;
       }),
@@ -42,7 +41,7 @@ export class MessageService {
 
     if (attachments.length > 0) {
       const paths = attachments.map((attachment) => attachment.path);
-      await remove("chat-message-attachments", paths);
+      await storage.remove("chat-message-attachments", paths);
     }
 
     await attachmentRepository.deleteManyByMessageId(id);

@@ -1,6 +1,6 @@
 import { signoutAction } from "@/actions/auth-actions";
 import { getSessionPayload } from "@/utils/session";
-import { getPublicUrl } from "@/utils/storage";
+import { storage } from "@/utils/storage";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/navigation";
@@ -21,7 +21,7 @@ export default async function Sidebar() {
         <div className="flex flex-col items-center">
           <Link href={`/users/${payload!.user.id}`}>
             <Image
-              src={getPublicUrl("avatars", payload!.user.image)}
+              src={storage.getPublicUrl("avatars", payload!.user.image)}
               alt=""
               className="size-24 rounded-full border border-neutral-300"
               width={300}

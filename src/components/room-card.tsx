@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { dayjsInstance } from "@/libs/dayjs";
 import Image from "next/image";
-import { getPublicUrl } from "@/utils/storage";
+import { storage } from "@/utils/storage";
 import { RoomForCard } from "@/utils/types";
 
 export default function RoomCard({ room }: { room: RoomForCard }) {
   return (
     <Link href={`/chat-rooms/${room.id}`} className="flex items-center gap-3">
       <Image
-        src={getPublicUrl("avatars", room.owner.image)}
+        src={storage.getPublicUrl("avatars", room.owner.image)}
         alt=""
         fill
         className="relative! size-12! rounded-full"

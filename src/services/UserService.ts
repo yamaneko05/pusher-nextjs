@@ -1,5 +1,5 @@
 import { UserRepository } from "@/repositories/UserRepository";
-import { remove } from "@/utils/storage";
+import { storage } from "@/utils/storage";
 
 export class UserService {
   constructor(private userRepository: UserRepository) {}
@@ -8,7 +8,7 @@ export class UserService {
     const user = await this.userRepository.delete(id);
 
     if (user.image) {
-      await remove("avatars", [user.image]);
+      await storage.remove("avatars", [user.image]);
     }
   }
 

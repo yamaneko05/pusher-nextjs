@@ -2,8 +2,8 @@ import { comparePassword } from "@/utils/password";
 import { createSession, deleteSession } from "@/utils/session";
 import { resizeImage } from "@/utils/image";
 import { encryptPassword } from "@/utils/password";
-import { upload } from "@/utils/storage";
 import { UserRepository } from "@/repositories/UserRepository";
+import { storage } from "@/utils/storage";
 
 export class AuthService {
   constructor(private userRepository: UserRepository) {}
@@ -32,7 +32,7 @@ export class AuthService {
     const imageBuffer = await image.arrayBuffer();
     const resized = await resizeImage(imageBuffer);
     const path = crypto.randomUUID() + ".webp";
-    await upload("avatars", path, resized);
+    await storage.upload("avatars", path, resized);
 
     const user = await this.userRepository.create(
       name,
