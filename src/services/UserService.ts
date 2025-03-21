@@ -1,4 +1,5 @@
 import { UserRepository } from "@/repositories/UserRepository";
+import { getSessionPayload } from "@/utils/session";
 import { storage } from "@/utils/storage";
 
 export class UserService {
@@ -13,7 +14,16 @@ export class UserService {
   }
 
   async search(name: string) {
-    const results = await this.userRepository.findManyByName(name);
+    const session = await getSessionPayload();
+
+    if (!session) {
+      throw new Error("unauthorized");
+    }
+
+    const results = await this.userRepository.findManyByName(
+      name,
+      session.user.id,
+    );
 
     return results;
   }

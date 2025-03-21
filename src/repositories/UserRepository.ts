@@ -1,4 +1,5 @@
 import prisma from "@/libs/prisma";
+import { userCardValidator } from "@/utils/prisma-validator";
 
 export class UserRepository {
   async findByEmail(email: string) {
@@ -27,8 +28,25 @@ export class UserRepository {
     });
   }
 
-  async findManyByName(name: string) {
+  async findManyByName(name: string, sessionUserId: string) {
     return await prisma.user.findMany({
+      select: {
+        ...userCardValidator.select,
+        _count: {
+          select: {
+            friends: {
+              where: {
+                id: sessionUserId,
+              },
+            },
+            receivedRequests: {
+              where: {
+                senderId: sessionUserId,
+              },
+            },
+          },
+        },
+      },
       where: {
         name: {
           contains: name,

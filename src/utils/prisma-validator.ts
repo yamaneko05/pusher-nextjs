@@ -66,6 +66,12 @@ export const userCardValidator = Prisma.validator<Prisma.UserDefaultArgs>()({
     id: true,
     name: true,
     image: true,
+    _count: {
+      select: {
+        friends: true,
+        receivedRequests: true,
+      },
+    },
   },
 });
 

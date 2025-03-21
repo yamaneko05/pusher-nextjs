@@ -1,16 +1,16 @@
 "use client";
 
 import { searchUserAction } from "@/actions/user-actions";
-import { User } from "@prisma/client";
 import { useRef, useState } from "react";
 import { Input } from "./ui/input";
 import UserCard from "./user-card";
 import { Loader2 } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
+import { UserForCard } from "@/utils/types";
 
 export default function SearchUserCard() {
   const [word, setWord] = useState("");
-  const [results, setResults] = useState<Omit<User, "password">[]>([]);
+  const [results, setResults] = useState<UserForCard[]>([]);
   const [searching, setSearching] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout>(null);
 
