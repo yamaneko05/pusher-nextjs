@@ -1,4 +1,4 @@
-import RoomCard from "./room-card";
+import RoomCard from "@/components/card/room-card";
 import { RoomRepository } from "@/repositories/RoomRepository";
 
 export default async function ChatRoomList() {

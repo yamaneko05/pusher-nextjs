@@ -1,4 +1,4 @@
-import RoomCard from "@/components/room-card";
+import RoomCard from "@/components/card/room-card";
 import { notFound } from "next/navigation";
 import PageHeader from "@/components/layout/page-header";
 import Bottombar from "@/components/layout/bottombar";

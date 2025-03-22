@@ -1,4 +1,4 @@
-import UserCard from "@/components/admin-user-card";
+import UserCard from "@/components/card/admin-user-card";
 import PageHeader from "@/components/layout/page-header";
 import Bottombar from "@/components/layout/bottombar";
 import { UserRepository } from "@/repositories/UserRepository";

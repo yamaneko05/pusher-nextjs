@@ -1,4 +1,4 @@
-import UserCard from "../user-card";
+import UserCard from "../card/user-card";
 import { FriendRequestRepository } from "@/repositories/FriendRequestRepository";
 
 export default async function FriendList({ userId }: { userId: string }) {

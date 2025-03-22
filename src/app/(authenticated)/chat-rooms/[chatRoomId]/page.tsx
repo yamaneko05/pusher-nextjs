@@ -1,4 +1,4 @@
-import MessageList from "@/components/message-list";
+import MessageList from "@/components/list/message-list";
 import CreateMessageForm from "@/components/form/create-message-form";
 import { notFound } from "next/navigation";
 import PageHeader from "@/components/layout/page-header";

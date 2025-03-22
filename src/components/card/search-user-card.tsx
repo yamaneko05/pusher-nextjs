@@ -2,15 +2,15 @@
 
 import { searchUserAction } from "@/actions/user-actions";
 import { useRef, useState } from "react";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { Loader2 } from "lucide-react";
-import { Card, CardContent } from "./ui/card";
-import { UserForSearch } from "@/utils/types";
+import { Card, CardContent } from "../ui/card";
 import UserCardForSearch from "./user-card";
+import { UserForCard } from "@/utils/types";
 
 export default function SearchUserCard() {
   const [word, setWord] = useState("");
-  const [results, setResults] = useState<UserForSearch[]>([]);
+  const [results, setResults] = useState<UserForCard[]>([]);
   const [searching, setSearching] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout>(null);
 

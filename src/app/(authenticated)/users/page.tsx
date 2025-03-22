@@ -1,4 +1,4 @@
-import SearchUserCard from "@/components/search-user-card";
+import SearchUserCard from "@/components/card/search-user-card";
 import Bottombar from "@/components/layout/bottombar";
 import PageHeader from "@/components/layout/page-header";
 

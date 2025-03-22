@@ -1,11 +1,13 @@
 "use client";
 
 import { UserForCard } from "@/utils/types";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { sendFriendRequestAction } from "@/actions/friend-request-actions";
 import { useContext, useState } from "react";
 import { SessionContext } from "@/utils/context";
-import UserCardBase from "./user-base";
+import Image from "next/image";
+import Link from "next/link";
+import { storage } from "@/utils/storage";
 
 export default function UserCard({ user }: { user: UserForCard }) {
   const handleSendFriendRequestButtonClick = async () => {
@@ -23,7 +25,16 @@ export default function UserCard({ user }: { user: UserForCard }) {
   );
 
   return (
-    <UserCardBase user={user}>
+    <div className="flex items-center gap-4">
+      <Link href={`/users/${user.id}`}>
+        <Image
+          src={storage.getPublicUrl("avatars", user.image)}
+          alt=""
+          fill
+          className="relative! size-12! rounded-full"
+        />
+      </Link>
+      <div className="font-bold">{user.name}</div>
       {!isMe &&
         (alreadyFriend ? (
           <Button variant={"destructive"}>友達から削除</Button>
@@ -34,6 +45,6 @@ export default function UserCard({ user }: { user: UserForCard }) {
             友達申請する
           </Button>
         ))}
-    </UserCardBase>
+    </div>
   );
 }

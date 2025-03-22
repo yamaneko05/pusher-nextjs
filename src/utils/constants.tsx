@@ -21,3 +21,15 @@ export const navItems = [
     icon: <LucideUserSearch className="size-6" />,
   },
 ];
+
+export const navItemsForSidebar = [
+  ...navItems,
+  {
+    path: "/admin/users",
+    name: "ユーザー管理",
+  },
+  {
+    path: "/friends",
+    name: "友達",
+  },
+];
