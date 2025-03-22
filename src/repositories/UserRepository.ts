@@ -1,13 +1,22 @@
 import prisma from "@/libs/prisma";
-import { userCardValidator } from "@/utils/prisma-validator";
+import { UserValidator } from "@/validators/UserValidator";
 
 export class UserRepository {
+  private userValidator = UserValidator.create();
+
   async findByEmail(email: string) {
     return await prisma.user.findUnique({
       where: { email },
       omit: {
         password: false,
       },
+    });
+  }
+
+  async findById(id: string) {
+    return await prisma.user.findUnique({
+      where: { id },
+      ...this.userValidator.forPage,
     });
   }
 
@@ -28,25 +37,9 @@ export class UserRepository {
     });
   }
 
-  async findManyByName(name: string, sessionUserId: string) {
+  async findManyByName(name: string) {
     return await prisma.user.findMany({
-      select: {
-        ...userCardValidator.select,
-        _count: {
-          select: {
-            friends: {
-              where: {
-                id: sessionUserId,
-              },
-            },
-            receivedRequests: {
-              where: {
-                senderId: sessionUserId,
-              },
-            },
-          },
-        },
-      },
+      ...this.userValidator.forCard,
       where: {
         name: {
           contains: name,
@@ -56,6 +49,19 @@ export class UserRepository {
   }
 
   async getAll() {
-    return await prisma.user.findMany();
+    return await prisma.user.findMany(this.userValidator.forAdmin);
+  }
+
+  async getFriends(id: string) {
+    return await prisma.user.findMany({
+      ...this.userValidator.forCard,
+      where: {
+        friends: {
+          some: {
+            id,
+          },
+        },
+      },
+    });
   }
 }

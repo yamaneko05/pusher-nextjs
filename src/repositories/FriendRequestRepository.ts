@@ -1,7 +1,6 @@
 import prisma from "@/libs/prisma";
-import { FriendRequest } from "@prisma/client";
 
-export class FriendRequestRepository implements IFriendRequestRepository {
+export class FriendRequestRepository {
   async create(senderId: string, receiverId: string) {
     return await prisma.friendRequest.create({
       data: {
@@ -10,9 +9,12 @@ export class FriendRequestRepository implements IFriendRequestRepository {
       },
     });
   }
-}
 
-export interface IFriendRequestRepository {
-  create(senderId: string, receiverId: string): Promise<FriendRequest>;
-  // delete(id: string): Promise<FriendRequest>;
+  async findManyByReceiverId(receiverId: string) {
+    return await prisma.friendRequest.findMany({
+      where: {
+        receiverId,
+      },
+    });
+  }
 }

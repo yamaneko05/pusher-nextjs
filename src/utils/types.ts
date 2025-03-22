@@ -1,26 +1,28 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Prisma } from "@prisma/client";
-import {
-  adminUserCardValidator,
-  attachmentCardValidator,
-  messageValidator,
-  roomCardValidator,
-  userCardValidator,
-} from "./prisma-validator";
+import { UserValidator } from "@/validators/UserValidator";
+import { RoomValidator } from "@/validators/RoomValidator";
+import { AttachmentValidator } from "@/validators/AttachmentValidator";
+import { MessageValidator } from "@/validators/MessageValidator";
 
-export type RoomForCard = Prisma.ChatRoomGetPayload<typeof roomCardValidator>;
-
-export type AttachmentForCard = Prisma.ChatMessageAttachmentGetPayload<
-  typeof attachmentCardValidator
+const roomValidator = RoomValidator.create();
+export type RoomForCard = Prisma.ChatRoomGetPayload<
+  typeof roomValidator.forCard
 >;
 
-export type UserForCard = Prisma.UserGetPayload<typeof userCardValidator>;
-
-export type UserForAdminCard = Prisma.UserGetPayload<
-  typeof adminUserCardValidator
+const attachmentValidator = AttachmentValidator.create();
+export type AttachmentBase = Prisma.ChatMessageAttachmentGetPayload<
+  typeof attachmentValidator.base
 >;
 
+const userValidator = UserValidator.create();
+export type UserBase = Prisma.UserGetPayload<typeof userValidator.base>;
+export type UserForCard = Prisma.UserGetPayload<typeof userValidator.forCard>;
+export type UserForAdmin = Prisma.UserGetPayload<typeof userValidator.forAdmin>;
+
+const messageValidator = MessageValidator.create();
 export type MessageForCard = Prisma.ChatMessageGetPayload<
-  typeof messageValidator
+  typeof messageValidator.base
 >;
 
 export type SessionPayload = {

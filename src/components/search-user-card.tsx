@@ -3,14 +3,14 @@
 import { searchUserAction } from "@/actions/user-actions";
 import { useRef, useState } from "react";
 import { Input } from "./ui/input";
-import UserCard from "./user-card";
 import { Loader2 } from "lucide-react";
 import { Card, CardContent } from "./ui/card";
-import { UserForCard } from "@/utils/types";
+import { UserForSearch } from "@/utils/types";
+import UserCardForSearch from "./user-card";
 
 export default function SearchUserCard() {
   const [word, setWord] = useState("");
-  const [results, setResults] = useState<UserForCard[]>([]);
+  const [results, setResults] = useState<UserForSearch[]>([]);
   const [searching, setSearching] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout>(null);
 
@@ -42,7 +42,7 @@ export default function SearchUserCard() {
           <div>検索結果</div>
           <div className="mt-2 flex flex-col gap-6">
             {results.map((user) => (
-              <UserCard key={user.id} user={user} />
+              <UserCardForSearch key={user.id} user={user} />
             ))}
           </div>
           {searching && (

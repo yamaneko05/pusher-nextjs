@@ -1,8 +1,8 @@
-import { IFriendRequestRepository } from "@/repositories/FriendRequestRepository";
+import { FriendRequestRepository } from "@/repositories/FriendRequestRepository";
 import { getSessionPayload } from "@/utils/session";
 
 export class FriendRequestService {
-  constructor(private friendRequestRepository: IFriendRequestRepository) {}
+  constructor(private friendRequestRepository: FriendRequestRepository) {}
 
   async send(receiverId: string) {
     const session = await getSessionPayload();

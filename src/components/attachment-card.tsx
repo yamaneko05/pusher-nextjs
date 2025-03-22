@@ -1,12 +1,12 @@
 import { storage } from "@/utils/storage";
-import { AttachmentForCard } from "@/utils/types";
+import { AttachmentBase } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function AttachmentCard({
   attachment,
 }: {
-  attachment: AttachmentForCard;
+  attachment: AttachmentBase;
 }) {
   const src = storage.getPublicUrl("chat-message-attachments", attachment.path);
   return (

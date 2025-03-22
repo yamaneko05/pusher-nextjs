@@ -2,9 +2,9 @@ import { storage } from "@/utils/storage";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { deleteUserAction } from "@/actions/user-actions";
-import { UserForAdminCard } from "@/utils/types";
+import { UserForAdmin } from "@/utils/types";
 
-export default function AdminUserCard({ user }: { user: UserForAdminCard }) {
+export default function AdminUserCard({ user }: { user: UserForAdmin }) {
   const handleDeleteClick = async () => {
     "use server";
 
