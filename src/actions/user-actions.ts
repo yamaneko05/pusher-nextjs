@@ -19,3 +19,11 @@ export async function deleteUserAction(id: string) {
 
   revalidatePath("/admin/users");
 }
+
+export async function dissolveFriendshipAction(friendId: string) {
+  const userRepository = new UserRepository();
+  const userService = new UserService(userRepository);
+  await userService.dissolveFriendship(friendId);
+
+  revalidatePath("/friends");
+}

@@ -64,4 +64,26 @@ export class UserRepository {
       },
     });
   }
+
+  async addFriend(id: string, friendId: string) {
+    return await prisma.user.update({
+      where: { id },
+      data: {
+        friends: {
+          connect: { id: friendId },
+        },
+      },
+    });
+  }
+
+  async removeFriend(id: string, friendId: string) {
+    return await prisma.user.update({
+      where: { id },
+      data: {
+        friends: {
+          disconnect: { id: friendId },
+        },
+      },
+    });
+  }
 }

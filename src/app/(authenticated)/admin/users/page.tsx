@@ -11,7 +11,7 @@ export default async function Page() {
     <>
       <PageHeader pageHeading="ユーザー管理" prevHref="/" />
       <div className="p-3 pb-24">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col">
           {users.map((user) => (
             <UserCard key={user.id} user={user} />
           ))}

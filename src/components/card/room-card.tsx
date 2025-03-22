@@ -6,7 +6,10 @@ import { RoomForCard } from "@/utils/types";
 
 export default function RoomCard({ room }: { room: RoomForCard }) {
   return (
-    <Link href={`/chat-rooms/${room.id}`} className="flex items-center gap-3">
+    <Link
+      href={`/chat-rooms/${room.id}`}
+      className="flex items-center gap-3 py-2"
+    >
       <Image
         src={storage.getPublicUrl("avatars", room.owner.image)}
         alt=""

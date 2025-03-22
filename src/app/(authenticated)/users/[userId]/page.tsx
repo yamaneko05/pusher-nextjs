@@ -26,7 +26,7 @@ export default async function Page({
           <div>ID: {user.id}</div>
           <div>メールアドレス: {user.email}</div>
         </div>
-        <div className="mt-4 flex flex-col gap-4">
+        <div className="mt-4">
           {user.chatRooms.map((room) => (
             <RoomCard key={room.id} room={room} />
           ))}

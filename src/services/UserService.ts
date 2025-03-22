@@ -20,11 +20,19 @@ export class UserService {
       throw new Error("unauthorized");
     }
 
-    const results = await this.userRepository.findManyByName(
-      name,
-      session.user.id,
-    );
+    const results = await this.userRepository.findManyByName(name);
 
     return results;
+  }
+
+  async dissolveFriendship(friendId: string) {
+    const session = await getSessionPayload();
+
+    if (!session) {
+      throw new Error("unauthorized");
+    }
+
+    await this.userRepository.removeFriend(session.user.id, friendId);
+    await this.userRepository.removeFriend(friendId, session.user.id);
   }
 }

@@ -4,6 +4,7 @@ import { UserValidator } from "@/validators/UserValidator";
 import { RoomValidator } from "@/validators/RoomValidator";
 import { AttachmentValidator } from "@/validators/AttachmentValidator";
 import { MessageValidator } from "@/validators/MessageValidator";
+import { FriendRequestValidator } from "@/validators/FriendRequestValidator";
 
 const roomValidator = RoomValidator.create();
 export type RoomForCard = Prisma.ChatRoomGetPayload<
@@ -23,6 +24,11 @@ export type UserForAdmin = Prisma.UserGetPayload<typeof userValidator.forAdmin>;
 const messageValidator = MessageValidator.create();
 export type MessageForCard = Prisma.ChatMessageGetPayload<
   typeof messageValidator.base
+>;
+
+const friendRequestValidator = FriendRequestValidator.create();
+export type FriendRequestBase = Prisma.FriendRequestGetPayload<
+  typeof friendRequestValidator.base
 >;
 
 export type SessionPayload = {

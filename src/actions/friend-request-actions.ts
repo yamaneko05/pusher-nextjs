@@ -13,3 +13,23 @@ export async function sendFriendRequestAction(receiverId: string) {
 
   revalidatePath("/users");
 }
+
+export async function acceptFriendRequestAction(id: string) {
+  const friendRequestRepository = new FriendRequestRepository();
+  const friendRequestService = new FriendRequestService(
+    friendRequestRepository,
+  );
+  await friendRequestService.accept(id);
+
+  revalidatePath("/friends");
+}
+
+export async function rejectFriendRequestAction(id: string) {
+  const friendRequestRepository = new FriendRequestRepository();
+  const friendRequestService = new FriendRequestService(
+    friendRequestRepository,
+  );
+  await friendRequestService.reject(id);
+
+  revalidatePath("/friends");
+}

@@ -6,7 +6,7 @@ export default async function FriendList({ userId }: { userId: string }) {
   const friends = await userRepository.getFriends(userId);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="">
       {friends.map((user) => (
         <UserCard key={user.id} user={user} />
       ))}

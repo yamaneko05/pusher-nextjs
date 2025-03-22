@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { Input } from "../ui/input";
 import { Loader2 } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import UserCardForSearch from "./user-card";
+import UserCard from "./user-card";
 import { UserForCard } from "@/utils/types";
 
 export default function SearchUserCard() {
@@ -40,9 +40,9 @@ export default function SearchUserCard() {
         />
         <div className="mt-4">
           <div>検索結果</div>
-          <div className="mt-2 flex flex-col gap-6">
+          <div className="mt-2 flex flex-col">
             {results.map((user) => (
-              <UserCardForSearch key={user.id} user={user} />
+              <UserCard key={user.id} user={user} />
             ))}
           </div>
           {searching && (

@@ -14,10 +14,15 @@ export class UserValidator {
     const forCard = Prisma.validator<Prisma.UserDefaultArgs>()({
       select: {
         ...base.select,
-        _count: {
+        friends: {
           select: {
-            friends: true,
-            receivedRequests: true,
+            id: true,
+          },
+        },
+        receivedRequests: {
+          select: {
+            senderId: true,
+            status: true,
           },
         },
       },
