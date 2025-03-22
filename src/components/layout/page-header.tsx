@@ -12,7 +12,7 @@ export default function PageHeader({
     <div className="border-b p-3">
       <div className="flex items-center gap-2">
         <Link href={prevHref}>
-          <LucideChevronLeft size={32} />
+          <LucideChevronLeft size={28} />
         </Link>
         <div className="text-lg font-bold sm:text-xl">{pageHeading}</div>
       </div>

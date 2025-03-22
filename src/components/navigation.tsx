@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { buttonVariants } from "./ui/button";
-import { navItemsForSidebar } from "@/utils/constants";
+import { navItems } from "@/utils/constants";
 
 export default function Navigation() {
   const pathname = usePathname();
 
   return (
     <div className="flex flex-col gap-2">
-      {navItemsForSidebar.map((navItem, i) => (
+      {navItems.map((navItem, i) => (
         <Link
           key={i}
           href={navItem.path}

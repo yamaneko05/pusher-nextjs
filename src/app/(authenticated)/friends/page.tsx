@@ -1,6 +1,7 @@
-import PageHeader from "@/components/layout/page-header";
+import Bottombar from "@/components/layout/bottombar";
 import FriendList from "@/components/list/friend-list";
 import FriendRequestList from "@/components/list/friend-request-list";
+import SectionHeading from "@/components/section-heading";
 import { getSessionPayload } from "@/utils/session";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -11,10 +12,9 @@ export default async function Page() {
 
   return (
     <>
-      <PageHeader pageHeading="友達" prevHref="/" />
       <div className="p-3 pb-24">
         <div className="">
-          <div className="text-lg font-bold">友達</div>
+          <SectionHeading>友達</SectionHeading>
           <div className="mt-3">
             <Suspense fallback={"...loading"}>
               <FriendList userId={session.user.id} />
@@ -22,7 +22,7 @@ export default async function Page() {
           </div>
         </div>
         <div className="mt-8">
-          <div className="text-lg font-bold">受け取った申請</div>
+          <SectionHeading>受け取った申請</SectionHeading>
           <div className="mt-3">
             <Suspense fallback={"...loading"}>
               <FriendRequestList userId={session.user.id} />
@@ -30,6 +30,7 @@ export default async function Page() {
           </div>
         </div>
       </div>
+      <Bottombar />
     </>
   );
 }

@@ -1,13 +1,15 @@
-import SearchUserCard from "@/components/card/search-user-card";
+import SearchUser from "@/components/search-user";
 import Bottombar from "@/components/layout/bottombar";
-import PageHeader from "@/components/layout/page-header";
+import SectionHeading from "@/components/section-heading";
 
 export default async function Page() {
   return (
     <>
-      <PageHeader pageHeading="ユーザー検索" prevHref="/" />
       <div className="p-3 pb-24">
-        <SearchUserCard />
+        <SectionHeading>ユーザー検索</SectionHeading>
+        <div className="mt-3 max-w-96">
+          <SearchUser />
+        </div>
       </div>
       <Bottombar />
     </>
