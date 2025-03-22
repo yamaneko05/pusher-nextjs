@@ -12,14 +12,13 @@ export default function AdminUserCard({ user }: { user: UserForAdmin }) {
   };
 
   return (
-    <div className="flex flex-col gap-1.5 py-2">
+    <div className="flex flex-col gap-1.5 py-3">
       <div className="flex items-center gap-2">
         <Image
           src={storage.getPublicUrl("avatars", user.image)}
           alt=""
-          className="size-8 rounded-full"
-          width={300}
-          height={300}
+          fill
+          className="relative! size-10! rounded-full"
         />
         <div className="font-bold">{user.name}</div>
         <Button onClick={handleDeleteClick} variant={"destructive"} size={"sm"}>

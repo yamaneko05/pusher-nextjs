@@ -10,12 +10,14 @@ export default async function Sidebar() {
   const payload = await getSessionPayload();
 
   return (
-    <div className="fixed hidden h-screen w-64 border-r p-3 pb-12 sm:block">
+    <div className="fixed hidden h-screen w-64 border-r px-3 py-12 sm:block">
       <div className="flex h-full flex-col justify-between">
         <div className="flex flex-col gap-8">
-          <Link href={"/"} className="text-xl font-bold">
-            Pusher Next.js
-          </Link>
+          <div className="pl-4">
+            <Link href={"/"} className="text-xl font-bold">
+              Pusher Next.js
+            </Link>
+          </div>
           <Navigation />
         </div>
         <div className="flex flex-col items-center">
@@ -23,9 +25,9 @@ export default async function Sidebar() {
             <Image
               src={storage.getPublicUrl("avatars", payload!.user.image)}
               alt=""
-              className="size-24 rounded-full border border-neutral-300"
-              width={300}
-              height={300}
+              className="rounded-full border border-neutral-300"
+              width={96}
+              height={96}
             />
           </Link>
           <div className="mt-3 font-bold">{payload!.user.name}</div>

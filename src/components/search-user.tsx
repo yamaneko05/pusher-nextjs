@@ -3,9 +3,9 @@
 import { searchUserAction } from "@/actions/user-actions";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "./ui/input";
-import { Loader2 } from "lucide-react";
 import UserCard from "./card/user-card";
 import { UserForCard } from "@/utils/types";
+import UserListFallback from "./fallback/user-list-fallback";
 
 export default function SearchUser() {
   const [word, setWord] = useState("");
@@ -25,7 +25,7 @@ export default function SearchUser() {
       const newResults = await searchUserAction(newWord);
       setResults(newResults);
       setSearching(false);
-    }, 1000);
+    }, 500);
   };
 
   useEffect(() => {
@@ -45,20 +45,17 @@ export default function SearchUser() {
         onChange={handleChange}
         placeholder="ユーザー名を入力して検索"
       />
-      <div className="mt-2 flex flex-col">
-        {results.map((user) => (
-          <UserCard key={user.id} user={user} />
-        ))}
+      <div className="mt-2">
+        {searching ? (
+          <UserListFallback length={5} />
+        ) : (
+          <>
+            {results.map((user) => (
+              <UserCard key={user.id} user={user} />
+            ))}
+          </>
+        )}
       </div>
-      {searching && (
-        <div className="mt-4 flex justify-center">
-          <Loader2
-            size={32}
-            strokeWidth={2}
-            className="animate-spin text-neutral-500"
-          />
-        </div>
-      )}
     </>
   );
 }

@@ -20,10 +20,7 @@ export default async function Page({
 
   return (
     <div className="flex h-screen flex-col">
-      <PageHeader
-        pageHeading={`チャットルーム: ${chatRoom.name}`}
-        prevHref={"/chat-rooms"}
-      />
+      <PageHeader>チャットルーム: {chatRoom.name}</PageHeader>
       <MessageList messages={chatRoom.chatMessages} chatRoomId={chatRoom.id} />
       <CreateMessageForm chatRoomId={chatRoom.id} />
     </div>

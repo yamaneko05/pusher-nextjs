@@ -1,3 +1,4 @@
+import UserListFallback from "@/components/fallback/user-list-fallback";
 import Bottombar from "@/components/layout/bottombar";
 import FriendList from "@/components/list/friend-list";
 import FriendRequestList from "@/components/list/friend-request-list";
@@ -16,7 +17,7 @@ export default async function Page() {
         <div className="">
           <SectionHeading>友達</SectionHeading>
           <div className="mt-3">
-            <Suspense fallback={"...loading"}>
+            <Suspense fallback={<UserListFallback length={3} />}>
               <FriendList userId={session.user.id} />
             </Suspense>
           </div>
@@ -24,7 +25,7 @@ export default async function Page() {
         <div className="mt-8">
           <SectionHeading>受け取った申請</SectionHeading>
           <div className="mt-3">
-            <Suspense fallback={"...loading"}>
+            <Suspense fallback={<UserListFallback length={3} />}>
               <FriendRequestList userId={session.user.id} />
             </Suspense>
           </div>

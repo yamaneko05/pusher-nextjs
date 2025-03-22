@@ -1,20 +1,26 @@
+"use client";
+
 import { LucideChevronLeft } from "lucide-react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function PageHeader({
-  pageHeading,
-  prevHref,
+  children,
 }: {
-  pageHeading: string;
-  prevHref: string;
+  children: React.ReactNode;
 }) {
+  const router = useRouter();
+
+  const handleBackButtonClick = () => {
+    router.back();
+  };
+
   return (
     <div className="border-b p-3">
       <div className="flex items-center gap-2">
-        <Link href={prevHref}>
-          <LucideChevronLeft size={28} />
-        </Link>
-        <div className="text-lg font-bold sm:text-xl">{pageHeading}</div>
+        <button onClick={handleBackButtonClick}>
+          <LucideChevronLeft />
+        </button>
+        <div className="font-bold">{children}</div>
       </div>
     </div>
   );
