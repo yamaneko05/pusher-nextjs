@@ -13,8 +13,9 @@ export default function RoomCard({ room }: { room: RoomForCard }) {
       <Image
         src={storage.getPublicUrl("avatars", room.owner.image)}
         alt=""
-        fill
-        className="relative! size-12! rounded-full"
+        width={48}
+        height={48}
+        className="rounded-full"
       />
       <div className="flex flex-col">
         <div className="font-bold">{room.name}</div>

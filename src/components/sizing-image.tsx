@@ -1,45 +1,38 @@
-"use client";
+import { getOptimizeImageSize } from "@/utils/image-client";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
-import NextImage from "next/image";
-import { useEffect, useState } from "react";
+export default function SizingImage({ src }: { src: string }) {
+  const imageRef = useRef<HTMLImageElement>(null);
 
-function optimizeImageSize(
-  naturalWidth: number,
-  naturalHeight: number,
-  square: number,
-) {
-  const a = Math.sqrt(square / (naturalWidth * naturalHeight));
-
-  const width = naturalWidth * a;
-  const height = naturalHeight * a;
-
-  return { width, height };
-}
-
-export default function SizingImage({ imgSrc }: { imgSrc: string }) {
-  const [width, setWidth] = useState<number>();
-  const [height, setHeight] = useState<number>();
-  const [loading, setLoading] = useState(true);
+  const [width, setWidth] = useState<number>(320);
+  const [height, setHeight] = useState<number>(240);
 
   useEffect(() => {
-    const img = new Image();
-    img.onload = () => {
-      const optimized = optimizeImageSize(
-        img.naturalWidth,
-        img.naturalHeight,
-        320 * 240,
-      );
+    if (imageRef.current) {
+      imageRef.current.onload = () => {
+        const naturalWidth = imageRef.current!.naturalWidth;
+        const naturalHeight = imageRef.current!.naturalHeight;
+        console.log(naturalHeight, naturalWidth);
+        const { width, height } = getOptimizeImageSize(
+          naturalWidth,
+          naturalHeight,
+          320 * 240,
+        );
+        setWidth(width);
+        setHeight(height);
+      };
+    }
+  }, []);
 
-      setWidth(optimized.width);
-      setHeight(optimized.height);
-      setLoading(false);
-    };
-    img.src = imgSrc;
-  }, [imgSrc]);
-
-  return loading ? (
-    "loading"
-  ) : (
-    <NextImage src={imgSrc} alt="" width={width} height={height} />
+  return (
+    <Image
+      ref={imageRef}
+      src={src}
+      alt=""
+      width={width}
+      height={height}
+      className="rounded-xl"
+    />
   );
 }

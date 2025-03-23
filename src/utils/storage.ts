@@ -23,9 +23,4 @@ export const storage = {
     const { data } = supabase.storage.from(bucketId).getPublicUrl(path);
     return data.publicUrl;
   },
-
-  async getAll(bucketId: string) {
-    const { data } = await supabase.storage.from(bucketId).list();
-    return data;
-  },
 };

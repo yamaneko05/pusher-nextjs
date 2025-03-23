@@ -28,6 +28,7 @@ export default async function Sidebar() {
               className="rounded-full border border-neutral-300"
               width={96}
               height={96}
+              priority
             />
           </Link>
           <div className="mt-3 font-bold">{payload!.user.name}</div>

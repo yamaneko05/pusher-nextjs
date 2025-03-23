@@ -5,6 +5,7 @@ import { storage } from "@/utils/storage";
 // import { deleteMessageAction } from "@/actions/message-actions";
 import AttachmentCard from "./attachment-card";
 import { MessageForCard } from "@/utils/types";
+import AttachmentsCard from "./attachments-card";
 
 export default function MessageCard({ message }: { message: MessageForCard }) {
   // const handleDeleteClick = async () => {
@@ -17,8 +18,9 @@ export default function MessageCard({ message }: { message: MessageForCard }) {
         <Image
           src={storage.getPublicUrl("avatars", message.user.image)}
           alt=""
-          fill
-          className="relative! size-10! rounded-full"
+          width={40}
+          height={40}
+          className="rounded-full"
         />
       </Link>
       <div className="flex flex-col gap-1">
@@ -30,15 +32,12 @@ export default function MessageCard({ message }: { message: MessageForCard }) {
             <div className="w-fit max-w-96 rounded-xl rounded-tl-none bg-neutral-100 px-3 py-1 whitespace-pre-wrap">
               {message.text}
             </div>
-            {message.attachments && (
-              <div
-                className={`grid max-w-96 gap-1 [clip-path:inset(0_0_0_0_round_16px)] ${message.attachments.length > 1 && "grid-cols-2"}`}
-              >
-                {message.attachments?.map((attachment) => (
-                  <AttachmentCard key={attachment.id} attachment={attachment} />
-                ))}
-              </div>
-            )}
+            {!!message.attachments.length &&
+              (message.attachments.length === 1 ? (
+                <AttachmentCard attachment={message.attachments[0]} />
+              ) : (
+                <AttachmentsCard attachments={message.attachments} />
+              ))}
           </div>
           <div className="w-12 text-xs text-neutral-500">
             {dayjsInstance(message.createdAt).fromNow()}
