@@ -18,7 +18,18 @@ export default function Field({
     <div className="flex flex-col gap-0.5">
       <div className="flex flex-col gap-2">
         <Label>{label}</Label>
-        <Input type={type} name={field.name} placeholder={placeholder} />
+        <Input
+          type={type}
+          name={field.name}
+          placeholder={placeholder}
+          defaultValue={
+            field.initialValue as
+              | string
+              | number
+              | readonly string[]
+              | undefined
+          }
+        />
       </div>
       <div className="h-8">
         {field.errors?.map((error, i) => (

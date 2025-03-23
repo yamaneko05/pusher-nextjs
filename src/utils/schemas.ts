@@ -28,6 +28,10 @@ export const SignupFormSchema = SigninFormSchema.extend({
     ),
 });
 
+export const UpdateUserFormSchema = z.object({
+  name: nameSchema,
+});
+
 export const CreateChatRoomSchema = z.object({
   name: nameSchema,
 });

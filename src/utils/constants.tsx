@@ -1,7 +1,7 @@
 import {
   LucideMessagesSquare,
   LucidePlusSquare,
-  LucideUserCog,
+  LucideUser,
   LucideUsers,
   LucideUserSearch,
 } from "lucide-react";
@@ -23,9 +23,9 @@ export const navItems = [
     icon: <LucideUserSearch className="size-6" />,
   },
   {
-    path: "/admin/users",
-    name: "ユーザー管理",
-    icon: <LucideUserCog className="size-6" />,
+    path: "/account",
+    name: "アカウント",
+    icon: <LucideUser className="size-6" />,
   },
   {
     path: "/friends",
