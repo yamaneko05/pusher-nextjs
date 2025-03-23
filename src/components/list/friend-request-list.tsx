@@ -1,5 +1,6 @@
 import { FriendRequestRepository } from "@/repositories/FriendRequestRepository";
 import FriendRequestCard from "../card/friend-request-card";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 export default async function FriendRequestList({
   userId,
@@ -12,12 +13,21 @@ export default async function FriendRequestList({
 
   return (
     <div className="">
-      {friendRequests.map((friendRequest) => (
-        <FriendRequestCard
-          key={friendRequest.id}
-          friendRequest={friendRequest}
-        />
-      ))}
+      {friendRequests.length ? (
+        friendRequests.map((friendRequest) => (
+          <FriendRequestCard
+            key={friendRequest.id}
+            friendRequest={friendRequest}
+          />
+        ))
+      ) : (
+        <Alert>
+          <AlertTitle>受け取った申請はありません</AlertTitle>
+          <AlertDescription>
+            友達にユーザー名を教えて申請してもらいましょう
+          </AlertDescription>
+        </Alert>
+      )}
     </div>
   );
 }

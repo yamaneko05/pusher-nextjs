@@ -29,8 +29,9 @@ export default function FriendRequestCard({
         <Image
           src={storage.getPublicUrl("avatars", friendRequest.sender.image)}
           alt=""
-          fill
-          className="relative! size-12! rounded-full"
+          width={48}
+          height={48}
+          className="rounded-full"
         />
       </Link>
       <div className="font-bold">{friendRequest.sender.name}</div>

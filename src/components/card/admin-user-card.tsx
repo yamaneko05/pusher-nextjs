@@ -17,8 +17,9 @@ export default function AdminUserCard({ user }: { user: UserForAdmin }) {
         <Image
           src={storage.getPublicUrl("avatars", user.image)}
           alt=""
-          fill
-          className="relative! size-10! rounded-full"
+          width={40}
+          height={40}
+          className="rounded-full"
         />
         <div className="font-bold">{user.name}</div>
         <Button onClick={handleDeleteClick} variant={"destructive"} size={"sm"}>

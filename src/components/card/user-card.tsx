@@ -40,8 +40,9 @@ export default function UserCard({ user }: { user: UserForCard }) {
         <Image
           src={storage.getPublicUrl("avatars", user.image)}
           alt=""
-          fill
-          className="relative! size-12! rounded-full"
+          width={48}
+          height={48}
+          className="rounded-full"
         />
       </Link>
       <div className="font-bold">{user.name}</div>

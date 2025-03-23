@@ -31,8 +31,9 @@ export default async function Page({
             <Image
               src={storage.getPublicUrl("avatars", user.image)}
               alt=""
-              fill
-              className="relative! size-24! rounded-full"
+              width={96}
+              height={96}
+              className="rounded-full"
             />
             <div className="mt-2 font-bold">{user.name}</div>
             <div className="text-sm text-neutral-500">{user.email}</div>
