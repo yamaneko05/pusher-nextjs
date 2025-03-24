@@ -37,11 +37,11 @@ export async function updateUserAction(prevState: unknown, formData: FormData) {
     return submission.reply();
   }
 
-  const { name } = submission.value;
+  const { name, biography } = submission.value;
 
   const userRepository = new UserRepository();
-  const authService = new UserService(userRepository);
-  await authService.update(name);
+  const userService = new UserService(userRepository);
+  await userService.update(name, biography);
 
   return submission.reply({ resetForm: true });
 }

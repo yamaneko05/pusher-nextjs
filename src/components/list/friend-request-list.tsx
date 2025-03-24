@@ -1,6 +1,6 @@
 import { FriendRequestRepository } from "@/repositories/FriendRequestRepository";
 import FriendRequestCard from "../card/friend-request-card";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import EmptyArray from "../emptyArray";
 
 export default async function FriendRequestList({
   userId,
@@ -21,12 +21,10 @@ export default async function FriendRequestList({
           />
         ))
       ) : (
-        <Alert>
-          <AlertTitle>受け取った申請はありません</AlertTitle>
-          <AlertDescription>
-            友達にユーザー名を教えて申請してもらいましょう
-          </AlertDescription>
-        </Alert>
+        <EmptyArray
+          title="受け取った申請はありません"
+          description="友達にユーザー名を教えて申請してもらいましょう"
+        />
       )}
     </div>
   );

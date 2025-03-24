@@ -87,10 +87,10 @@ export class UserRepository {
     });
   }
 
-  async updateById(id: string, name: string) {
+  async updateById(id: string, name: string, biography?: string) {
     return await prisma.user.update({
       where: { id },
-      data: { name },
+      data: { name, biography: biography ?? null },
     });
   }
 }

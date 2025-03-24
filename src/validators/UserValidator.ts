@@ -38,8 +38,9 @@ export class UserValidator {
     const roomValidator = RoomValidator.create();
     const forPage = Prisma.validator<Prisma.UserDefaultArgs>()({
       select: {
-        ...base.select,
+        ...forCard.select,
         email: true,
+        biography: true,
         chatRooms: roomValidator.forCard,
       },
     });

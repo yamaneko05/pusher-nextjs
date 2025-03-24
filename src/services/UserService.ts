@@ -37,20 +37,20 @@ export class UserService {
     await this.userRepository.removeFriend(friendId, session.user.id);
   }
 
-  async update(name: string) {
+  async update(name: string, biography?: string) {
     const session = await getSessionPayload();
 
     if (!session) {
       throw new Error("unauthorized");
     }
 
-    await this.userRepository.updateById(session.user.id, name);
+    await this.userRepository.updateById(session.user.id, name, biography);
 
     await deleteSession();
     await createSession({
       user: {
         ...session.user,
-        name: name,
+        name,
       },
     });
   }

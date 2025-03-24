@@ -20,6 +20,7 @@ const userValidator = UserValidator.create();
 export type UserBase = Prisma.UserGetPayload<typeof userValidator.base>;
 export type UserForCard = Prisma.UserGetPayload<typeof userValidator.forCard>;
 export type UserForAdmin = Prisma.UserGetPayload<typeof userValidator.forAdmin>;
+export type UserForPage = Prisma.UserGetPayload<typeof userValidator.forPage>;
 
 const messageValidator = MessageValidator.create();
 export type MessageForCard = Prisma.ChatMessageGetPayload<

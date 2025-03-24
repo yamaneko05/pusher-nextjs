@@ -17,6 +17,8 @@ model User {
   email            String          @unique
   password         String
   image            String
+  biography        String?
+  role             UserRole        @default(GENERAL)
   createdAt        DateTime        @default(now())
   chatRooms        ChatRoom[]
   chatMessages     ChatMessage[]
@@ -24,6 +26,11 @@ model User {
   symmetricFriends User[]          @relation("UserFriends")
   sentRequests     FriendRequest[] @relation("Sender")
   receivedRequests FriendRequest[] @relation("Receiver")
+}
+
+enum UserRole {
+  ADMIN
+  GENERAL
 }
 
 model FriendRequest {

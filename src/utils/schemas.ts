@@ -6,6 +6,12 @@ const nameSchema = z
   .max(16, "16文字以内の長さにしてください")
   .trim();
 
+const biographySchema = z
+  .string({ message: "入力してください" })
+  .max(64, "64文字以内の長さにしてください")
+  .trim()
+  .optional();
+
 export const SigninFormSchema = z.object({
   email: z
     .string({ message: "入力してください" })
@@ -30,6 +36,7 @@ export const SignupFormSchema = SigninFormSchema.extend({
 
 export const UpdateUserFormSchema = z.object({
   name: nameSchema,
+  biography: biographySchema,
 });
 
 export const CreateChatRoomSchema = z.object({

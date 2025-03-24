@@ -8,9 +8,9 @@ import Field from "@/components/field";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { updateUserAction } from "@/actions/user-actions";
-import { UserBase } from "@/utils/types";
+import { UserForPage } from "@/utils/types";
 
-export default function UpdateUserForm({ user }: { user: UserBase }) {
+export default function UpdateUserForm({ user }: { user: UserForPage }) {
   const [lastResult, action, pending] = useActionState(
     updateUserAction,
     undefined,
@@ -24,6 +24,7 @@ export default function UpdateUserForm({ user }: { user: UserBase }) {
     shouldRevalidate: "onInput",
     defaultValue: {
       name: user.name,
+      biography: user.biography,
     },
   });
 
@@ -35,6 +36,12 @@ export default function UpdateUserForm({ user }: { user: UserBase }) {
           type="text"
           placeholder="Name"
           field={fields.name}
+        />
+        <Field
+          label="自己紹介"
+          type="text"
+          placeholder="テキストを入力してください"
+          field={fields.biography}
         />
         <Button disabled={pending} type="submit">
           {pending && <Loader2 className="animate-spin" />}
