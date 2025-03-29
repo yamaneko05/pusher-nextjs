@@ -2,36 +2,61 @@ import { jwtVerify, SignJWT } from "jose";
 import { SessionPayload } from "./types";
 import { cookies } from "next/headers";
 import { cache } from "react";
+import { unauthorized } from "next/navigation";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedSecretKey = new TextEncoder().encode(secretKey);
 
+async function getSession() {
+  const session = (await cookies()).get("session")?.value;
+  return session;
+}
+
+async function decryptSession(session: string) {
+  const { payload } = await jwtVerify<SessionPayload>(
+    session,
+    encodedSecretKey,
+    {
+      algorithms: ["HS256"],
+    },
+  );
+
+  return payload;
+}
+
+export const getSessionPayload = cache(async () => {
+  const session = await getSession();
+  if (!session) {
+    return null;
+  }
+
+  const payload = await decryptSession(session);
+  return payload;
+});
+
+export async function getSessionPayloadOrUnauthorized() {
+  const payload = await getSessionPayload();
+  if (!payload) {
+    unauthorized();
+  }
+  return payload;
+}
+
 function encryptSession(payload: SessionPayload) {
-  return new SignJWT(payload)
+  const jwt = new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("7d")
     .sign(encodedSecretKey);
-}
-
-async function decryptSession(session: string | undefined = "") {
-  try {
-    const { payload } = await jwtVerify(session, encodedSecretKey, {
-      algorithms: ["HS256"],
-    });
-    return payload as SessionPayload;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (_error: unknown) {
-    console.log("Failed to verify session");
-  }
+  return jwt;
 }
 
 export async function createSession(payload: SessionPayload) {
-  const session = await encryptSession(payload);
+  const jwt = await encryptSession(payload);
   const cookieStore = await cookies();
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-  cookieStore.set("session", session, {
+  cookieStore.set("session", jwt, {
     httpOnly: true,
     secure: true,
     expires: expiresAt,
@@ -41,11 +66,9 @@ export async function createSession(payload: SessionPayload) {
 }
 
 export async function updateSession() {
-  const session = (await cookies()).get("session")?.value;
-  const payload = await decryptSession(session);
-
-  if (!session || !payload) {
-    return null;
+  const session = await getSession();
+  if (!session) {
+    throw new Error("session is undefined");
   }
 
   const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
@@ -64,10 +87,3 @@ export async function deleteSession() {
   const cookieStore = await cookies();
   cookieStore.delete("session");
 }
-
-export const getSessionPayload = cache(async () => {
-  const cookie = (await cookies()).get("session")?.value;
-  const payload = await decryptSession(cookie);
-
-  return payload;
-});

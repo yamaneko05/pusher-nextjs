@@ -1,9 +1,7 @@
 import prisma from "@/libs/prisma";
-import { UserValidator } from "@/validators/UserValidator";
+import * as UserValidator from "@/validators/UserValidator";
 
 export class UserRepository {
-  private userValidator = UserValidator.create();
-
   async findByEmail(email: string) {
     return await prisma.user.findUnique({
       where: { email },
@@ -16,7 +14,7 @@ export class UserRepository {
   async findById(id: string) {
     return await prisma.user.findUnique({
       where: { id },
-      ...this.userValidator.forPage,
+      ...UserValidator.forPage,
     });
   }
 
@@ -39,7 +37,7 @@ export class UserRepository {
 
   async findManyByName(name: string) {
     return await prisma.user.findMany({
-      ...this.userValidator.forCard,
+      ...UserValidator.forCard,
       where: {
         name: {
           contains: name,
@@ -49,12 +47,12 @@ export class UserRepository {
   }
 
   async getAll() {
-    return await prisma.user.findMany(this.userValidator.forAdmin);
+    return await prisma.user.findMany(UserValidator.forAdmin);
   }
 
   async getFriends(id: string) {
     return await prisma.user.findMany({
-      ...this.userValidator.forCard,
+      ...UserValidator.forCard,
       where: {
         friends: {
           some: {

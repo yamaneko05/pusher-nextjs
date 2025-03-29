@@ -1,10 +1,8 @@
 import prisma from "@/libs/prisma";
-import { FriendRequestValidator } from "@/validators/FriendRequestValidator";
+import * as FriendRequestValidator from "@/validators/FriendRequestValidator";
 import { RequestStatus } from "@prisma/client";
 
 export class FriendRequestRepository {
-  private friendRequestValidator = FriendRequestValidator.create();
-
   async create(senderId: string, receiverId: string) {
     return await prisma.friendRequest.create({
       data: {
@@ -20,7 +18,7 @@ export class FriendRequestRepository {
         receiverId,
         status: "PENDING",
       },
-      ...this.friendRequestValidator.base,
+      ...FriendRequestValidator.base,
     });
   }
 

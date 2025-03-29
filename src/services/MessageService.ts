@@ -1,17 +1,14 @@
 import { AttachmentRepository } from "@/repositories/AttachmentRepository";
 import { MessageRepository } from "@/repositories/MessageRepository";
 import { pusherServer } from "@/libs/pusher-server";
-import { getSessionPayload } from "@/utils/session";
+import { getSessionPayloadOrUnauthorized } from "@/utils/session";
 import { storage } from "@/utils/storage";
 
 export class MessageService {
   constructor(private messageRepository: MessageRepository) {}
 
   async create(chatRoomId: string, text: string, attachments: File[]) {
-    const payload = await getSessionPayload();
-    if (!payload) {
-      throw new Error("unauthorized");
-    }
+    const payload = await getSessionPayloadOrUnauthorized();
 
     const paths = await Promise.all(
       attachments.map(async (file) => {

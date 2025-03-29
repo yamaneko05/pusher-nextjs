@@ -1,50 +1,43 @@
 import { Prisma } from "@prisma/client";
-import { RoomValidator } from "./RoomValidator";
+import * as RoomValidator from "./RoomValidator";
 
-export class UserValidator {
-  static create() {
-    const base = Prisma.validator<Prisma.UserDefaultArgs>()({
+export const base = Prisma.validator<Prisma.UserDefaultArgs>()({
+  select: {
+    id: true,
+    name: true,
+    image: true,
+  },
+});
+
+export const forCard = Prisma.validator<Prisma.UserDefaultArgs>()({
+  select: {
+    ...base.select,
+    friends: {
       select: {
         id: true,
-        name: true,
-        image: true,
       },
-    });
-
-    const forCard = Prisma.validator<Prisma.UserDefaultArgs>()({
+    },
+    receivedRequests: {
       select: {
-        ...base.select,
-        friends: {
-          select: {
-            id: true,
-          },
-        },
-        receivedRequests: {
-          select: {
-            senderId: true,
-            status: true,
-          },
-        },
+        senderId: true,
+        status: true,
       },
-    });
+    },
+  },
+});
 
-    const forAdmin = Prisma.validator<Prisma.UserDefaultArgs>()({
-      select: {
-        ...base.select,
-        email: true,
-      },
-    });
+export const forAdmin = Prisma.validator<Prisma.UserDefaultArgs>()({
+  select: {
+    ...base.select,
+    email: true,
+  },
+});
 
-    const roomValidator = RoomValidator.create();
-    const forPage = Prisma.validator<Prisma.UserDefaultArgs>()({
-      select: {
-        ...forCard.select,
-        email: true,
-        biography: true,
-        chatRooms: roomValidator.forCard,
-      },
-    });
-
-    return { base, forCard, forAdmin, forPage };
-  }
-}
+export const forPage = Prisma.validator<Prisma.UserDefaultArgs>()({
+  select: {
+    ...forCard.select,
+    email: true,
+    biography: true,
+    chatRooms: RoomValidator.forCard,
+  },
+});

@@ -1,9 +1,7 @@
 import prisma from "@/libs/prisma";
-import { MessageValidator } from "@/validators/MessageValidator";
+import * as MessageValidator from "@/validators/MessageValidator";
 
 export class MessageRepository {
-  private messageValidator = MessageValidator.create();
-
   async create(
     text: string,
     chatRoomId: string,
@@ -19,7 +17,7 @@ export class MessageRepository {
           create: paths.map((path) => ({ path })),
         },
       },
-      ...this.messageValidator.base,
+      ...MessageValidator.base,
     });
   }
 

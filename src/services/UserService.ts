@@ -1,7 +1,8 @@
 import { UserRepository } from "@/repositories/UserRepository";
-import { getSessionPayload } from "@/utils/session";
+import { getSessionPayloadOrUnauthorized } from "@/utils/session";
 import { storage } from "@/utils/storage";
 import { createSession, deleteSession } from "@/utils/session";
+import { SessionPayload } from "@/utils/types";
 
 export class UserService {
   constructor(private userRepository: UserRepository) {}
@@ -15,43 +16,31 @@ export class UserService {
   }
 
   async search(name: string) {
-    const session = await getSessionPayload();
-
-    if (!session) {
-      throw new Error("unauthorized");
-    }
-
     const results = await this.userRepository.findManyByName(name);
 
     return results;
   }
 
   async dissolveFriendship(friendId: string) {
-    const session = await getSessionPayload();
+    const payload = await getSessionPayloadOrUnauthorized();
 
-    if (!session) {
-      throw new Error("unauthorized");
-    }
-
-    await this.userRepository.removeFriend(session.user.id, friendId);
-    await this.userRepository.removeFriend(friendId, session.user.id);
+    await this.userRepository.removeFriend(payload.user.id, friendId);
+    await this.userRepository.removeFriend(friendId, payload.user.id);
   }
 
   async update(name: string, biography?: string) {
-    const session = await getSessionPayload();
+    const payload = await getSessionPayloadOrUnauthorized();
 
-    if (!session) {
-      throw new Error("unauthorized");
-    }
+    await this.userRepository.updateById(payload.user.id, name, biography);
 
-    await this.userRepository.updateById(session.user.id, name, biography);
-
-    await deleteSession();
-    await createSession({
+    const newPayload: SessionPayload = {
       user: {
-        ...session.user,
+        ...payload.user,
         name,
       },
-    });
+    };
+
+    await deleteSession();
+    await createSession(newPayload);
   }
 }

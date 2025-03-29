@@ -1,35 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Prisma, UserRole } from "@prisma/client";
-import { UserValidator } from "@/validators/UserValidator";
-import { RoomValidator } from "@/validators/RoomValidator";
-import { AttachmentValidator } from "@/validators/AttachmentValidator";
-import { MessageValidator } from "@/validators/MessageValidator";
-import { FriendRequestValidator } from "@/validators/FriendRequestValidator";
+import * as UserValidator from "@/validators/UserValidator";
+import * as RoomValidator from "@/validators/RoomValidator";
+import * as AttachmentValidator from "@/validators/AttachmentValidator";
+import * as MessageValidator from "@/validators/MessageValidator";
+import * as FriendRequestValidator from "@/validators/FriendRequestValidator";
 
-const roomValidator = RoomValidator.create();
 export type RoomForCard = Prisma.ChatRoomGetPayload<
-  typeof roomValidator.forCard
+  typeof RoomValidator.forCard
 >;
 
-const attachmentValidator = AttachmentValidator.create();
 export type AttachmentBase = Prisma.ChatMessageAttachmentGetPayload<
-  typeof attachmentValidator.base
+  typeof AttachmentValidator.base
 >;
 
-const userValidator = UserValidator.create();
-export type UserBase = Prisma.UserGetPayload<typeof userValidator.base>;
-export type UserForCard = Prisma.UserGetPayload<typeof userValidator.forCard>;
-export type UserForAdmin = Prisma.UserGetPayload<typeof userValidator.forAdmin>;
-export type UserForPage = Prisma.UserGetPayload<typeof userValidator.forPage>;
+export type UserBase = Prisma.UserGetPayload<typeof UserValidator.base>;
+export type UserForCard = Prisma.UserGetPayload<typeof UserValidator.forCard>;
+export type UserForAdmin = Prisma.UserGetPayload<typeof UserValidator.forAdmin>;
+export type UserForPage = Prisma.UserGetPayload<typeof UserValidator.forPage>;
 
-const messageValidator = MessageValidator.create();
 export type MessageForCard = Prisma.ChatMessageGetPayload<
-  typeof messageValidator.base
+  typeof MessageValidator.base
 >;
 
-const friendRequestValidator = FriendRequestValidator.create();
 export type FriendRequestBase = Prisma.FriendRequestGetPayload<
-  typeof friendRequestValidator.base
+  typeof FriendRequestValidator.base
 >;
 
 export type SessionPayload = {
