@@ -1,8 +1,8 @@
-import UserListFallback from "@/components/fallback/user-list-fallback";
-import Bottombar from "@/components/layout/bottombar";
-import FriendList from "@/components/list/friend-list";
-import FriendRequestList from "@/components/list/friend-request-list";
-import SectionHeading from "@/components/section-heading";
+import UserListFallback from "@/components/fallback/UserListFallback";
+import Bottombar from "@/components/layout/BottomBar";
+import FriendList from "@/components/list/FriendList";
+import FriendRequestList from "@/components/list/FriendRequestList";
+import SectionHeading from "@/components/SectionHeading";
 import { getSessionPayload } from "@/utils/session";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";

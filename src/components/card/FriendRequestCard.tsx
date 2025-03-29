@@ -4,7 +4,7 @@ import { storage } from "@/utils/storage";
 import { FriendRequestBase } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "../shadcn/button";
 import {
   acceptFriendRequestAction,
   rejectFriendRequestAction,

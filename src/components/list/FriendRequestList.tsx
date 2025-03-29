@@ -1,6 +1,6 @@
 import { FriendRequestRepository } from "@/repositories/FriendRequestRepository";
-import FriendRequestCard from "../card/friend-request-card";
-import EmptyArray from "../emptyArray";
+import FriendRequestCard from "../card/FriendRequestCard";
+import EmptyArray from "../EmptyArray";
 
 export default async function FriendRequestList({
   userId,

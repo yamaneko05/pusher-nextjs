@@ -1,7 +1,7 @@
 import { storage } from "@/utils/storage";
 import { AttachmentBase } from "@/utils/types";
 import Link from "next/link";
-import SizingImage from "../sizing-image";
+import SizingImage from "../SizingImage";
 
 export default function AttachmentCard({
   attachment,

@@ -5,10 +5,10 @@ import { SignupFormSchema } from "@/utils/schemas";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useActionState } from "react";
-import Field from "@/components/field";
-import { Button } from "@/components/ui/button";
+import Field from "@/components/Field";
+import { Button } from "@/components/shadcn/button";
 import { Loader2 } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/shadcn/input";
 
 export default function SignupForm() {
   const [lastResult, action, pending] = useActionState(signupAction, undefined);

@@ -2,10 +2,10 @@
 
 import { searchUserAction } from "@/actions/user-actions";
 import { useEffect, useRef, useState } from "react";
-import { Input } from "./ui/input";
-import UserCard from "./card/user-card";
+import { Input } from "./shadcn/input";
+import UserCard from "./card/UserCard";
 import { UserForCard } from "@/utils/types";
-import UserListFallback from "./fallback/user-list-fallback";
+import UserListFallback from "./fallback/UserListFallback";
 
 export default function SearchUser() {
   const [word, setWord] = useState("");

@@ -1,13 +1,13 @@
-import RoomCard from "@/components/card/room-card";
+import RoomCard from "@/components/card/RoomCard";
 import { notFound } from "next/navigation";
-import PageHeader from "@/components/layout/page-header";
-import Bottombar from "@/components/layout/bottombar";
+import PageHeader from "@/components/layout/PageHeader";
+import Bottombar from "@/components/layout/BottomBar";
 import { UserRepository } from "@/repositories/UserRepository";
 import Image from "next/image";
 import { storage } from "@/utils/storage";
-import SectionHeading from "@/components/section-heading";
-import UserCardButton from "@/components/card/user-card-button";
-import EmptyArray from "@/components/emptyArray";
+import SectionHeading from "@/components/SectionHeading";
+import UserCardButton from "@/components/card/UserCardButton";
+import EmptyArray from "@/components/EmptyArray";
 
 export default async function Page({
   params,

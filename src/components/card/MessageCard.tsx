@@ -3,9 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { storage } from "@/utils/storage";
 // import { deleteMessageAction } from "@/actions/message-actions";
-import AttachmentCard from "./attachment-card";
+import AttachmentCard from "./AttachmentCard";
 import { MessageForCard } from "@/utils/types";
-import AttachmentsCard from "./attachments-card";
+import AttachmentsCard from "./AttachmentsCard";
 
 export default function MessageCard({ message }: { message: MessageForCard }) {
   // const handleDeleteClick = async () => {

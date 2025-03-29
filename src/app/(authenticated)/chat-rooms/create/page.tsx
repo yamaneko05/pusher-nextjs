@@ -1,6 +1,6 @@
-import CreateRoomForm from "@/components/form/create-room-form";
-import Bottombar from "@/components/layout/bottombar";
-import SectionHeading from "@/components/section-heading";
+import CreateRoomForm from "@/components/form/CreateRoomForm";
+import Bottombar from "@/components/layout/BottomBar";
+import SectionHeading from "@/components/SectionHeading";
 
 export default async function Page() {
   return (

@@ -2,9 +2,9 @@ import { signoutAction } from "@/actions/auth-actions";
 import { getSessionPayload } from "@/utils/session";
 import { storage } from "@/utils/storage";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import Navigation from "@/components/navigation";
+import { Button } from "@/components/shadcn/button";
 import Link from "next/link";
+import Navigation from "@/components/Navigation";
 
 export default async function Sidebar() {
   const payload = await getSessionPayload();

@@ -2,7 +2,7 @@ import { UserForCard } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 import { storage } from "@/utils/storage";
-import UserCardButton from "./user-card-button";
+import UserCardButton from "./UserCardButton";
 
 export default function UserCard({ user }: { user: UserForCard }) {
   return (

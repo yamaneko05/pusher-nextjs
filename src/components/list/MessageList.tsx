@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import MessageCard from "../card/message-card";
+import MessageCard from "../card/MessageCard";
 import { pusherClient } from "@/libs/pusher-client";
 import { MessageForCard } from "@/utils/types";
 

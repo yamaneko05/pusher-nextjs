@@ -1,8 +1,8 @@
 import { signoutAction } from "@/actions/auth-actions";
-import UpdateUserForm from "@/components/form/update-user-form";
-import Bottombar from "@/components/layout/bottombar";
-import SectionHeading from "@/components/section-heading";
-import { Button } from "@/components/ui/button";
+import UpdateUserForm from "@/components/form/UpdateUserForm";
+import Bottombar from "@/components/layout/BottomBar";
+import SectionHeading from "@/components/SectionHeading";
+import { Button } from "@/components/shadcn/button";
 import { UserRepository } from "@/repositories/UserRepository";
 import { getSessionPayload } from "@/utils/session";
 import { redirect } from "next/navigation";

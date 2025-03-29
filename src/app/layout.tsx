@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { getSessionPayload } from "@/utils/session";
-import SessionContextProvider from "@/components/session-context-provider";
+import SessionContextProvider from "@/components/SessionContextProvider";
 
 const notoSansJp = Noto_Sans_JP({
   subsets: ["latin"],

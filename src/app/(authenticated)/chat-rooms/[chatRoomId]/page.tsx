@@ -1,7 +1,7 @@
-import MessageList from "@/components/list/message-list";
-import CreateMessageForm from "@/components/form/create-message-form";
+import MessageList from "@/components/list/MessageList";
+import CreateMessageForm from "@/components/form/CreateMessageForm";
 import { notFound } from "next/navigation";
-import PageHeader from "@/components/layout/page-header";
+import PageHeader from "@/components/layout/PageHeader";
 import { RoomRepository } from "@/repositories/RoomRepository";
 
 export default async function Page({

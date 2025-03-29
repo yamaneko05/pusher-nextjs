@@ -1,6 +1,6 @@
 import { UserRepository } from "@/repositories/UserRepository";
-import UserCard from "../card/user-card";
-import EmptyArray from "../emptyArray";
+import UserCard from "../card/UserCard";
+import EmptyArray from "../EmptyArray";
 
 export default async function FriendList({ userId }: { userId: string }) {
   const userRepository = new UserRepository();

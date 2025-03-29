@@ -1,7 +1,7 @@
 "use client";
 
 import { UserForCard } from "@/utils/types";
-import { Button } from "../ui/button";
+import { Button } from "../shadcn/button";
 import { sendFriendRequestAction } from "@/actions/friend-request-actions";
 import { useContext, useState } from "react";
 import { SessionContext } from "@/utils/context";

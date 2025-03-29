@@ -1,6 +1,6 @@
 import { storage } from "@/utils/storage";
 import Image from "next/image";
-import { Button } from "../ui/button";
+import { Button } from "../shadcn/button";
 import { deleteUserAction } from "@/actions/user-actions";
 import { UserForAdmin } from "@/utils/types";
 

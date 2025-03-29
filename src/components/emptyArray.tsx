@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
+import { Alert, AlertTitle, AlertDescription } from "./shadcn/alert";
 
 export default function EmptyArray({
   title,

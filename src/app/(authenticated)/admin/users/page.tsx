@@ -1,7 +1,7 @@
-import UserCard from "@/components/card/admin-user-card";
-import Bottombar from "@/components/layout/bottombar";
+import UserCard from "@/components/card/AdminUserCard";
+import Bottombar from "@/components/layout/BottomBar";
 import { UserRepository } from "@/repositories/UserRepository";
-import SectionHeading from "@/components/section-heading";
+import SectionHeading from "@/components/SectionHeading";
 
 export default async function Page() {
   const userRepository = new UserRepository();

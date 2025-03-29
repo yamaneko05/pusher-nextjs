@@ -1,8 +1,8 @@
-import Bottombar from "@/components/layout/bottombar";
+import Bottombar from "@/components/layout/BottomBar";
 import { Suspense } from "react";
-import ChatRoomList from "@/components/list/chat-room-list";
-import ChatRoomListFallback from "@/components/fallback/chat-room-list-fallback";
-import SectionHeading from "@/components/section-heading";
+import ChatRoomList from "@/components/list/ChatRoomList";
+import ChatRoomListFallback from "@/components/fallback/ChatRoomList-Fallback";
+import SectionHeading from "@/components/SectionHeading";
 
 export default async function Page() {
   return (

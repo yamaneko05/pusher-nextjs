@@ -1,7 +1,7 @@
 "use client";
 
 import { navItems } from "@/utils/constants";
-import { buttonVariants } from "../ui/button";
+import { buttonVariants } from "../shadcn/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

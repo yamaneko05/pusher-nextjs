@@ -1,6 +1,6 @@
-import SearchUser from "@/components/search-user";
-import Bottombar from "@/components/layout/bottombar";
-import SectionHeading from "@/components/section-heading";
+import SearchUser from "@/components/SearchUser";
+import Bottombar from "@/components/layout/BottomBar";
+import SectionHeading from "@/components/SectionHeading";
 
 export default async function Page() {
   return (

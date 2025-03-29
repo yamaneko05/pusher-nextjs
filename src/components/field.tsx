@@ -1,7 +1,7 @@
 import { FieldMetadata } from "@conform-to/react";
 import { HTMLInputTypeAttribute } from "react";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Input } from "./shadcn/input";
+import { Label } from "./shadcn/label";
 
 export default function Field({
   label,

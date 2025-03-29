@@ -1,6 +1,6 @@
 import { transformMultipleFileInput } from "@/utils/schemas";
 import { useEffect, useState } from "react";
-import { AttachmentPreviewCard } from "./attachments-preview-card";
+import { AttachmentPreviewCard } from "./AttachmentPreviewCard";
 
 export default function AttachmentsPreview({
   attachments,
