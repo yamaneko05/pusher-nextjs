@@ -19,9 +19,7 @@ export class AuthService {
       return { error: "IncorrectPassword" };
     }
 
-    await createSession({
-      user: { id: user.id, name: user.name, image: user.image },
-    });
+    await createSession({ user });
 
     return { error: null };
   }
@@ -41,9 +39,7 @@ export class AuthService {
       path,
     );
 
-    await createSession({
-      user: { id: user.id, name: user.name, image: user.image },
-    });
+    await createSession({ user });
 
     return user;
   }

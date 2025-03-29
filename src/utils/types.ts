@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Prisma } from "@prisma/client";
+import { Prisma, UserRole } from "@prisma/client";
 import { UserValidator } from "@/validators/UserValidator";
 import { RoomValidator } from "@/validators/RoomValidator";
 import { AttachmentValidator } from "@/validators/AttachmentValidator";
@@ -37,5 +37,6 @@ export type SessionPayload = {
     id: string;
     name: string;
     image: string;
+    role: UserRole;
   };
 };

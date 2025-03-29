@@ -18,8 +18,7 @@ export async function middleware(req: NextRequest) {
     }
 
     const isAdminRoute = pathname.match(/\/admin.*/);
-    const isAdminUser =
-      payload && payload.user.id === process.env.ADMIN_USER_ID!;
+    const isAdminUser = payload && payload.user.role === "ADMIN";
 
     if (isAdminRoute && !isAdminUser) {
       return NextResponse.redirect(new URL("/", req.nextUrl));
