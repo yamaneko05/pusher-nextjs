@@ -19,7 +19,7 @@ export default function RoomCard({ room }: { room: RoomForCard }) {
       />
       <div className="flex flex-col">
         <div className="font-bold">{room.name}</div>
-        <div className="text-neutral-500">
+        <div className="text-sm text-neutral-500">
           {room.chatMessages[0]
             ? `${room.chatMessages[0].user.name} : ${room.chatMessages[0].text} ${dayjsInstance(room.chatMessages[0].createdAt).fromNow()}`
             : "メッセージがありません"}

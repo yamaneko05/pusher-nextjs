@@ -5,6 +5,13 @@ import Image from "next/image";
 import { Button } from "@/components/shadcn/button";
 import Link from "next/link";
 import Navigation from "@/components/Navigation";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../shadcn/tooltip";
+import { LucideLogOut } from "lucide-react";
 
 export default async function Sidebar() {
   const payload = await getSessionPayload();
@@ -20,23 +27,30 @@ export default async function Sidebar() {
           </div>
           <Navigation />
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex items-center gap-3">
           <Link href={`/users/${payload!.user.id}`}>
             <Image
               src={storage.getPublicUrl("avatars", payload!.user.image)}
               alt=""
               className="rounded-full border border-neutral-300"
-              width={96}
-              height={96}
+              width={48}
+              height={48}
               priority
             />
           </Link>
-          <div className="mt-3 font-bold">{payload!.user.name}</div>
-          <div className="mt-3">
-            <Button onClick={signoutAction} variant={"secondary"}>
-              ログアウト
-            </Button>
-          </div>
+          <div className="flex-1 text-sm font-bold">{payload!.user.name}</div>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button onClick={signoutAction} variant={"secondary"}>
+                  <LucideLogOut />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>ログアウト</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
     </div>

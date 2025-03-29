@@ -6,9 +6,9 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="mx-auto max-w-screen-lg">
       <Sidebar />
       <div className="sm:pl-64">{children}</div>
-    </>
+    </div>
   );
 }
