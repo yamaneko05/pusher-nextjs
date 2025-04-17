@@ -46,9 +46,7 @@ export default async function Sidebar() {
                   <LucideLogOut />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>
-                <p>ログアウト</p>
-              </TooltipContent>
+              <TooltipContent>ログアウト</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>

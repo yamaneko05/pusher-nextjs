@@ -22,9 +22,14 @@ export class FriendRequestRepository {
     });
   }
 
-  async updateById(id: string, status: RequestStatus) {
+  async update(senderId: string, receiverId: string, status: RequestStatus) {
     return await prisma.friendRequest.update({
-      where: { id },
+      where: {
+        senderId_receiverId: {
+          senderId,
+          receiverId,
+        },
+      },
       data: {
         status,
       },

@@ -8,6 +8,7 @@ import { useActionState } from "react";
 import Field from "@/components/Field";
 import { Button } from "@/components/shadcn/button";
 import { Loader2 } from "lucide-react";
+import FieldError from "../FieldError";
 
 export default function SigninForm() {
   const [lastResult, action, pending] = useActionState(signinAction, undefined);
@@ -22,26 +23,26 @@ export default function SigninForm() {
 
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
-      <div className="flex flex-col gap-2">
-        <Field
-          label="メールアドレス"
-          type="email"
-          placeholder="Email"
-          field={fields.email}
-        />
+      <Field
+        label="メールアドレス"
+        type="email"
+        placeholder="Email"
+        field={fields.email}
+      />
+      <div className="mt-6">
         <Field
           label="パスワード"
           type="password"
           placeholder="Password"
           field={fields.password}
         />
-        {form.errors && (
-          <div className="flex flex-col text-sm text-red-500">
-            {form.errors.map((error, i) => (
-              <div key={i}>{error}</div>
-            ))}
-          </div>
-        )}
+      </div>
+      {form.errors && (
+        <div className="mt-6">
+          <FieldError errors={form.errors} />
+        </div>
+      )}
+      <div className="mt-8">
         <Button disabled={pending} type="submit" className="w-full">
           {pending && <Loader2 className="animate-spin" />}
           ログイン

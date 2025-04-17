@@ -13,11 +13,11 @@ export async function createRoomAction(prevState: unknown, formData: FormData) {
     return submission.reply();
   }
 
-  const { name } = submission.value;
+  const request = submission.value;
 
   const roomRepository = new RoomRepository();
   const roomService = new RoomService(roomRepository);
-  const { id } = await roomService.create(name);
+  const { id } = await roomService.create(request);
 
   redirect(`/chat-rooms/${id}`);
 }

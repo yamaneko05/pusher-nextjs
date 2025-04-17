@@ -1,6 +1,6 @@
 import { FriendRequestRepository } from "@/repositories/FriendRequestRepository";
 import FriendRequestCard from "../card/FriendRequestCard";
-import EmptyArray from "../EmptyArray";
+import NoRequests from "../alert/NoRequests";
 
 export default async function FriendRequestList({
   userId,
@@ -16,15 +16,12 @@ export default async function FriendRequestList({
       {friendRequests.length ? (
         friendRequests.map((friendRequest) => (
           <FriendRequestCard
-            key={friendRequest.id}
+            key={friendRequest.sender.id}
             friendRequest={friendRequest}
           />
         ))
       ) : (
-        <EmptyArray
-          title="受け取った申請はありません"
-          description="友達にユーザー名を教えて申請してもらいましょう"
-        />
+        <NoRequests />
       )}
     </div>
   );

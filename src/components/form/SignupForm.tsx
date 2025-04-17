@@ -9,6 +9,7 @@ import Field from "@/components/Field";
 import { Button } from "@/components/shadcn/button";
 import { Loader2 } from "lucide-react";
 import { Input } from "@/components/shadcn/input";
+import FieldError from "../FieldError";
 
 export default function SignupForm() {
   const [lastResult, action, pending] = useActionState(signupAction, undefined);
@@ -23,38 +24,35 @@ export default function SignupForm() {
 
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
-      <div className="flex flex-col gap-2">
-        <Field
-          label="名前"
-          type="text"
-          placeholder="Name"
-          field={fields.name}
-        />
+      <Field label="名前" type="text" placeholder="Name" field={fields.name} />
+      <div className="mt-4">
         <Field
           label="メールアドレス"
           type="email"
           placeholder="Email"
           field={fields.email}
         />
+      </div>
+      <div className="mt-4">
         <Field
           label="パスワード"
           type="password"
           placeholder="Password"
           field={fields.password}
         />
-        <div>
-          <div className="text-sm">画像</div>
-          <div className="mt-1">
-            <Input type="file" name={fields.image.name} accept="image/*" />
-          </div>
-          <div className="h-8 pt-1">
-            {fields.image.errors?.map((error, i) => (
-              <div key={i} className="text-xs text-red-500">
-                {error}
-              </div>
-            ))}
-          </div>
+      </div>
+      <div className="mt-4">
+        <div className="text-sm">画像</div>
+        <div className="mt-1">
+          <Input type="file" name={fields.image.name} accept="image/*" />
         </div>
+        {fields.image.errors && (
+          <div className="mt-1">
+            <FieldError errors={fields.image.errors} />
+          </div>
+        )}
+      </div>
+      <div className="mt-8">
         <Button disabled={pending} type="submit" className="w-full">
           {pending && <Loader2 className="animate-spin" />}
           サインアップ

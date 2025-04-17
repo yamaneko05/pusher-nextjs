@@ -2,11 +2,23 @@ import prisma from "@/libs/prisma";
 import * as RoomValidator from "@/validators/RoomValidator";
 
 export class RoomRepository {
-  async create(name: string, ownerId: string) {
+  async create(name: string) {
     return await prisma.chatRoom.create({
       data: {
         name,
-        ownerId,
+      },
+    });
+  }
+
+  async addMember(id: string, userId: string) {
+    return await prisma.chatRoom.update({
+      where: {
+        id,
+      },
+      data: {
+        members: {
+          connect: { id: userId },
+        },
       },
     });
   }

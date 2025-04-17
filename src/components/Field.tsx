@@ -2,6 +2,7 @@ import { FieldMetadata } from "@conform-to/react";
 import { HTMLInputTypeAttribute } from "react";
 import { Input } from "./shadcn/input";
 import { Label } from "./shadcn/label";
+import FieldError from "./FieldError";
 
 export default function Field({
   label,
@@ -15,7 +16,7 @@ export default function Field({
   field: FieldMetadata;
 }) {
   return (
-    <div className="flex flex-col gap-0.5">
+    <>
       <div className="flex flex-col gap-2">
         <Label>{label}</Label>
         <Input
@@ -31,13 +32,11 @@ export default function Field({
           }
         />
       </div>
-      <div className="h-8">
-        {field.errors?.map((error, i) => (
-          <div key={i} className="text-xs text-red-500">
-            {error}
-          </div>
-        ))}
-      </div>
-    </div>
+      {field.errors && (
+        <div className="mt-1">
+          <FieldError errors={field.errors} />
+        </div>
+      )}
+    </>
   );
 }

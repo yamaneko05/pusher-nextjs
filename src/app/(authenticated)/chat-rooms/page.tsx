@@ -1,7 +1,7 @@
 import Bottombar from "@/components/layout/BottomBar";
 import { Suspense } from "react";
-import ChatRoomList from "@/components/list/ChatRoomList";
-import ChatRoomListFallback from "@/components/fallback/ChatRoomList-Fallback";
+import RoomList from "@/components/list/RoomList";
+import RoomListFallback from "@/components/fallback/RoomListFallback";
 import SectionHeading from "@/components/SectionHeading";
 
 export default async function Page() {
@@ -10,8 +10,8 @@ export default async function Page() {
       <div className="p-3 pb-24">
         <SectionHeading>全てのチャットルーム</SectionHeading>
         <div className="mt-3">
-          <Suspense fallback={<ChatRoomListFallback />}>
-            <ChatRoomList />
+          <Suspense fallback={<RoomListFallback />}>
+            <RoomList />
           </Suspense>
         </div>
       </div>

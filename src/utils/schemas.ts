@@ -41,6 +41,8 @@ export const UpdateUserFormSchema = z.object({
 
 export const CreateChatRoomSchema = z.object({
   name: nameSchema,
+  method: z.enum(["invitation", "skip"]),
+  members: z.array(z.string()).min(1, "選択してください"),
 });
 
 export const CreateChatMessageSchema = z.object({

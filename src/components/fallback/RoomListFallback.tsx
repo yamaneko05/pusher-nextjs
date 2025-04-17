@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/shadcn/skeleton";
 
-export default function ChatRoomListFallback() {
+export default function RoomListFallback() {
   return (
     <div className="animate-pulse">
       {[...Array(5).keys()].map((i) => (

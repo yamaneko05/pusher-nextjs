@@ -2,8 +2,9 @@
 
 import { LucideChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Button } from "../shadcn/button";
 
-export default function PageHeader({
+export default function HeaderBase({
   children,
 }: {
   children: React.ReactNode;
@@ -16,11 +17,15 @@ export default function PageHeader({
 
   return (
     <div className="border-b p-3">
-      <div className="flex items-center gap-2">
-        <button onClick={handleBackButtonClick}>
+      <div className="flex items-center gap-3">
+        <Button
+          variant={"secondary"}
+          onClick={handleBackButtonClick}
+          size={"sm"}
+        >
           <LucideChevronLeft />
-        </button>
-        <div className="font-bold">{children}</div>
+        </Button>
+        <div className="flex-1">{children}</div>
       </div>
     </div>
   );

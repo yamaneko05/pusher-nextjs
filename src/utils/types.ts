@@ -4,6 +4,8 @@ import * as RoomValidator from "@/validators/RoomValidator";
 import * as AttachmentValidator from "@/validators/AttachmentValidator";
 import * as MessageValidator from "@/validators/MessageValidator";
 import * as FriendRequestValidator from "@/validators/FriendRequestValidator";
+import { z } from "zod";
+import { CreateChatRoomSchema } from "./schemas";
 
 export type RoomForCard = Prisma.ChatRoomGetPayload<
   typeof RoomValidator.forCard
@@ -25,6 +27,8 @@ export type MessageForCard = Prisma.ChatMessageGetPayload<
 export type FriendRequestBase = Prisma.FriendRequestGetPayload<
   typeof FriendRequestValidator.base
 >;
+
+export type CreateChatRoomRequest = z.infer<typeof CreateChatRoomSchema>;
 
 export type SessionPayload = {
   user: {

@@ -11,24 +11,15 @@ export class FriendRequestService {
     await this.friendRequestRepository.create(payload.user.id, receiverId);
   }
 
-  async accept(id: string) {
-    const friendRequest = await this.friendRequestRepository.updateById(
-      id,
-      "ACCEPTED",
-    );
+  async accept(senderId: string, receiverId: string) {
+    await this.friendRequestRepository.update(senderId, receiverId, "ACCEPTED");
 
     const userRepository = new UserRepository();
-    await userRepository.addFriend(
-      friendRequest.senderId,
-      friendRequest.receiverId,
-    );
-    await userRepository.addFriend(
-      friendRequest.receiverId,
-      friendRequest.senderId,
-    );
+    await userRepository.addFriend(senderId, receiverId);
+    await userRepository.addFriend(receiverId, senderId);
   }
 
-  async reject(id: string) {
-    await this.friendRequestRepository.updateById(id, "REJECTED");
+  async reject(senderId: string, receiverId: string) {
+    await this.friendRequestRepository.update(senderId, receiverId, "REJECTED");
   }
 }

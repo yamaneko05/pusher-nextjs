@@ -12,20 +12,22 @@ datasource db {
 }
 
 model User {
-  id               String          @id @default(uuid())
-  name             String
-  email            String          @unique
-  password         String
-  image            String
-  biography        String?
-  role             UserRole        @default(GENERAL)
-  createdAt        DateTime        @default(now())
-  chatRooms        ChatRoom[]
-  chatMessages     ChatMessage[]
-  friends          User[]          @relation("UserFriends")
-  symmetricFriends User[]          @relation("UserFriends")
-  sentRequests     FriendRequest[] @relation("Sender")
-  receivedRequests FriendRequest[] @relation("Receiver")
+  id                 String               @id @default(uuid())
+  name               String
+  email              String               @unique
+  password           String
+  image              String
+  biography          String?
+  role               UserRole             @default(GENERAL)
+  createdAt          DateTime             @default(now())
+  chatMessages       ChatMessage[]
+  friends            User[]               @relation("UserFriends")
+  symmetricFriends   User[]               @relation("UserFriends")
+  sentRequests       FriendRequest[]      @relation("Sender")
+  receivedRequests   FriendRequest[]      @relation("Receiver")
+  chatRooms          ChatRoom[]
+  sentInvitaions     ChatRoomInvitation[] @relation("Sender")
+  receivedInvitaions ChatRoomInvitation[] @relation("Receiver")
 }
 
 enum UserRole {
@@ -34,13 +36,14 @@ enum UserRole {
 }
 
 model FriendRequest {
-  id         String        @id @default(uuid())
   sender     User          @relation("Sender", fields: [senderId], references: [id])
   senderId   String
   receiver   User          @relation("Receiver", fields: [receiverId], references: [id])
   receiverId String
   createdAt  DateTime      @default(now())
   status     RequestStatus @default(PENDING)
+
+  @@unique([senderId, receiverId])
 }
 
 enum RequestStatus {
@@ -50,12 +53,30 @@ enum RequestStatus {
 }
 
 model ChatRoom {
-  id           String        @id @default(uuid())
+  id           String               @id @default(uuid())
   name         String
-  createdAt    DateTime      @default(now())
-  ownerId      String
-  owner        User          @relation(fields: [ownerId], references: [id])
+  createdAt    DateTime             @default(now())
   chatMessages ChatMessage[]
+  members      User[]
+  invitations  ChatRoomInvitation[]
+}
+
+model ChatRoomInvitation {
+  chatRoomId String
+  chatRoom   ChatRoom         @relation(fields: [chatRoomId], references: [id])
+  senderId   String
+  sender     User             @relation("Sender", fields: [senderId], references: [id])
+  receiverId String
+  receiver   User             @relation("Receiver", fields: [receiverId], references: [id])
+  status     InvitationStatus @default(PENDING)
+
+  @@unique([chatRoomId, senderId, receiverId])
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }
 
 model ChatMessage {

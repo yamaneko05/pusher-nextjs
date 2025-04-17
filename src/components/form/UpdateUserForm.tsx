@@ -30,19 +30,16 @@ export default function UpdateUserForm({ user }: { user: UserForPage }) {
 
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
-      <div className="flex flex-col gap-2">
-        <Field
-          label="名前"
-          type="text"
-          placeholder="Name"
-          field={fields.name}
-        />
+      <Field label="名前" type="text" placeholder="Name" field={fields.name} />
+      <div className="mt-6">
         <Field
           label="自己紹介"
           type="text"
           placeholder="テキストを入力してください"
           field={fields.biography}
         />
+      </div>
+      <div className="mt-8">
         <Button disabled={pending} type="submit">
           {pending && <Loader2 className="animate-spin" />}
           保存

@@ -16,11 +16,11 @@ export default function FriendRequestCard({
   friendRequest: FriendRequestBase;
 }) {
   const handleAcceptClick = async () => {
-    await acceptFriendRequestAction(friendRequest.id);
+    await acceptFriendRequestAction(friendRequest.sender.id);
   };
 
   const handleRejectClick = async () => {
-    await rejectFriendRequestAction(friendRequest.id);
+    await rejectFriendRequestAction(friendRequest.sender.id);
   };
 
   return (

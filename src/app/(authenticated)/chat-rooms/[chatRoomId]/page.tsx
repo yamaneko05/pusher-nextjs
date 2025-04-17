@@ -1,8 +1,8 @@
 import MessageList from "@/components/list/MessageList";
 import CreateMessageForm from "@/components/form/CreateMessageForm";
 import { notFound } from "next/navigation";
-import PageHeader from "@/components/layout/PageHeader";
 import { RoomRepository } from "@/repositories/RoomRepository";
+import RoomHeader from "@/components/layout/RoomHeader";
 
 export default async function Page({
   params,
@@ -20,7 +20,7 @@ export default async function Page({
 
   return (
     <div className="flex h-screen flex-col">
-      <PageHeader>チャットルーム: {chatRoom.name}</PageHeader>
+      <RoomHeader name={chatRoom.name} members={chatRoom.members} />
       <MessageList messages={chatRoom.chatMessages} chatRoomId={chatRoom.id} />
       <CreateMessageForm chatRoomId={chatRoom.id} />
     </div>

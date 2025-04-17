@@ -1,5 +1,4 @@
 import { Prisma } from "@prisma/client";
-import * as RoomValidator from "./RoomValidator";
 
 export const base = Prisma.validator<Prisma.UserDefaultArgs>()({
   select: {
@@ -38,6 +37,5 @@ export const forPage = Prisma.validator<Prisma.UserDefaultArgs>()({
     ...forCard.select,
     email: true,
     biography: true,
-    chatRooms: RoomValidator.forCard,
   },
 });

@@ -1,13 +1,11 @@
-import RoomCard from "@/components/card/RoomCard";
 import { notFound } from "next/navigation";
-import PageHeader from "@/components/layout/PageHeader";
+import PageHeader from "@/components/layout/HeaderBase";
 import Bottombar from "@/components/layout/BottomBar";
 import { UserRepository } from "@/repositories/UserRepository";
 import Image from "next/image";
 import { storage } from "@/utils/storage";
 import SectionHeading from "@/components/SectionHeading";
 import UserCardButton from "@/components/card/UserCardButton";
-import EmptyArray from "@/components/EmptyArray";
 
 export default async function Page({
   params,
@@ -43,21 +41,6 @@ export default async function Page({
             <div className="mt-2">
               <UserCardButton user={user} />
             </div>
-          </div>
-        </div>
-        <div className="mt-6">
-          <SectionHeading>{user.name}がオーナーのチャットルーム</SectionHeading>
-          <div className="mt-3">
-            {user.chatRooms.length ? (
-              user.chatRooms.map((room) => (
-                <RoomCard key={room.id} room={room} />
-              ))
-            ) : (
-              <EmptyArray
-                title={`${user.name}がオーナーのチャットルームはありません`}
-                description="新しいチャットルームを作成してみましょう"
-              />
-            )}
           </div>
         </div>
       </div>
