@@ -1,14 +1,20 @@
 import { storage } from "@/utils/storage";
 import Image from "next/image";
 import { Button } from "../shadcn/button";
-import { deleteUserAction } from "@/actions/user-actions";
 import { UserForAdmin } from "@/utils/types";
+import { revalidatePath } from "next/cache";
+import { UserRepository } from "@/repositories/UserRepository";
+import { UserService } from "@/services/UserService";
 
 export default function AdminUserCard({ user }: { user: UserForAdmin }) {
   const handleDeleteClick = async () => {
     "use server";
 
-    await deleteUserAction(user.id);
+    const userRepository = new UserRepository();
+    const userService = new UserService(userRepository);
+    await userService.delete(user.id);
+
+    revalidatePath("/admin/users");
   };
 
   return (

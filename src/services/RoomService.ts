@@ -27,4 +27,8 @@ export class RoomService {
 
     return room;
   }
+
+  async delete(id: string) {
+    await this.roomRepository.delete(id);
+  }
 }

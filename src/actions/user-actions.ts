@@ -14,14 +14,6 @@ export async function searchUserAction(name: string) {
   return results;
 }
 
-export async function deleteUserAction(id: string) {
-  const userRepository = new UserRepository();
-  const userService = new UserService(userRepository);
-  await userService.delete(id);
-
-  revalidatePath("/admin/users");
-}
-
 export async function dissolveFriendshipAction(friendId: string) {
   const userRepository = new UserRepository();
   const userService = new UserService(userRepository);

@@ -20,7 +20,11 @@ export default async function Page({
 
   return (
     <div className="flex h-screen flex-col">
-      <RoomHeader name={chatRoom.name} members={chatRoom.members} />
+      <RoomHeader
+        id={chatRoom.id}
+        name={chatRoom.name}
+        members={chatRoom.members}
+      />
       <MessageList messages={chatRoom.chatMessages} chatRoomId={chatRoom.id} />
       <CreateMessageForm chatRoomId={chatRoom.id} />
     </div>

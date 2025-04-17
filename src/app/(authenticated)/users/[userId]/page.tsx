@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import PageHeader from "@/components/layout/HeaderBase";
+import HeaderBase from "@/components/layout/HeaderBase";
 import Bottombar from "@/components/layout/BottomBar";
 import { UserRepository } from "@/repositories/UserRepository";
 import Image from "next/image";
@@ -23,7 +23,9 @@ export default async function Page({
 
   return (
     <>
-      <PageHeader>ユーザー: {user.name}</PageHeader>
+      <HeaderBase>
+        <span className="font-bold">ユーザー: {user.name}</span>
+      </HeaderBase>
       <div className="p-3 pb-24">
         <div>
           <SectionHeading>{user.name}のプロフィール</SectionHeading>

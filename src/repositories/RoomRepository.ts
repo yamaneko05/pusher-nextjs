@@ -33,4 +33,12 @@ export class RoomRepository {
       ...RoomValidator.forPage,
     });
   }
+
+  async delete(id: string) {
+    return await prisma.chatRoom.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }
