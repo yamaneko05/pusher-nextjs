@@ -6,13 +6,13 @@ export default async function FriendList({ userId }: { userId: string }) {
   const userRepository = new UserRepository();
   const friends = await userRepository.getFriends(userId);
 
-  return (
-    <div className="">
-      {friends.length ? (
-        friends.map((user) => <UserCard key={user.id} user={user} />)
-      ) : (
-        <NoFriends />
-      )}
-    </div>
+  return friends.length ? (
+    <>
+      {friends.map((user) => (
+        <UserCard key={user.id} user={user} />
+      ))}
+    </>
+  ) : (
+    <NoFriends />
   );
 }

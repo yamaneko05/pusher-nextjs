@@ -23,8 +23,17 @@ export class RoomRepository {
     });
   }
 
-  async getAll() {
-    return await prisma.chatRoom.findMany(RoomValidator.forCard);
+  async getChatRooms(userId: string) {
+    return await prisma.chatRoom.findMany({
+      ...RoomValidator.forCard,
+      where: {
+        members: {
+          some: {
+            id: userId,
+          },
+        },
+      },
+    });
   }
 
   async getWithMessages(id: string) {

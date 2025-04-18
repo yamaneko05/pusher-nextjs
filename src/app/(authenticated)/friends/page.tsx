@@ -16,7 +16,7 @@ export default async function Page() {
       <div className="p-3 pb-24">
         <div className="">
           <SectionHeading>友達</SectionHeading>
-          <div className="mt-3">
+          <div className="mt-2">
             <Suspense fallback={<UserListFallback length={3} />}>
               <FriendList userId={session.user.id} />
             </Suspense>
@@ -24,7 +24,7 @@ export default async function Page() {
         </div>
         <div className="mt-8">
           <SectionHeading>受け取った申請</SectionHeading>
-          <div className="mt-3">
+          <div className="mt-2">
             <Suspense fallback={<UserListFallback length={3} />}>
               <FriendRequestList userId={session.user.id} />
             </Suspense>
