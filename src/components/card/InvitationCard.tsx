@@ -2,11 +2,11 @@ import { storage } from "@/utils/storage";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../shadcn/button";
-import {
-  acceptInvitationAction,
-  rejectInvitationAction,
-} from "@/actions/invitation-actions";
 import { invitationBase } from "@/utils/types";
+import { getSessionPayloadOrUnauthorized } from "@/utils/session";
+import { redirect } from "next/navigation";
+import { InvitationService } from "@/services/InvitationService";
+import { revalidatePath } from "next/cache";
 
 export default function InvitationCard({
   invitation,
@@ -16,13 +16,31 @@ export default function InvitationCard({
   const handleAcceptClick = async () => {
     "use server";
 
-    await acceptInvitationAction(invitation.chatRoom.id, invitation.sender.id);
+    const payload = await getSessionPayloadOrUnauthorized();
+
+    const invitationService = new InvitationService();
+    await invitationService.accept(
+      invitation.chatRoom.id,
+      invitation.sender.id,
+      payload.user.id,
+    );
+
+    redirect(`/chat-rooms/${invitation.chatRoom.id}`);
   };
 
   const handleRejectClick = async () => {
     "use server";
 
-    await rejectInvitationAction(invitation.chatRoom.id, invitation.sender.id);
+    const payload = await getSessionPayloadOrUnauthorized();
+
+    const invitationService = new InvitationService();
+    await invitationService.reject(
+      invitation.chatRoom.id,
+      invitation.sender.id,
+      payload.user.id,
+    );
+
+    revalidatePath("/chat-rooms");
   };
 
   return (

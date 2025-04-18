@@ -1,19 +1,26 @@
-import { signoutAction } from "@/actions/auth-actions";
 import UpdateUserForm from "@/components/form/UpdateUserForm";
 import Bottombar from "@/components/layout/BottomBar";
 import SectionHeading from "@/components/SectionHeading";
 import { Button } from "@/components/shadcn/button";
 import { UserRepository } from "@/repositories/UserRepository";
-import { getSessionPayload } from "@/utils/session";
+import { AuthService } from "@/services/AuthService";
+import { getSessionPayloadOrUnauthorized } from "@/utils/session";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
-  const session = await getSessionPayload();
-
-  if (!session) redirect("/signin");
+  const payload = await getSessionPayloadOrUnauthorized();
 
   const userRepository = new UserRepository();
-  const user = await userRepository.findById(session.user.id);
+  const user = await userRepository.findById(payload.user.id);
+
+  const handleSignoutButtonClick = async () => {
+    "use server";
+
+    const authService = new AuthService();
+    await authService.signout();
+
+    redirect("/signin");
+  };
 
   return (
     <>
@@ -27,7 +34,7 @@ export default async function Page() {
         <div className="mt-6">
           <SectionHeading>アカウント</SectionHeading>
           <div className="mt-3">
-            <Button onClick={signoutAction} variant={"secondary"}>
+            <Button onClick={handleSignoutButtonClick} variant={"secondary"}>
               ログアウト
             </Button>
           </div>

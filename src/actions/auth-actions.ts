@@ -4,7 +4,6 @@ import { SigninFormSchema, SignupFormSchema } from "@/utils/schemas";
 import { parseWithZod } from "@conform-to/zod";
 import { redirect } from "next/navigation";
 import { AuthService } from "@/services/AuthService";
-import { UserRepository } from "@/repositories/UserRepository";
 
 export async function signupAction(prevState: unknown, formData: FormData) {
   const submission = parseWithZod(formData, { schema: SignupFormSchema });
@@ -15,8 +14,7 @@ export async function signupAction(prevState: unknown, formData: FormData) {
 
   const { name, email, password, image } = submission.value;
 
-  const userRepository = new UserRepository();
-  const authService = new AuthService(userRepository);
+  const authService = new AuthService();
   await authService.signup(name, email, password, image);
 
   redirect("/");
@@ -31,8 +29,7 @@ export async function signinAction(prevState: unknown, formData: FormData) {
 
   const { email, password } = submission.value;
 
-  const userRepository = new UserRepository();
-  const authService = new AuthService(userRepository);
+  const authService = new AuthService();
   const { error } = await authService.signin(email, password);
 
   if (error) {
@@ -46,11 +43,4 @@ export async function signinAction(prevState: unknown, formData: FormData) {
   }
 
   redirect("/");
-}
-
-export async function signoutAction() {
-  const userRepository = new UserRepository();
-  const authService = new AuthService(userRepository);
-  await authService.signout();
-  redirect("/signin");
 }

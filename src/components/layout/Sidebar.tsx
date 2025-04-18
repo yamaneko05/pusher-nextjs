@@ -1,4 +1,3 @@
-import { signoutAction } from "@/actions/auth-actions";
 import { getSessionPayload } from "@/utils/session";
 import { storage } from "@/utils/storage";
 import Image from "next/image";
@@ -12,9 +11,20 @@ import {
   TooltipTrigger,
 } from "../shadcn/tooltip";
 import { LucideLogOut } from "lucide-react";
+import { AuthService } from "@/services/AuthService";
+import { redirect } from "next/navigation";
 
 export default async function Sidebar() {
   const payload = await getSessionPayload();
+
+  const handleSignoutButtonClick = async () => {
+    "use server";
+
+    const authService = new AuthService();
+    await authService.signout();
+
+    redirect("/signin");
+  };
 
   return (
     <div className="fixed hidden h-screen w-64 border-r px-3 py-12 sm:block">
@@ -42,7 +52,10 @@ export default async function Sidebar() {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button onClick={signoutAction} variant={"secondary"}>
+                <Button
+                  onClick={handleSignoutButtonClick}
+                  variant={"secondary"}
+                >
                   <LucideLogOut />
                 </Button>
               </TooltipTrigger>

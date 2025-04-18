@@ -6,22 +6,24 @@ import { UserRepository } from "@/repositories/UserRepository";
 import { storage } from "@/utils/storage";
 
 export class AuthService {
-  constructor(private userRepository: UserRepository) {}
-
   async signin(email: string, password: string) {
-    const user = await this.userRepository.findByEmail(email);
+    const userRepository = new UserRepository();
+    const user = await userRepository.findByEmail(email);
+
+    const result: { error: string | null } = { error: null };
 
     if (!user) {
-      return { error: "UserNotFound" };
+      result.error = "UserNotFound";
+      return result;
     }
 
     if (!comparePassword(password, user.password)) {
-      return { error: "IncorrectPassword" };
+      result.error = "IncorrectPassword";
+      return result;
     }
 
     await createSession({ user });
-
-    return { error: null };
+    return result;
   }
 
   async signup(name: string, email: string, password: string, image: File) {
@@ -32,22 +34,13 @@ export class AuthService {
     const path = crypto.randomUUID() + ".webp";
     await storage.upload("avatars", path, resized);
 
-    const user = await this.userRepository.create(
-      name,
-      email,
-      passwordHash,
-      path,
-    );
+    const userRepository = new UserRepository();
+    const user = await userRepository.create(name, email, passwordHash, path);
 
     await createSession({ user });
-
-    return user;
   }
 
   async signout() {
     await deleteSession();
   }
 }
-
-export class UserNotFoundError extends Error {}
-export class IncorrectPasswordError extends Error {}

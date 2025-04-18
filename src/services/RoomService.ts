@@ -1,23 +1,20 @@
 import { InvitationRepository } from "@/repositories/InvitationRepository";
 import { RoomRepository } from "@/repositories/RoomRepository";
-import { getSessionPayloadOrUnauthorized } from "@/utils/session";
 import { CreateChatRoomRequest } from "@/utils/types";
 
 export class RoomService {
   constructor(private roomRepository: RoomRepository) {}
 
-  async create(request: CreateChatRoomRequest) {
+  async create(request: CreateChatRoomRequest, userId: string) {
     const { name, method, members } = request;
 
     const room = await this.roomRepository.create(name);
-
-    const payload = await getSessionPayloadOrUnauthorized();
-    await this.roomRepository.addMember(room.id, payload.user.id);
+    await this.roomRepository.addMember(room.id, userId);
 
     if (method === "invitation") {
       const invitationRepository = new InvitationRepository();
       members.forEach(async (userId) => {
-        await invitationRepository.create(room.id, payload.user.id, userId);
+        await invitationRepository.create(room.id, userId, userId);
       });
     } else {
       members.forEach(async (userId) => {

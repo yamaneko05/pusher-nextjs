@@ -1,9 +1,8 @@
 "use server";
 
-import { AttachmentRepository } from "@/repositories/AttachmentRepository";
-import { MessageRepository } from "@/repositories/MessageRepository";
 import { MessageService } from "@/services/MessageService";
 import { CreateChatMessageSchema } from "@/utils/schemas";
+import { getSessionPayloadOrUnauthorized } from "@/utils/session";
 import { parseWithZod } from "@conform-to/zod";
 import { revalidatePath } from "next/cache";
 
@@ -22,9 +21,10 @@ export async function createMessageAction(
 
   const { text, attachments } = submission.value;
 
-  const messageRepository = new MessageRepository();
-  const messageService = new MessageService(messageRepository);
-  await messageService.create(chatRoomId, text, attachments);
+  const payload = await getSessionPayloadOrUnauthorized();
+
+  const messageService = new MessageService();
+  await messageService.create(payload.user.id, chatRoomId, text, attachments);
 
   revalidatePath(`/chat-rooms/${chatRoomId}`);
 }
@@ -33,10 +33,8 @@ export async function deleteMessageAction(
   chatMessageId: string,
   chatRoomId: string,
 ) {
-  const messageRepository = new MessageRepository();
-  const attachmentRepository = new AttachmentRepository();
-  const messageService = new MessageService(messageRepository);
-  await messageService.delete(chatMessageId, attachmentRepository);
+  const messageService = new MessageService();
+  await messageService.delete(chatMessageId);
 
   revalidatePath(`/chat-rooms/${chatRoomId}`);
 }
