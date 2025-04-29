@@ -45,6 +45,10 @@ export const CreateChatRoomSchema = z.object({
   members: z.array(z.string()).min(1, "選択してください"),
 });
 
+export const UpdateRoomSchema = z.object({
+  name: nameSchema,
+});
+
 export const CreateChatMessageSchema = z.object({
   text: z
     .string({ message: "テキストを入力してください" })

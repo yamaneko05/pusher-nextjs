@@ -6,10 +6,16 @@ import * as MessageValidator from "@/validators/MessageValidator";
 import * as FriendRequestValidator from "@/validators/FriendRequestValidator";
 import * as InvitationValidator from "@/validators/InvitationValidator";
 import { z } from "zod";
-import { CreateChatRoomSchema } from "./schemas";
+import { CreateChatRoomSchema, UpdateRoomSchema } from "./schemas";
 
 export type RoomForCard = Prisma.ChatRoomGetPayload<
   typeof RoomValidator.forCard
+>;
+export type RoomForPage = Prisma.ChatRoomGetPayload<
+  typeof RoomValidator.forPage
+>;
+export type RoomForSettingPage = Prisma.ChatRoomGetPayload<
+  typeof RoomValidator.forSettingPage
 >;
 
 export type AttachmentBase = Prisma.ChatMessageAttachmentGetPayload<
@@ -30,6 +36,8 @@ export type FriendRequestBase = Prisma.FriendRequestGetPayload<
 >;
 
 export type CreateChatRoomRequest = z.infer<typeof CreateChatRoomSchema>;
+
+export type UpdateRoomRequest = z.infer<typeof UpdateRoomSchema>;
 
 export type invitationBase = Prisma.ChatRoomInvitationGetPayload<
   typeof InvitationValidator.base

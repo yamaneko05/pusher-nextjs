@@ -1,15 +1,14 @@
 import { InvitationRepository } from "@/repositories/InvitationRepository";
 import { RoomRepository } from "@/repositories/RoomRepository";
-import { CreateChatRoomRequest } from "@/utils/types";
+import { CreateChatRoomRequest, UpdateRoomRequest } from "@/utils/types";
 
 export class RoomService {
-  constructor(private roomRepository: RoomRepository) {}
-
   async create(request: CreateChatRoomRequest, userId: string) {
     const { name, method, members } = request;
 
-    const room = await this.roomRepository.create(name);
-    await this.roomRepository.addMember(room.id, userId);
+    const roomRepository = new RoomRepository();
+    const room = await roomRepository.create(name);
+    await roomRepository.addMember(room.id, userId);
 
     if (method === "invitation") {
       const invitationRepository = new InvitationRepository();
@@ -18,7 +17,7 @@ export class RoomService {
       });
     } else {
       members.forEach(async (userId) => {
-        await this.roomRepository.addMember(room.id, userId);
+        await roomRepository.addMember(room.id, userId);
       });
     }
 
@@ -26,6 +25,15 @@ export class RoomService {
   }
 
   async delete(id: string) {
-    await this.roomRepository.delete(id);
+    const roomRepository = new RoomRepository();
+
+    await roomRepository.delete(id);
+  }
+
+  async update(id: string, request: UpdateRoomRequest) {
+    const { name } = request;
+
+    const roomRepository = new RoomRepository();
+    await roomRepository.update(id, name);
   }
 }

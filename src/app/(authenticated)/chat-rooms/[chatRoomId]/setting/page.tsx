@@ -1,4 +1,7 @@
+import UserCard from "@/components/card/UserCard";
+import UpdateRoomForm from "@/components/form/UpdateRoomForm";
 import HeaderBase from "@/components/layout/HeaderBase";
+import SectionHeading from "@/components/SectionHeading";
 import { Button } from "@/components/shadcn/button";
 import { RoomRepository } from "@/repositories/RoomRepository";
 import { RoomService } from "@/services/RoomService";
@@ -12,18 +15,17 @@ export default async function Page({
   const { chatRoomId } = await params;
 
   const roomRepository = new RoomRepository();
-  const chatRoom = await roomRepository.getWithMessages(chatRoomId);
+  const room = await roomRepository.getById(chatRoomId);
 
-  if (!chatRoom) {
+  if (!room) {
     notFound();
   }
 
   const handleDeleteButtonClick = async () => {
     "use server";
 
-    const roomRepository = new RoomRepository();
-    const roomService = new RoomService(roomRepository);
-    await roomService.delete(chatRoom.id);
+    const roomService = new RoomService();
+    await roomService.delete(room.id);
 
     redirect("/chat-rooms");
   };
@@ -31,12 +33,31 @@ export default async function Page({
   return (
     <>
       <HeaderBase>
-        <span className="font-bold">チャットルーム設定: {chatRoom.name}</span>
+        <span className="font-bold">チャットルーム設定: {room.name}</span>
       </HeaderBase>
-      <div className="p-3 pb-24">
-        <Button variant={"destructive"} onClick={handleDeleteButtonClick}>
-          チャットルームを削除
-        </Button>
+      <div className="max-w-96 p-3 pb-24">
+        <div>
+          <SectionHeading>基本情報</SectionHeading>
+          <div className="mt-3">
+            <UpdateRoomForm room={room!} />
+          </div>
+        </div>
+        <div className="mt-6">
+          <SectionHeading>メンバー</SectionHeading>
+          <div className="mt-3">
+            {room.members.map((member) => (
+              <UserCard key={member.id} user={member} />
+            ))}
+          </div>
+        </div>
+        <div className="mt-6">
+          <SectionHeading>その他</SectionHeading>
+          <div className="mt-3">
+            <Button variant={"destructive"} onClick={handleDeleteButtonClick}>
+              チャットルームを削除
+            </Button>
+          </div>
+        </div>
       </div>
     </>
   );

@@ -33,6 +33,9 @@ export class RoomRepository {
           },
         },
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   }
 
@@ -43,10 +46,26 @@ export class RoomRepository {
     });
   }
 
+  async getById(id: string) {
+    return await prisma.chatRoom.findUnique({
+      where: { id },
+      ...RoomValidator.forSettingPage,
+    });
+  }
+
   async delete(id: string) {
     return await prisma.chatRoom.delete({
       where: {
         id,
+      },
+    });
+  }
+
+  async update(id: string, name: string) {
+    return await prisma.chatRoom.update({
+      where: { id },
+      data: {
+        name,
       },
     });
   }

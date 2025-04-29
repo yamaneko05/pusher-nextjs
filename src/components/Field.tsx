@@ -1,5 +1,4 @@
-import { FieldMetadata } from "@conform-to/react";
-import { HTMLInputTypeAttribute } from "react";
+import { FieldMetadata, getInputProps } from "@conform-to/react";
 import { Input } from "./shadcn/input";
 import { Label } from "./shadcn/label";
 import FieldError from "./FieldError";
@@ -11,7 +10,7 @@ export default function Field({
   field,
 }: {
   label: string;
-  type: HTMLInputTypeAttribute;
+  type: "text" | "password";
   placeholder?: string;
   field: FieldMetadata;
 }) {
@@ -20,16 +19,9 @@ export default function Field({
       <div className="flex flex-col gap-2">
         <Label>{label}</Label>
         <Input
-          type={type}
-          name={field.name}
           placeholder={placeholder}
-          defaultValue={
-            field.initialValue as
-              | string
-              | number
-              | readonly string[]
-              | undefined
-          }
+          {...getInputProps(field, { type })}
+          key={field.key}
         />
       </div>
       {field.errors && (

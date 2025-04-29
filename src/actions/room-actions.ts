@@ -1,8 +1,7 @@
 "use server";
 
-import { RoomRepository } from "@/repositories/RoomRepository";
 import { RoomService } from "@/services/RoomService";
-import { CreateChatRoomSchema } from "@/utils/schemas";
+import { CreateChatRoomSchema, UpdateRoomSchema } from "@/utils/schemas";
 import { getSessionPayloadOrUnauthorized } from "@/utils/session";
 import { parseWithZod } from "@conform-to/zod";
 import { redirect } from "next/navigation";
@@ -18,9 +17,23 @@ export async function createRoomAction(prevState: unknown, formData: FormData) {
 
   const payload = await getSessionPayloadOrUnauthorized();
 
-  const roomRepository = new RoomRepository();
-  const roomService = new RoomService(roomRepository);
+  const roomService = new RoomService();
   const { id } = await roomService.create(request, payload.user.id);
 
   redirect(`/chat-rooms/${id}`);
+}
+
+export async function updateRoomAction(id: string, formData: FormData) {
+  const submission = parseWithZod(formData, { schema: UpdateRoomSchema });
+
+  if (submission.status !== "success") {
+    throw new Error("validation faild");
+  }
+
+  const request = submission.value;
+
+  const roomService = new RoomService();
+  await roomService.update(id, request);
+
+  return submission.reply({ resetForm: true });
 }

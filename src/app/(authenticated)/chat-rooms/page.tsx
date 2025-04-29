@@ -11,7 +11,7 @@ export default async function Page() {
     <>
       <div className="p-3 pb-24">
         <div>
-          <SectionHeading>全てのチャットルーム</SectionHeading>
+          <SectionHeading>参加しているチャットルーム</SectionHeading>
           <div className="mt-2">
             <Suspense fallback={<RoomListFallback />}>
               <RoomList />
